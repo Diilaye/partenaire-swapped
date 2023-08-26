@@ -61,47 +61,71 @@ class PartenairesBloc with ChangeNotifier {
   }
 
   setHeureRv(TimeOfDay? value) {
-    heureRV.text = "${value!.hour}h-${value.minute} min";
+    heureRV.text = "${value!.hour}h-${value.minute}min";
     notifyListeners();
   }
 
   setDateRv(DateTime? value) {
-    dateRV.text = value!.toString();
+    dateRV.text = value!.toString().split(" ")[0].split("-").reversed.join("-");
     notifyListeners();
   }
 
   List<dynamic> photo1Exterieur = [null, null];
+  bool chargement1PhotoExterieur = false;
   List<dynamic> photo2Exterieur = [null, null];
+  bool chargement2PhotoExterieur = false;
   List<dynamic> photo1Interieur = [null, null];
+  bool chargement1PhotoInterieur = false;
   List<dynamic> photo2Interieur = [null, null];
+  bool chargement2PhotoInterieur = false;
   List<dynamic> photo3Interieur = [null, null];
+  bool chargement3PhotoInterieur = false;
 
   getPhoto1Exterieur() async {
+    chargement1PhotoExterieur = true;
+    notifyListeners();
     photo1Exterieur = await getImage(1);
+    chargement1PhotoExterieur = false;
     notifyListeners();
   }
 
   getPhoto2Exterieur() async {
+    chargement2PhotoExterieur = true;
+    notifyListeners();
     photo2Exterieur = await getImage(1);
+    chargement2PhotoExterieur = false;
+
     notifyListeners();
   }
 
   getPhoto1Interieur() async {
+    chargement1PhotoInterieur = true;
+    notifyListeners();
     photo1Interieur = await getImage(1);
+    chargement1PhotoInterieur = false;
     notifyListeners();
   }
 
   getPhoto2Interieur() async {
+    chargement2PhotoInterieur = true;
+    notifyListeners();
     photo2Interieur = await getImage(1);
+    chargement2PhotoInterieur = false;
     notifyListeners();
   }
 
   getPhoto3Interieur() async {
+    chargement3PhotoInterieur = true;
+    notifyListeners();
     photo3Interieur = await getImage(1);
+    chargement3PhotoInterieur = false;
     notifyListeners();
   }
 
+  bool chargement = false;
   addPartenaireFunction() async {
+    chargement = true;
+    notifyListeners();
     Map<String, dynamic> body = {
       "service": selectedService.toLowerCase(),
       "nomEntreprise": nomEnreprise.text,
@@ -142,6 +166,7 @@ class PartenairesBloc with ChangeNotifier {
       photo2Interieur = [null, null];
       photo3Interieur = [null, null];
     }
+    chargement = false;
     notifyListeners();
   }
 }

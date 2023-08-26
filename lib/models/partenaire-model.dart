@@ -31,6 +31,8 @@ class PartenaireModel {
       this.id});
 
   PartenaireModel.fromJson(Map<String, dynamic> json) {
+    print("PartenaireModel.fromJson");
+    print(json);
     service = json['service'];
     nomEntreprise = json['nomEntreprise'];
     descriptionEntreprise = json['descriptionEntreprise'];
@@ -58,24 +60,23 @@ class PartenaireModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['service'] = this.service;
-    data['nomEntreprise'] = this.nomEntreprise;
-    data['descriptionEntreprise'] = this.descriptionEntreprise;
-    data['nomInterlocuteur'] = this.nomInterlocuteur;
-    data['prenomInterlocuteur'] = this.prenomInterlocuteur;
-    data['telephoneInterlocuteur'] = this.telephoneInterlocuteur;
-    if (this.photoExterieur != null) {
-      data['photoExterieur'] =
-          this.photoExterieur!.map((v) => v.toJson()).toList();
+    data['service'] = service;
+    data['nomEntreprise'] = nomEntreprise;
+    data['descriptionEntreprise'] = descriptionEntreprise;
+    data['nomInterlocuteur'] = nomInterlocuteur;
+    data['prenomInterlocuteur'] = prenomInterlocuteur;
+    data['telephoneInterlocuteur'] = telephoneInterlocuteur;
+    if (photoExterieur != null) {
+      data['photoExterieur'] = photoExterieur!.map((v) => v.toJson()).toList();
     }
-    if (this.photoInterne != null) {
-      data['photoInterne'] = this.photoInterne!.map((v) => v.toJson()).toList();
+    if (photoInterne != null) {
+      data['photoInterne'] = photoInterne!.map((v) => v.toJson()).toList();
     }
-    data['localisation'] = this.localisation;
-    data['dateRv'] = this.dateRv;
-    data['heureRv'] = this.heureRv;
-    data['date'] = this.date;
-    data['id'] = this.id;
+    data['localisation'] = localisation;
+    data['dateRv'] = dateRv;
+    data['heureRv'] = heureRv;
+    data['date'] = date;
+    data['id'] = id;
     return data;
   }
 

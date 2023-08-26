@@ -10,8 +10,8 @@ class PartenaireService {
 
   Future<PartenaireModel?> add(Map<String, dynamic> body) async {
     return await postResponse(url: '/partenaires', body: body).then((value) {
-      if (value['status'] == 201) {
-        return PartenaireModel.fromJson(value['data']);
+      if (value['status'] == 200) {
+        return PartenaireModel.fromJson(value['body']['data']);
       } else {
         return null;
       }
