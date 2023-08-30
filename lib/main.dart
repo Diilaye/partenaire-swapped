@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:partenaire/bloc/admin-bloc.dart';
+import 'package:partenaire/bloc/auth-bloc.dart';
+import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
+import 'package:partenaire/screens/dahsbord-admin.dart';
+import 'package:partenaire/screens/dashbord-logement.dart';
+import 'package:partenaire/screens/dashbord-restaurant.dart';
 import 'package:partenaire/screens/home-screen.dart';
+import 'package:partenaire/screens/login-page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -13,6 +21,9 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => PartenairesBloc()),
+      ChangeNotifierProvider(create: (_) => AuthBloc()),
+      ChangeNotifierProvider(create: (_) => AdminBloc()),
+      ChangeNotifierProvider(create: (_) => PartenaireAdmonBloc()),
     ],
     child: const MyApp(),
   ));
@@ -30,7 +41,34 @@ class MyApp extends StatelessWidget {
       title: 'Partenaire Swapped',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Josefin_Sans'),
-      home: const HomeScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FutureBuilder<SharedPreferences>(
+              future: SharedPreferences.getInstance(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.getString('token') != "" &&
+                      snapshot.data!.containsKey("token")) {
+                    if (snapshot.data!.getString('role') == "admin") {
+                      return const DashbordAdminScreen();
+                    } else if (snapshot.data!.getString('role') == "logement") {
+                      return const DashbordLogementScreen();
+                    } else if (snapshot.data!.getString('role') ==
+                        "restaurant") {
+                      return const DashbordRestaurant();
+                    } else {
+                      return const HomeScreen();
+                    }
+                  } else {
+                    return const HomeScreen();
+                  }
+                } else {
+                  return const HomeScreen();
+                }
+              },
+            ),
+        '/login': (context) => const LoginScreen()
+      },
     );
   }
 }

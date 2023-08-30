@@ -66,7 +66,7 @@ Future putResponse(
 Future postResponse(
     {required String url, required Map<String, dynamic> body}) async {
   var url1 = BASE_URL + url;
-  print(url1);
+
   String token = '';
 
   await SharedPreferences.getInstance().then((prefs) {
@@ -77,8 +77,6 @@ Future postResponse(
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"
   }).then((value) {
-    print(value.statusCode);
-    print(value.body);
     return {"body": json.decode(value.body), "status": value.statusCode};
   });
 }

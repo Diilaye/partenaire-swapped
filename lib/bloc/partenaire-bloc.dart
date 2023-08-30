@@ -4,6 +4,7 @@ import 'package:partenaire/models/place-autocomplete-model.dart';
 import 'package:partenaire/services/map-service.dart';
 import 'package:partenaire/services/partenaire-service.dart';
 import 'package:partenaire/utils/upload-file.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PartenairesBloc with ChangeNotifier {
   MapService mapService = MapService();
@@ -144,28 +145,49 @@ class PartenairesBloc with ChangeNotifier {
       "heureRv": heureRV.text,
     };
 
-    partenaireModel = await partenaireService.add(body);
+    if (nomEnreprise.text.isEmpty ||
+        descriptifEnreprise.text.isEmpty ||
+        nomInterlocuteurEnreprise.text.isEmpty ||
+        prenomInterlocuteurEnreprise.text.isEmpty ||
+        telephoneInterlocuteurEnreprise.text.isEmpty ||
+        photo1Exterieur.first == null ||
+        photo2Exterieur.first == null ||
+        photo1Interieur.first == null ||
+        photo2Interieur.first == null ||
+        photo3Interieur.first == null) {
+      Fluttertoast.showToast(
+          msg: "Veuillez  remplir tous les champs ",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          webPosition: "center",
+          webBgColor: "linear-gradient(to right, #9D0208, #9D0208)",
+          fontSize: 14.0);
+    } else {
+      partenaireModel = await partenaireService.add(body);
 
-    if (partenaireModel != null) {
-      selectedService = "";
+      if (partenaireModel != null) {
+        selectedService = "";
 
-      presentationEnreprise.text = "";
-      nomInterlocuteurEnreprise.text = "";
-      prenomInterlocuteurEnreprise.text = "";
-      telephoneInterlocuteurEnreprise.text = "";
+        presentationEnreprise.text = "";
+        nomInterlocuteurEnreprise.text = "";
+        prenomInterlocuteurEnreprise.text = "";
+        telephoneInterlocuteurEnreprise.text = "";
 
-      descriptifEnreprise.text = "";
-      descriptifService.text = "";
-      geolocatisationEntreprise.text = "";
-      dateRV.text = "";
-      heureRV.text = "";
+        descriptifEnreprise.text = "";
+        descriptifService.text = "";
+        geolocatisationEntreprise.text = "";
+        dateRV.text = "";
+        heureRV.text = "";
 
-      photo1Exterieur = [null, null];
-      photo2Exterieur = [null, null];
-      photo1Interieur = [null, null];
-      photo2Interieur = [null, null];
-      photo3Interieur = [null, null];
+        photo1Exterieur = [null, null];
+        photo2Exterieur = [null, null];
+        photo1Interieur = [null, null];
+        photo2Interieur = [null, null];
+        photo3Interieur = [null, null];
+      }
     }
+
     chargement = false;
     notifyListeners();
   }

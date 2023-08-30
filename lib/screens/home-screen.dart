@@ -56,20 +56,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           children: [
                             const Spacer(),
-                            Container(
-                              height: 30,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                  color: blanc,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        offset: const Offset(0, 0),
-                                        color: noir.withOpacity(.3),
-                                        blurRadius: 1)
-                                  ]),
-                              child: const Center(
-                                child: Text('Se connecter'),
+                            GestureDetector(
+                              onTap: () =>
+                                  Navigator.popAndPushNamed(context, "/login"),
+                              child: Container(
+                                height: 30,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                    color: blanc,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 0),
+                                          color: noir.withOpacity(.3),
+                                          blurRadius: 1)
+                                    ]),
+                                child: const Center(
+                                  child: Text('Se connecter'),
+                                ),
                               ),
                             ),
                             const SizedBox(

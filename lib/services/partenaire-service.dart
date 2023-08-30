@@ -2,7 +2,7 @@ import 'package:partenaire/models/partenaire-model.dart';
 import 'package:partenaire/utils/requette-by-dii.dart';
 
 class PartenaireService {
-  Future<List<PartenaireModel>> adresseAutoComplet(String value) async {
+  Future<List<PartenaireModel>> all() async {
     return await getResponse(url: '/partenaires').then((value) {
       return PartenaireModel.fromList(data: value['data']);
     });
