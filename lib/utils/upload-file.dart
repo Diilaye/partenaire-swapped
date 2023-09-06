@@ -9,7 +9,10 @@ Future getImage(int source) async => ImagePicker.platform
             imageQuality: 100,
             source: source == 1 ? ImageSource.gallery : ImageSource.camera)
         .then((value) async {
-      return [await postpIC(image: value!), await value.readAsBytes()];
+      if (value == null) {
+        return [null, null];
+      }
+      return [await postpIC(image: value), await value.readAsBytes()];
     });
 
 Future<String> postpIC({required XFile image}) async {

@@ -73,6 +73,7 @@ Future postResponse(
     token = prefs.getString("token") ?? '';
   });
   Uri urlFinal = Uri.parse(url1);
+  print(token);
   return http.post(urlFinal, body: json.encode(body), headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"

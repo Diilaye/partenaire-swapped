@@ -6,6 +6,7 @@ import 'package:partenaire/services/partenaire-service.dart';
 
 class PartenaireAdmonBloc with ChangeNotifier {
   MapService mapService = MapService();
+
   List<PartenaireModel>? listePartenaire;
 
   PartenaireModel? partenaire;
@@ -23,6 +24,7 @@ class PartenaireAdmonBloc with ChangeNotifier {
 
   List<PlaceAutocomplete> listePlaceAutocomplet = [];
   PlaceAutocomplete? placeSelected;
+  String? deletePartenaire;
 
   PartenaireAdmonBloc() {
     getAllPartenaire();
@@ -40,6 +42,35 @@ class PartenaireAdmonBloc with ChangeNotifier {
 
   getAllPartenaire() async {
     listePartenaire = await partenaireService.all();
+    notifyListeners();
+  }
+
+  deletePartenaireFun(String id) async {
+    deletePartenaire = await partenaireService.delete(id);
+    print(" deletePartenaireFun(String id) ");
+    print(deletePartenaire);
+    getAllPartenaire();
+    notifyListeners();
+  }
+
+  String? successAddPartenaire;
+  bool savePartenairechargement = false;
+
+  addPartenaireFun(PartenaireModel partenaire) async {
+    savePartenairechargement = true;
+    notifyListeners();
+    successAddPartenaire = await partenaireService.addPartenaire({
+      "id": partenaire.id!,
+      "service": partenaire.service,
+      "nom": partenaire.nomInterlocuteur,
+      "prenom": partenaire.prenomInterlocuteur,
+      "nomEntreprise": partenaire.nomEntreprise
+    });
+    print(successAddPartenaire);
+    getAllPartenaire();
+
+    savePartenairechargement = false;
+
     notifyListeners();
   }
 }

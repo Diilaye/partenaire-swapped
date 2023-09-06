@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:partenaire/bloc/add-logement-bloc.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
+import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
@@ -10,6 +12,7 @@ import 'package:partenaire/screens/dashbord-restaurant.dart';
 import 'package:partenaire/screens/home-screen.dart';
 import 'package:partenaire/screens/login-page.dart';
 import 'package:provider/provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -24,6 +27,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => AuthBloc()),
       ChangeNotifierProvider(create: (_) => AdminBloc()),
       ChangeNotifierProvider(create: (_) => PartenaireAdmonBloc()),
+      ChangeNotifierProvider(create: (_) => AdminPartenaireBloc()),
+      ChangeNotifierProvider(create: (_) => AddLogementBloc()),
     ],
     child: const MyApp(),
   ));

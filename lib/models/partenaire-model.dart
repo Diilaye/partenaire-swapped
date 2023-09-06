@@ -13,6 +13,7 @@ class PartenaireModel {
   String? dateRv;
   String? heureRv;
   String? date;
+  String? status;
   String? id;
 
   PartenaireModel(
@@ -28,6 +29,7 @@ class PartenaireModel {
       this.dateRv,
       this.heureRv,
       this.date,
+      this.status,
       this.id});
 
   PartenaireModel.fromJson(Map<String, dynamic> json) {
@@ -55,6 +57,7 @@ class PartenaireModel {
     dateRv = json['dateRv'];
     heureRv = json['heureRv'];
     date = json['date'];
+    status = json['status'];
     id = json['id'];
   }
 
@@ -76,6 +79,7 @@ class PartenaireModel {
     data['dateRv'] = dateRv;
     data['heureRv'] = heureRv;
     data['date'] = date;
+    data['status'] = status;
     data['id'] = id;
     return data;
   }

@@ -17,4 +17,28 @@ class PartenaireService {
       }
     });
   }
+
+  Future<String?> addPartenaire(Map<String, dynamic> body) async {
+    print(body);
+    return await postResponse(url: '/partenaires/create-partenaire', body: body)
+        .then((value) {
+      if (value['status'] == 201) {
+        return "success";
+      } else {
+        return null;
+      }
+    });
+  }
+
+  Future<String?> delete(String id) async {
+    return await deleteResponse(
+      url: '/partenaires/$id',
+    ).then((value) {
+      if (value['status'] == 200) {
+        return "success";
+      } else {
+        return null;
+      }
+    });
+  }
 }

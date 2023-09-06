@@ -1023,75 +1023,60 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: size.height * .45,
                           ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Logement, Restauration et Mobilité  avec SwapeD'
-                                  .toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: size.width * .03,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text(
+                        //       'Logement, Restauration et Mobilité  avec SwapeD'
+                        //           .toUpperCase(),
+                        //       style: TextStyle(
+                        //           fontSize: size.width * .03,
+                        //           fontWeight: FontWeight.w900,
+                        //           color: Colors.white),
+                        //     ),
+                        //   ],
+                        // ),
+                        // const SizedBox(
+                        //   height: 16,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Text(
+                        //       'Se sentir chez soit, ou Que je soi'
+                        //           .toUpperCase(),
+                        //       style: TextStyle(
+                        //           fontSize: size.width * .02,
+                        //           fontWeight: FontWeight.w700,
+                        //           color: Colors.white),
+                        //     ),
+                        //   ],
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(
+                              width: 12,
+                            ),
                             Text(
-                              'Se sentir chez soit, ou Que je soi'
-                                  .toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: size.width * .02,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white),
+                              "Cher partenaire,",
+                              style: TextStyle(color: blanc, fontSize: 24),
+                              textAlign: TextAlign.justify,
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              // onTap: () => partenaireBloc.setAddPartenaire(),
-                              child: Container(
-                                height: 50,
-                                // width: 240,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: const Offset(0, 0),
-                                          blurRadius: 2,
-                                          color: Colors.black.withOpacity(.2))
-                                    ]),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      'Félicitation votre inscription est en cours de traitement',
-                                      style: TextStyle(
-                                          fontSize: size.width > 700 ? 16 : 12,
-                                          color: Colors.black),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          """Nous vous remercions d'avoir complété votre inscription sur SwapeD. Un commercial ne manquera pas de vous contacter pour valider vos informations, vous communiquer vos accès et vous assister tout au long de la procédure de finalisation.
+
+À très vite !
+L'équipe SwapeD
+
++224 626 50 16 51
+swaped@deally.fr""",
+                          style: TextStyle(color: blanc, fontSize: 22),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(
                           height: 16,

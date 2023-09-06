@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
+import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +56,11 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                   title: "Utilisateur en attente",
                   chiffre: partenaireBloc.listePartenaire == null
                       ? "0"
-                      : partenaireBloc.listePartenaire!.length.toString(),
+                      : partenaireBloc.listePartenaire!
+                          .where((element) => element.status == "inactive")
+                          .toList()
+                          .length
+                          .toString(),
                   estimation: "3",
                   description: "0n a noté une évolution de 3% ce mois"),
               SizedBox(
@@ -65,7 +70,11 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                   title: "Suspendu",
                   chiffre: partenaireBloc.listePartenaire == null
                       ? "0"
-                      : partenaireBloc.listePartenaire!.length.toString(),
+                      : partenaireBloc.listePartenaire!
+                          .where((element) => element.status == "canceled")
+                          .toList()
+                          .length
+                          .toString(),
                   estimation: "3",
                   description: "0n a noté une évolution de 3% ce mois"),
               SizedBox(
@@ -215,6 +224,8 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                             if (partenaireBloc.listePartenaire != null)
                               Column(
                                 children: partenaireBloc.listePartenaire!
+                                    .where((element) =>
+                                        element.status == 'inactive')
                                     .map((e) => Column(
                                           children: [
                                             Row(
@@ -309,29 +320,43 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                                                     SizedBox(
                                                       width: 8,
                                                     ),
-                                                    Container(
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(4),
-                                                          border: Border.all(
-                                                              color: rouge)),
-                                                      child: Row(
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 4,
-                                                          ),
-                                                          Text(
-                                                            "Supprimer",
-                                                            style: TextStyle(
-                                                                color: rouge,
-                                                                fontSize: 10),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 4,
-                                                          ),
-                                                        ],
+                                                    GestureDetector(
+                                                      onTap: () => dialogRequest(
+                                                              context: context,
+                                                              title:
+                                                                  "Voullez-vous suprimer ce partenaire ?")
+                                                          .then((value) {
+                                                        if (value) {
+                                                          partenaireBloc
+                                                              .deletePartenaireFun(
+                                                                  e.id!);
+                                                        }
+                                                      }),
+                                                      child: Container(
+                                                        height: 20,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            border: Border.all(
+                                                                color: rouge)),
+                                                        child: Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 4,
+                                                            ),
+                                                            Text(
+                                                              "Supprimer",
+                                                              style: TextStyle(
+                                                                  color: rouge,
+                                                                  fontSize: 10),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 4,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

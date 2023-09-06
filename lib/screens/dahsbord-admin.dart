@@ -6,7 +6,9 @@ import 'package:partenaire/screens/admin-dashbord/overview-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/partenaire-utilisateur-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaires-screen.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
+import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashbordAdminScreen extends StatelessWidget {
   const DashbordAdminScreen({super.key});
@@ -448,33 +450,46 @@ class DashbordAdminScreen extends StatelessWidget {
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * .03,
-                          ),
-                          const Icon(
-                            Icons.logout_rounded,
-                            size: 13,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Déconnection',
-                            style: TextStyle(fontSize: 14, color: noir),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () => dialogRequest(
+                            context: context,
+                            title: "Voullez-vous vous déconectez ?")
+                        .then((value) {
+                      if (value) {
+                        SharedPreferences.getInstance().then((prefs) {
+                          prefs.clear();
+                          Navigator.pushNamed(context, "/");
+                        });
+                      }
+                    }),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: size.width * .03,
+                            ),
+                            const Icon(
+                              Icons.logout_rounded,
+                              size: 13,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Déconnection',
+                              style: TextStyle(fontSize: 14, color: noir),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

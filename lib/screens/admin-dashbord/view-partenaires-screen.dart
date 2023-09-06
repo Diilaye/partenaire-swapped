@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
-import 'package:partenaire/bloc/partenaire-bloc.dart';
 import 'package:partenaire/models/partenaire-model.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
-import 'package:partenaire/utils/show-date-by-dii.dart';
 import 'package:provider/provider.dart';
 
 class ViewPartenaireScreen extends StatelessWidget {
@@ -15,6 +13,7 @@ class ViewPartenaireScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final partenaireAdminBloc = Provider.of<PartenaireAdmonBloc>(context);
+    final menuBloc = Provider.of<AdminBloc>(context);
 
     return ListView(
       children: [
@@ -302,7 +301,12 @@ class ViewPartenaireScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    await partenaireAdminBloc.addPartenaireFun(partenaire);
+                    if (partenaireAdminBloc.successAddPartenaire != null) {
+                      menuBloc.setMenu(1);
+                    }
+                  },
                   child: Container(
                     height: 50,
                     width: 240,
@@ -318,12 +322,12 @@ class ViewPartenaireScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        partenaireAdminBloc.chargement
+                        partenaireAdminBloc.savePartenairechargement
                             ? CircularProgressIndicator(
                                 backgroundColor: vertFonce,
                                 color: blanc,
                               )
-                            : Text(
+                            : const Text(
                                 "Valider",
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white),
@@ -336,7 +340,7 @@ class ViewPartenaireScreen extends StatelessWidget {
                   width: size.width * .05,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => menuBloc.setMenu(1),
                   child: Container(
                     height: 50,
                     width: 240,
@@ -349,19 +353,13 @@ class ViewPartenaireScreen extends StatelessWidget {
                               blurRadius: 2,
                               color: Colors.white.withOpacity(.2))
                         ]),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        partenaireAdminBloc.chargement
-                            ? CircularProgressIndicator(
-                                backgroundColor: rouge,
-                                color: blanc,
-                              )
-                            : Text(
-                                "Annuler",
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
+                        Text(
+                          "Annuler",
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
                       ],
                     ),
                   ),
