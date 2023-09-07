@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/add-logement-bloc.dart';
+import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ class RecapLogement extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final addLogementBloc = Provider.of<AddLogementBloc>(context);
+    final adminLogementBloc = Provider.of<AdminPartenaireBloc>(context);
     return Column(
       children: [
         const SizedBox(
@@ -286,8 +288,13 @@ class RecapLogement extends StatelessWidget {
                               width: size.width * .05,
                             ),
                             GestureDetector(
-                              onTap: () =>
-                                  addLogementBloc.addLogementFun(context),
+                              onTap: () async {
+                                addLogementBloc.addLogementFun();
+                                if (addLogementBloc.biensAdd != null) {
+                                  await adminLogementBloc.getAllBien();
+                                  Navigator.popAndPushNamed(context, "/");
+                                }
+                              },
                               child: Container(
                                 height: 45,
                                 decoration: BoxDecoration(

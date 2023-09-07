@@ -1,10 +1,11 @@
 import 'package:partenaire/models/biens-model.dart';
+import 'package:partenaire/models/reservation-model.dart';
 import 'package:partenaire/utils/requette-by-dii.dart';
 
-class BienService {
-  Future<List<BiensModels>> all() async {
-    return await getResponse(url: '/biens/user').then((value) {
-      return BiensModels.fromList(data: value['data']);
+class ReservationService {
+  Future<List<ReservationModel>> all() async {
+    return await getResponse(url: '/reservations/logement').then((value) {
+      return ReservationModel.fromList(data: value['data']);
     });
   }
 

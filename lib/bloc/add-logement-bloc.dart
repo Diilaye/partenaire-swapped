@@ -515,7 +515,7 @@ class AddLogementBloc with ChangeNotifier {
 
   BiensModels? biensAdd;
 
-  addLogementFun(context) async {
+  addLogementFun() async {
     chargementAddFun = true;
     notifyListeners();
     Map<String, dynamic> body = {
@@ -525,10 +525,10 @@ class AddLogementBloc with ChangeNotifier {
           : seletectedType!['titre'],
       "titre": titreChambre.text,
       "description": descriptionLogement.text,
-      "nbreChambre": nbreChambre.text,
-      "nbreVoyageur": nbreVoyageur.text,
-      "nbreLit": nbreLit.text,
-      "nbreSalleBain": nbreSalleBain.text,
+      "nbreChambre": int.parse(nbreChambre.text),
+      "nbreVoyageur": int.parse(nbreVoyageur.text),
+      "nbreLit": int.parse(nbreLit.text),
+      "nbreSalleBain": int.parse(nbreSalleBain.text),
       "galery": [
         photoCouverture.first,
         photo1.first,
@@ -550,10 +550,10 @@ class AddLogementBloc with ChangeNotifier {
           selectedJardinCommodite.map((e) => e['commodite']).toList(),
       "commoditeServiceAnnexe":
           selectedServiceAnnexeCommodite.map((e) => e['commodite']).toList(),
-      "nbreMinNuit": nbreMinJour.text,
-      "tarif": tarif_nuit.text,
-      "tarifLocataireSupplementaire": tarif_locataire.text,
-      "tarif_menagere": tarif_femme_menagere.text
+      "nbreMinNuit": int.parse(nbreMinJour.text),
+      "tarif": int.parse(tarif_nuit.text),
+      "tarifLocataireSupplementaire": int.parse(tarif_locataire.text),
+      "tarif_menagere": int.parse(tarif_femme_menagere.text)
     };
 
     biensAdd = await bienService.add(body);
@@ -569,7 +569,6 @@ class AddLogementBloc with ChangeNotifier {
           fontSize: 14.0);
 
       resetData();
-      Navigator.popAndPushNamed(context, "/");
     } else {
       Fluttertoast.showToast(
           msg: "Une erreur a été saisie",

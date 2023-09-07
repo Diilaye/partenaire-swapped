@@ -6,6 +6,7 @@ import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
+import 'package:partenaire/bloc/reservation-bloc.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
 import 'package:partenaire/screens/dashbord-logement.dart';
 import 'package:partenaire/screens/dashbord-restaurant.dart';
@@ -29,6 +30,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => PartenaireAdmonBloc()),
       ChangeNotifierProvider(create: (_) => AdminPartenaireBloc()),
       ChangeNotifierProvider(create: (_) => AddLogementBloc()),
+      ChangeNotifierProvider(create: (_) => ReservationBloc()),
     ],
     child: const MyApp(),
   ));

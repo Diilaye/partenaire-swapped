@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
+import 'package:partenaire/bloc/reservation-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final logementAdminBloc = Provider.of<AdminPartenaireBloc>(context);
+    final reservationBloc = Provider.of<ReservationBloc>(context);
 
     return ListView(
       children: [
@@ -39,26 +41,26 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                 width: size.width * .01,
               ),
               overviewStatWidget(
-                  title: "Total articles",
+                  title: "Total logemnts",
                   chiffre: logementAdminBloc.listeBien.length.toString(),
-                  estimation: "2",
-                  description: "vous avez fait un ajout de 3 bien ce mois"),
+                  estimation: "0",
+                  description: "vous n'avez pas encore d'activite"),
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
+              overviewStatWidget(
                   title: "Total reservations",
-                  chiffre: "11",
-                  estimation: "2",
-                  description: "vous avez fait un ajout de 3 bien ce mois"),
+                  chiffre: reservationBloc.reservations.length.toString(),
+                  estimation: "0",
+                  description: "vous n'avez pas encore d'activite"),
               SizedBox(
                 width: size.width * .01,
               ),
               const overviewStatWidget(
                   title: "Montants",
-                  chiffre: "105,865,000 FGN",
-                  estimation: "70",
-                  description: "vous avez fait 10,000,000 FGN  ce mois ci"),
+                  chiffre: "000,000,000 FGN",
+                  estimation: "0",
+                  description: "vous n'avez pas encore d'activite"),
               SizedBox(
                 width: size.width * .01,
               ),
@@ -144,7 +146,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                       child: Column(
                                         children: [
                                           Expanded(
-                                              flex: 3,
+                                              flex: 5,
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -153,7 +155,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                 ),
                                               )),
                                           Expanded(
-                                              flex: 2,
+                                              flex: 0,
                                               child: Container(
                                                 decoration: BoxDecoration(
                                                     borderRadius:
@@ -194,7 +196,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 3,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -203,7 +205,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 2,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -245,7 +247,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 1,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -254,7 +256,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 4,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -296,7 +298,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 2,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -305,7 +307,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 3,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -347,7 +349,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 3,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -356,7 +358,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 2,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -398,7 +400,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 1,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -407,7 +409,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 4,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -449,7 +451,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 2,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -458,7 +460,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 3,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -500,7 +502,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 3,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -509,7 +511,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 2,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -551,7 +553,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 1,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -560,7 +562,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 4,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -602,7 +604,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 2,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -611,7 +613,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 3,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -653,7 +655,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 3,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -662,7 +664,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 2,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -704,7 +706,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Expanded(
-                                                flex: 1,
+                                                flex: 5,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     borderRadius:
@@ -713,7 +715,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   ),
                                                 )),
                                             Expanded(
-                                                flex: 4,
+                                                flex: 0,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                       borderRadius:
@@ -805,7 +807,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                       width: 4,
                                     ),
                                     const Text(
-                                      "6%",
+                                      "0%",
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ],
@@ -849,15 +851,14 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                          "Montant: 654,900,000 FGN ",
+                                                          "Montant: 000,000,000 FGN ",
                                                           style: TextStyle(
                                                               fontSize: 10)),
                                                     ],
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Text(
-                                                          "une évolution de 10%"),
+                                                      Text("0% d'activite"),
                                                     ],
                                                   )
                                                 ],
@@ -959,7 +960,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                             ),
                             Column(
                               children: List.generate(
-                                  6,
+                                  0,
                                   (index) => Column(
                                         children: [
                                           SizedBox(

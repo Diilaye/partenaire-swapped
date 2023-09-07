@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/screens/admin-logement/add-logement.dart';
 import 'package:partenaire/screens/admin-logement/liste-biens.dart';
+import 'package:partenaire/screens/admin-logement/liste-reservation.dart';
 import 'package:partenaire/screens/admin-logement/overview-screen.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
@@ -172,33 +173,38 @@ class DashbordLogementScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () => logementAdminBloc.setMenu(2),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: size.width * .03,
-                            ),
-                            const Icon(
-                              CupertinoIcons.square_list,
-                              size: 13,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              'listes',
-                              style: TextStyle(fontSize: 14, color: noir),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
+                    child: Container(
+                      color: logementAdminBloc.menu == 2
+                          ? gris.withOpacity(.3)
+                          : blanc,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.square_list,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'listes',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -218,64 +224,80 @@ class DashbordLogementScreen extends StatelessWidget {
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
+                  GestureDetector(
+                    onTap: () => logementAdminBloc.setMenu(3),
+                    child: Container(
+                      color: logementAdminBloc.menu == 3
+                          ? gris.withOpacity(.3)
+                          : blanc,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: size.width * .03,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          const Icon(
-                            CupertinoIcons.add,
-                            size: 13,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.add,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'ajouter',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
                           ),
                           const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'ajouter',
-                            style: TextStyle(fontSize: 14, color: noir),
+                            height: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
+                  GestureDetector(
+                    onTap: () => logementAdminBloc.setMenu(4),
+                    child: Container(
+                      color: logementAdminBloc.menu == 4
+                          ? gris.withOpacity(.3)
+                          : blanc,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: size.width * .03,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          const Icon(
-                            CupertinoIcons.square_list,
-                            size: 13,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.square_list,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'listes',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
                           ),
                           const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'listes',
-                            style: TextStyle(fontSize: 14, color: noir),
+                            height: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .05,
@@ -432,7 +454,11 @@ class DashbordLogementScreen extends StatelessWidget {
                             ? const AddLogementScreen()
                             : logementAdminBloc.menu == 2
                                 ? const ListeBiensScreen()
-                                : Column())),
+                                : logementAdminBloc.menu == 3
+                                    ? Column()
+                                    : logementAdminBloc.menu == 4
+                                        ? const ListeReservation()
+                                        : Column())),
           ],
         ),
       ),

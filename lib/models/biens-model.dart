@@ -16,14 +16,15 @@ class BiensModels {
   String? adresse;
   String? typeLogement;
   String? titre;
-  String? nbreChambre;
-  String? nbreVoyageur;
-  String? nbreSalleBain;
-  String? nbreMinNuit;
-  String? tarif;
-  String? tarifLocataireSupplementaire;
-  String? tarifMenagere;
+  int? nbreChambre;
+  int? nbreVoyageur;
+  int? nbreSalleBain;
+  int? nbreMinNuit;
+  int? tarif;
+  int? tarifLocataireSupplementaire;
+  int? tarifMenagere;
   String? id;
+  String? idParent;
 
   BiensModels(
       {this.galery,
@@ -48,6 +49,7 @@ class BiensModels {
       this.tarif,
       this.tarifLocataireSupplementaire,
       this.tarifMenagere,
+      this.idParent,
       this.id});
 
   BiensModels.fromJson(Map<String, dynamic> json) {
@@ -94,6 +96,7 @@ class BiensModels {
     tarifLocataireSupplementaire = json['tarifLocataireSupplementaire'];
     tarifMenagere = json['tarif_menagere'];
     id = json['id'];
+    idParent = json['idParent'];
   }
 
   Map<String, dynamic> toJson() {
@@ -131,6 +134,7 @@ class BiensModels {
     data['tarifLocataireSupplementaire'] = this.tarifLocataireSupplementaire;
     data['tarif_menagere'] = this.tarifMenagere;
     data['id'] = this.id;
+    data['idParent'] = this.idParent;
     return data;
   }
 
