@@ -18,4 +18,17 @@ class ReservationService {
       }
     });
   }
+
+  Future<String?> update(String id, Map<String, dynamic> body) async {
+    print(body);
+    return await putResponse(url: '/reservations/partenaires/$id', body: body)
+        .then((value) {
+      print(value);
+      if (value['status'] == 200) {
+        return "modification réussi";
+      } else {
+        return null;
+      }
+    });
+  }
 }

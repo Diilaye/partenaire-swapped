@@ -7,6 +7,8 @@ import 'package:partenaire/bloc/auth-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
 import 'package:partenaire/bloc/reservation-bloc.dart';
+import 'package:partenaire/screens/close-paiement-screen.dart';
+import 'package:partenaire/screens/success-paiement-screen.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
 import 'package:partenaire/screens/dashbord-logement.dart';
 import 'package:partenaire/screens/dashbord-restaurant.dart';
@@ -48,7 +50,7 @@ class MyApp extends StatelessWidget {
       title: 'Partenaire Swapped',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Josefin_Sans'),
-      initialRoute: '/',
+      initialRoute: '/failled',
       routes: {
         '/': (context) => FutureBuilder<SharedPreferences>(
               future: SharedPreferences.getInstance(),
@@ -74,7 +76,9 @@ class MyApp extends StatelessWidget {
                 }
               },
             ),
-        '/login': (context) => const LoginScreen()
+        '/login': (context) => const LoginScreen(),
+        '/success': (context) => const SuccessPaiementScreen(),
+        '/failled': (context) => const ClosePaiementScreen(),
       },
     );
   }

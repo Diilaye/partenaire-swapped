@@ -1,3 +1,5 @@
+import 'package:partenaire/models/message-model.dart';
+
 class ReservationModel {
   String? status;
   bool? isDisponible;
@@ -7,6 +9,7 @@ class ReservationModel {
   String? dateDebut;
   String? dateFin;
   String? id;
+  List<MessageModel>? messages;
 
   ReservationModel(
       {this.status,
@@ -16,6 +19,7 @@ class ReservationModel {
       this.client,
       this.dateDebut,
       this.dateFin,
+      this.messages,
       this.id});
 
   ReservationModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +32,12 @@ class ReservationModel {
     dateDebut = json['dateDebut'];
     dateFin = json['dateFin'];
     id = json['id'];
+    if (json['messages'] != null) {
+      messages = <MessageModel>[];
+      json['messages'].forEach((v) {
+        messages!.add(MessageModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {

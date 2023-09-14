@@ -947,11 +947,11 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                                 SizedBox(
                                   width: 16,
                                 ),
-                                Expanded(child: Text("N° cmd")),
-                                Expanded(
-                                    flex: 2, child: Text("Détails produit")),
+                                Expanded(child: Text("N° Réservation")),
+                                Expanded(flex: 2, child: Text("Nom Bien")),
                                 Expanded(child: Text("Montant")),
-                                Expanded(child: Text("Date")),
+                                Expanded(child: Text("Date debut")),
+                                Expanded(child: Text("Date fin")),
                                 Expanded(child: Text("Statut")),
                                 SizedBox(
                                   width: 16,
