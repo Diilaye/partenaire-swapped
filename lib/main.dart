@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
       title: 'Partenaire Swapped',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Josefin_Sans'),
-      initialRoute: '/failled',
+      initialRoute: '/',
       routes: {
         '/': (context) => FutureBuilder<SharedPreferences>(
               future: SharedPreferences.getInstance(),
