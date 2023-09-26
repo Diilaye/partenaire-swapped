@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:partenaire/bloc/client-admin-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/widgets/admin-dashbord/chart-circular-reclamation.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
+import 'package:provider/provider.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -10,6 +12,8 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final clientAdminBloc = Provider.of<ClientAdminBloc>(context);
+
     return ListView(
       children: [
         SizedBox(
@@ -38,28 +42,27 @@ class OverviewScreen extends StatelessWidget {
               ),
               const overviewStatWidget(
                   title: "Revenue nette",
-                  chiffre: "105,865,000 FGN",
-                  estimation: "34",
-                  description:
-                      "vous avez fait un profit de 10,726,000 FGN ce mois"),
+                  chiffre: "0 GNF",
+                  estimation: "0",
+                  description: "vous avez fait un profit de 0 GNF ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
               const overviewStatWidget(
-                  title: "chiffre hebdomadaire",
-                  chiffre: "7,865,000 FGN",
-                  estimation: "43",
-                  description:
-                      "vous avez fait un profit de 3,726,000 FGN ce mois"),
+                  title: "CA journalière",
+                  chiffre: "0 GNF",
+                  estimation: "0",
+                  description: "vous avez fait un profit de 0 GNF ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
+              overviewStatWidget(
                   title: "clients",
-                  chiffre: "105,865",
-                  estimation: "70",
-                  description:
-                      "vous avez fait un 2000 nombre de visite ce mois"),
+                  chiffre: clientAdminBloc.clients == null
+                      ? "0"
+                      : clientAdminBloc.clients!.length.toString(),
+                  estimation: "0",
+                  description: "vous avez fait un 0 nombre de visite ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
@@ -142,57 +145,6 @@ class OverviewScreen extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(200),
                                           color: noir.withOpacity(.5)),
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          200),
-                                                ),
-                                              )),
-                                          Expanded(
-                                              flex: 4,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                    color:
-                                                        gris.withOpacity(.5)),
-                                                child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                        flex: 4,
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        200),
-                                                          ),
-                                                        )),
-                                                    Expanded(
-                                                        child: Expanded(
-                                                            flex: 1,
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              200),
-                                                                  color: vertFonce
-                                                                      .withOpacity(
-                                                                          .8)),
-                                                            )))
-                                                  ],
-                                                ),
-                                              )),
-                                        ],
-                                      ),
                                     )),
                                 const SizedBox(
                                   height: 8,
@@ -216,30 +168,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -264,30 +193,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -312,30 +218,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -360,30 +243,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -408,30 +268,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -456,30 +293,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -504,30 +318,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -552,30 +343,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -600,30 +368,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -648,30 +393,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -696,30 +418,7 @@ class OverviewScreen extends StatelessWidget {
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(200),
-                                            color: gris.withOpacity(.5)),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                                flex: 1,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            200),
-                                                  ),
-                                                )),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              200),
-                                                      color: vertFonce
-                                                          .withOpacity(.8)),
-                                                )),
-                                          ],
-                                        ),
+                                            color: noir.withOpacity(.5)),
                                       )),
                                   const SizedBox(
                                     height: 8,
@@ -798,7 +497,7 @@ class OverviewScreen extends StatelessWidget {
                                       width: 4,
                                     ),
                                     const Text(
-                                      "6%",
+                                      "0%",
                                       style: TextStyle(fontSize: 10),
                                     ),
                                   ],
@@ -841,8 +540,7 @@ class OverviewScreen extends StatelessWidget {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Text(
-                                                          "Montant: 654,900,000 FGN ",
+                                                      Text("Montant: 0 GNF ",
                                                           style: TextStyle(
                                                               fontSize: 10)),
                                                     ],
@@ -850,7 +548,7 @@ class OverviewScreen extends StatelessWidget {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                          "une évolution de 10%"),
+                                                          "une évolution de 0%"),
                                                     ],
                                                   )
                                                 ],
@@ -952,7 +650,7 @@ class OverviewScreen extends StatelessWidget {
                             ),
                             Column(
                               children: List.generate(
-                                  6,
+                                  0,
                                   (index) => Column(
                                         children: [
                                           SizedBox(
@@ -1186,7 +884,7 @@ class OverviewScreen extends StatelessWidget {
                                                     SizedBox(
                                                       width: 8,
                                                     ),
-                                                    Text('30%')
+                                                    Text('0%')
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -1203,7 +901,7 @@ class OverviewScreen extends StatelessWidget {
                                                     SizedBox(
                                                       width: 8,
                                                     ),
-                                                    Text('70%')
+                                                    Text('100%')
                                                   ],
                                                 ),
                                               ],
@@ -1298,7 +996,7 @@ class OverviewScreen extends StatelessWidget {
                                         ),
                                         Column(
                                           children: List.generate(
-                                              4,
+                                              0,
                                               (index) => Column(
                                                     children: [
                                                       Row(

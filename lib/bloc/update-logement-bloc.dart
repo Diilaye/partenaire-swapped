@@ -1,34 +1,148 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:partenaire/models/admin-user-model.dart';
 import 'package:partenaire/models/biens-model.dart';
 import 'package:partenaire/models/place-autocomplete-model.dart';
-import 'package:partenaire/services/auth-service.dart';
 import 'package:partenaire/services/bien-service.dart';
 import 'package:partenaire/services/map-service.dart';
 import 'package:partenaire/utils/upload-file.dart';
 
-class AddLogementBloc with ChangeNotifier {
-  int menuAdd = 0;
+class UpdateLogementBloc with ChangeNotifier {
+  int menuUpdate = 0;
+  List<Map<String, dynamic>> commoditeGerenal = [];
+  Map<String, dynamic>? selectedCommoditeGeneral;
+
+  setSelectedCommoditeGeneral(Map<String, dynamic>? select) {
+    if (selectedCommoditeGeneral == select) {
+      selectedCommoditeGeneral = null;
+    } else {
+      selectedCommoditeGeneral = select;
+    }
+    notifyListeners();
+  }
+
+  changeMenuUpdate(int value) {
+    menuUpdate = value;
+    if (value == 4) {
+      commoditeGerenal = [
+        {
+          "url": "assets/images/chambre.png",
+          "titre": "Chambres",
+          "sub": selectedChambreCommodite
+        },
+        {
+          "url": "assets/images/tv.png",
+          "titre": "Salon",
+          "sub": selectedSalonCommodite
+        },
+        {
+          "url": "assets/images/cuisine.png",
+          "titre": "Cuisine",
+          "sub": selectedCuisineCommodite
+        },
+        {
+          "url": "assets/images/bath.png",
+          "titre": "Salle de Bain",
+          "sub": selectedSalleDeBainCommodite
+        },
+        {
+          "url": "assets/images/faire-secher.png",
+          "titre": "Buenderie",
+          "sub": selectedBuanderieCommodite
+        },
+        {
+          "url": "assets/images/mobilier-exterieur.png",
+          "titre": "Jardin",
+          "sub": selectedJardinCommodite
+        },
+        {
+          "url": "assets/images/not-inclue.png",
+          "titre": "Service annexes",
+          "sub": selectedServiceAnnexeCommodite
+        },
+      ];
+    }
+    notifyListeners();
+  }
 
   MapService mapService = MapService();
 
   BienService bienService = BienService();
 
-  AuthService authService = AuthService();
+  BiensModels? bien;
 
-  AdminUserModel? auth;
+  setBien(BiensModels b) {
+    bien = b;
+    setSelectedType(listeTypeLogements
+        .where((element) => element['titre'] == b.typeLogement!)
+        .first);
+    adresse.text = b.adresse!;
+    titreChambre.text = b.titre!;
+    nbreChambre.text = b.nbreChambre!.toString();
+    nbreVoyageur.text = b.nbreVoyageur!.toString();
+    nbreSalleBain.text = b.nbreChambre!.toString();
+    nbreLit.text = b.nbreLit!.toString();
+    nbreMinJour.text = b.nbreMinNuit!.toString();
+    tarifNuit.text = b.tarif!.toString();
+    tarifLocataire.text = b.tarifLocataireSupplementaire!.toString();
+    tarifFemmeMenagere.text = b.tarifMenagere!.toString();
+    photoCouverture = [b.galery!.first.id, null, b.galery!.first.url];
+    photo1 = [b.galery![1].id, null, b.galery![1].url];
+    photo2 = [b.galery![2].id, null, b.galery![2].url];
+    photo3 = [b.galery![3].id, null, b.galery![3].url];
+    photo4 = [b.galery![4].id, null, b.galery![4].url];
 
-  getUser() async {
-    auth = await authService.getAuth();
-    premierePorucentage.text = auth!.conditionAnulation!.first.pourcantage!;
-    premiereJour.text = auth!.conditionAnulation!.first.jour!;
-    deuxiemePorucentage.text = auth!.conditionAnulation![1].pourcantage!;
-    deuxiemeJour.text = auth!.conditionAnulation![1].jour!;
-    troisiemePorucentage.text = auth!.conditionAnulation![2].pourcantage!;
-    troisiemeJour.text = auth!.conditionAnulation![2].jour!;
+    premierePorucentage.text = b.conditionAnulation!.first.pourcantage!;
+    premiereJour.text = b.conditionAnulation!.first.jour!;
+    deuxiemePorucentage.text = b.conditionAnulation![1].pourcantage!;
+    deuxiemeJour.text = b.conditionAnulation![1].jour!;
+    troisiemePorucentage.text = b.conditionAnulation![2].pourcantage!;
+    troisiemeJour.text = b.conditionAnulation![2].jour!;
+    descriptionLogement.text = b.description!;
+
+    b.commoditeChambre!.forEach((e) {
+      setSelectedChambreCommodite(chambreCommodites
+          .where((element) => element['commodite'] == e)
+          .first);
+    });
+
+    b.commoditeSalon!.forEach((e) {
+      setSelectedSalonCommodite(
+          salonCommodites.where((element) => element['commodite'] == e).first);
+    });
+
+    b.commoditeCuisine!.forEach((e) {
+      setSelectedCuisineCommodite(cuisineCommodites
+          .where((element) => element['commodite'] == e)
+          .first);
+    });
+
+    b.commoditeSalleBain!.forEach((e) {
+      setSelectedSalleDeBainCommodite(salleDeBainCommodites
+          .where((element) => element['commodite'] == e)
+          .first);
+    });
+
+    b.commoditeBuanderie!.forEach((e) {
+      setSelectedBuanderieCommodite(buanderieCommodites
+          .where((element) => element['commodite'] == e)
+          .first);
+    });
+
+    b.commoditeJardin!.forEach((e) {
+      setSelectedJardinCommodite(
+          jardinCommodites.where((element) => element['commodite'] == e).first);
+    });
+
+    b.commoditeServiceAnnexe!.forEach((e) {
+      setSelectedServiceAnnexeCommodite(serviceAnnexeCommodites
+          .where((element) => element['commodite'] == e)
+          .first);
+    });
+
     notifyListeners();
   }
+
+  TextEditingController descriptionLogement = TextEditingController();
 
   TextEditingController titreChambre = TextEditingController();
   TextEditingController nbreChambre = TextEditingController();
@@ -37,9 +151,9 @@ class AddLogementBloc with ChangeNotifier {
   TextEditingController nbreSalleBain = TextEditingController();
 
   TextEditingController nbreMinJour = TextEditingController();
-  TextEditingController tarif_nuit = TextEditingController();
-  TextEditingController tarif_locataire = TextEditingController();
-  TextEditingController tarif_femme_menagere = TextEditingController();
+  TextEditingController tarifNuit = TextEditingController();
+  TextEditingController tarifLocataire = TextEditingController();
+  TextEditingController tarifFemmeMenagere = TextEditingController();
 
   TextEditingController premierePorucentage = TextEditingController();
   TextEditingController premiereJour = TextEditingController();
@@ -48,115 +162,21 @@ class AddLogementBloc with ChangeNotifier {
   TextEditingController troisiemePorucentage = TextEditingController();
   TextEditingController troisiemeJour = TextEditingController();
 
-  AddLogementBloc() {
-    getUser();
-    tarif_locataire.text = "0";
-    tarif_femme_menagere.text = "0";
+  TextEditingController adresse = TextEditingController();
+  List<PlaceAutocomplete> listePlaceAutocomplet = [];
+  PlaceAutocomplete? placeSelected;
 
-    nbreChambre.text = "1";
-
-    nbreVoyageur.text = "4";
-    nbreLit.text = "1";
-    nbreSalleBain.text = "1";
-    descriptionLogement.text =
-        "Appartement moderne, Conakry. Sécurité 24/7, vue panoramique sur l'océan Atlantique, à quelques pas des plages immaculées. Proche des restaurants et des marchés locaux. L'endroit parfait pour les touristes en quête de confort, de culture et de beauté à Conakry.";
+  selectPlaceSlected(PlaceAutocomplete place) {
+    placeSelected = place;
+    adresse.text = place.description!;
+    listePlaceAutocomplet = [];
     notifyListeners();
   }
 
-  bool firstClickDescription = false;
-
-  setFirstClickDescription() {
-    firstClickDescription = true;
-    descriptionLogement.text = "";
+  setListePlaceAutocomplet() async {
+    listePlaceAutocomplet = await mapService.adresseAutoComplet(adresse.text);
     notifyListeners();
   }
-
-  List<dynamic> photoCouverture = [null, null];
-  bool chargementPhotoCouverture = false;
-
-  getPhotoCouverture() async {
-    chargementPhotoCouverture = true;
-    notifyListeners();
-    photoCouverture = await getImage(1);
-    chargementPhotoCouverture = false;
-    notifyListeners();
-  }
-
-  removePhotoCouverture() async {
-    chargementPhotoCouverture = false;
-    photoCouverture = [null, null];
-    notifyListeners();
-  }
-
-  List<dynamic> photo1 = [null, null];
-  bool chargementPhoto1 = false;
-
-  getPhoto1() async {
-    chargementPhoto1 = true;
-    notifyListeners();
-    photo1 = await getImage(1);
-    chargementPhoto1 = false;
-    notifyListeners();
-  }
-
-  removePhoto1() async {
-    chargementPhoto1 = false;
-    photo1 = [null, null];
-    notifyListeners();
-  }
-
-  List<dynamic> photo2 = [null, null];
-  bool chargementPhoto2 = false;
-
-  getPhoto2() async {
-    chargementPhoto2 = true;
-    notifyListeners();
-    photo2 = await getImage(1);
-    chargementPhoto2 = false;
-    notifyListeners();
-  }
-
-  removePhoto2() async {
-    chargementPhoto2 = false;
-    photo2 = [null, null];
-    notifyListeners();
-  }
-
-  List<dynamic> photo3 = [null, null];
-  bool chargementPhoto3 = false;
-
-  getPhoto3() async {
-    chargementPhoto3 = true;
-    notifyListeners();
-    photo3 = await getImage(1);
-    chargementPhoto3 = false;
-    notifyListeners();
-  }
-
-  removePhoto3() async {
-    chargementPhoto3 = false;
-    photo3 = [null, null];
-    notifyListeners();
-  }
-
-  List<dynamic> photo4 = [null, null];
-  bool chargementPhoto4 = false;
-
-  getPhoto4() async {
-    chargementPhoto4 = true;
-    notifyListeners();
-    photo4 = await getImage(1);
-    chargementPhoto4 = false;
-    notifyListeners();
-  }
-
-  removePhoto4() async {
-    chargementPhoto4 = false;
-    photo4 = [null, null];
-    notifyListeners();
-  }
-
-  TextEditingController descriptionLogement = TextEditingController();
 
   List<Map<String, String>> listeTypeLogements = [
     {"url": "assets/images/hotels.png", "titre": 'Hôtels'},
@@ -173,6 +193,103 @@ class AddLogementBloc with ChangeNotifier {
 
   Map<String, String>? seletectedType;
   Map<String, String>? seletectedTypeHotel;
+
+  setSelectedType(Map<String, String> select) {
+    seletectedType = select;
+    notifyListeners();
+  }
+
+  setSelectedTypeHotel(Map<String, String> select) {
+    seletectedTypeHotel = select;
+    notifyListeners();
+  }
+
+  List<dynamic> photoCouverture = [null, null, null];
+  bool chargementPhotoCouverture = false;
+
+  getPhotoCouverture() async {
+    chargementPhotoCouverture = true;
+    notifyListeners();
+    photoCouverture = await getImage(1);
+    print("getPhotoCouverture");
+    print(photoCouverture);
+    chargementPhotoCouverture = false;
+    notifyListeners();
+  }
+
+  removePhotoCouverture() async {
+    chargementPhotoCouverture = false;
+    photoCouverture = [null, null, null];
+    notifyListeners();
+  }
+
+  List<dynamic> photo1 = [null, null, null];
+  bool chargementPhoto1 = false;
+
+  getPhoto1() async {
+    chargementPhoto1 = true;
+    notifyListeners();
+    photo1 = await getImage(1);
+    chargementPhoto1 = false;
+    notifyListeners();
+  }
+
+  removePhoto1() async {
+    chargementPhoto1 = false;
+    photo1 = [null, null, null];
+    notifyListeners();
+  }
+
+  List<dynamic> photo2 = [null, null, null];
+  bool chargementPhoto2 = false;
+
+  getPhoto2() async {
+    chargementPhoto2 = true;
+    notifyListeners();
+    photo2 = await getImage(1);
+    chargementPhoto2 = false;
+    notifyListeners();
+  }
+
+  removePhoto2() async {
+    chargementPhoto2 = false;
+    photo2 = [null, null, null];
+    notifyListeners();
+  }
+
+  List<dynamic> photo3 = [null, null, null];
+  bool chargementPhoto3 = false;
+
+  getPhoto3() async {
+    chargementPhoto3 = true;
+    notifyListeners();
+    photo3 = await getImage(1);
+    chargementPhoto3 = false;
+    notifyListeners();
+  }
+
+  removePhoto3() async {
+    chargementPhoto3 = false;
+    photo3 = [null, null, null];
+    notifyListeners();
+  }
+
+  List<dynamic> photo4 = [null, null, null];
+  bool chargementPhoto4 = false;
+
+  getPhoto4() async {
+    chargementPhoto4 = true;
+    notifyListeners();
+    photo4 = await getImage(1);
+    chargementPhoto4 = false;
+    notifyListeners();
+  }
+
+  removePhoto4() async {
+    chargementPhoto4 = false;
+    photo4 = [null, null, null];
+    notifyListeners();
+  }
 
   List<Map<String, String>> chambreCommodites = [
     {
@@ -453,95 +570,12 @@ class AddLogementBloc with ChangeNotifier {
     notifyListeners();
   }
 
-  TextEditingController adresse = TextEditingController();
-  List<PlaceAutocomplete> listePlaceAutocomplet = [];
-  PlaceAutocomplete? placeSelected;
+  bool chargementUpdateFun = false;
 
-  selectPlaceSlected(PlaceAutocomplete place) {
-    placeSelected = place;
-    adresse.text = place.description!;
-    listePlaceAutocomplet = [];
-    notifyListeners();
-  }
+  BiensModels? biensUpdate;
 
-  setListePlaceAutocomplet() async {
-    listePlaceAutocomplet = await mapService.adresseAutoComplet(adresse.text);
-    notifyListeners();
-  }
-
-  setSelectedType(Map<String, String> select) {
-    seletectedType = select;
-    notifyListeners();
-  }
-
-  setSelectedTypeHotel(Map<String, String> select) {
-    seletectedTypeHotel = select;
-    notifyListeners();
-  }
-
-  changeMenuAdd(int value) {
-    menuAdd = value;
-    if (value == 4) {
-      commoditeGerenal = [
-        {
-          "url": "assets/images/chambre.png",
-          "titre": "Chambres",
-          "sub": selectedChambreCommodite
-        },
-        {
-          "url": "assets/images/tv.png",
-          "titre": "Salon",
-          "sub": selectedSalonCommodite
-        },
-        {
-          "url": "assets/images/cuisine.png",
-          "titre": "Cuisine",
-          "sub": selectedCuisineCommodite
-        },
-        {
-          "url": "assets/images/bath.png",
-          "titre": "Salle de Bain",
-          "sub": selectedSalleDeBainCommodite
-        },
-        {
-          "url": "assets/images/faire-secher.png",
-          "titre": "Buenderie",
-          "sub": selectedBuanderieCommodite
-        },
-        {
-          "url": "assets/images/mobilier-exterieur.png",
-          "titre": "Jardin",
-          "sub": selectedJardinCommodite
-        },
-        {
-          "url": "assets/images/not-inclue.png",
-          "titre": "Service annexes",
-          "sub": selectedServiceAnnexeCommodite
-        },
-      ];
-    }
-    notifyListeners();
-  }
-
-  List<Map<String, dynamic>> commoditeGerenal = [];
-
-  Map<String, dynamic>? selectedCommoditeGeneral;
-
-  setSelectedCommoditeGeneral(Map<String, dynamic>? select) {
-    if (selectedCommoditeGeneral == select) {
-      selectedCommoditeGeneral = null;
-    } else {
-      selectedCommoditeGeneral = select;
-    }
-    notifyListeners();
-  }
-
-  bool chargementAddFun = false;
-
-  BiensModels? biensAdd;
-
-  addLogementFun() async {
-    chargementAddFun = true;
+  updateLogementFun() async {
+    chargementUpdateFun = true;
     notifyListeners();
     Map<String, dynamic> body = {
       "adresse": adresse.text,
@@ -581,24 +615,22 @@ class AddLogementBloc with ChangeNotifier {
       "commoditeServiceAnnexe":
           selectedServiceAnnexeCommodite.map((e) => e['commodite']).toList(),
       "nbreMinNuit": int.parse(nbreMinJour.text),
-      "tarif": int.parse(tarif_nuit.text),
-      "tarifLocataireSupplementaire": int.parse(tarif_locataire.text),
-      "tarif_menagere": int.parse(tarif_femme_menagere.text)
+      "tarif": int.parse(tarifNuit.text),
+      "tarifLocataireSupplementaire": int.parse(tarifLocataire.text),
+      "tarif_menagere": int.parse(tarifFemmeMenagere.text)
     };
 
-    biensAdd = await bienService.add(body);
+    biensUpdate = await bienService.update(bien!.id!, body);
 
-    if (biensAdd != null) {
+    if (biensUpdate != null) {
       Fluttertoast.showToast(
-          msg: "Bien ajouté avec réussite",
+          msg: "Bien modifier avec réussite",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 3,
           webPosition: "center",
           webBgColor: "linear-gradient(to right, #2E8C1F, #2E8C1F)",
           fontSize: 14.0);
-
-      resetData();
     } else {
       Fluttertoast.showToast(
           msg: "Une erreur a été saisie",
@@ -609,36 +641,7 @@ class AddLogementBloc with ChangeNotifier {
           webBgColor: "linear-gradient(to right, #9D0208, #9D0208)",
           fontSize: 14.0);
     }
-    chargementAddFun = false;
-    notifyListeners();
-  }
-
-  resetData() {
-    menuAdd = 0;
-    adresse.text = "";
-    seletectedType = null;
-    seletectedTypeHotel = null;
-    titreChambre.text = "";
-    nbreChambre.text = "1";
-    nbreVoyageur.text = "4";
-    nbreLit.text = "1";
-    nbreSalleBain.text = "1";
-    photoCouverture = [null, null];
-    photo1 = [null, null];
-    photo2 = [null, null];
-    photo3 = [null, null];
-    photo4 = [null, null];
-    selectedChambreCommodite = [];
-    selectedSalonCommodite = [];
-    selectedCuisineCommodite = [];
-    selectedSalleDeBainCommodite = [];
-    selectedBuanderieCommodite = [];
-    selectedJardinCommodite = [];
-    selectedServiceAnnexeCommodite = [];
-    nbreMinJour.text = "";
-    tarif_nuit.text = "";
-    tarif_locataire.text = "";
-    tarif_femme_menagere.text = "";
+    chargementUpdateFun = false;
     notifyListeners();
   }
 }

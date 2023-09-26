@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: TextField(
                                     cursorColor: Colors.black,
                                     controller:
-                                        partenaireBloc.presentationEnreprise,
+                                        partenaireBloc.descriptifEnreprise,
                                     decoration: const InputDecoration(
                                         labelText:
                                             'Présentation de l\'entreprise',
@@ -315,28 +315,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: Colors.black))),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                SizedBox(
-                                  width: size.width * .9,
-                                  child: TextField(
-                                    cursorColor: Colors.black,
-                                    controller:
-                                        partenaireBloc.descriptifEnreprise,
-                                    maxLines: 3,
-                                    decoration: const InputDecoration(
-                                        labelText:
-                                            'Descriptif de l\'entreprise',
-                                        labelStyle:
-                                            TextStyle(color: Colors.black),
-                                        focusColor: Colors.black,
-                                        fillColor: Colors.black,
-                                        border: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.black))),
-                                  ),
-                                ),
+                                // const SizedBox(
+                                //   height: 8,
+                                // ),
+                                // SizedBox(
+                                //   width: size.width * .9,
+                                //   child: TextField(
+                                //     cursorColor: Colors.black,
+                                //     controller:
+                                //         partenaireBloc.descriptifEnreprise,
+                                //     maxLines: 3,
+                                //     decoration: const InputDecoration(
+                                //         labelText:
+                                //             'Descriptif de l\'entreprise',
+                                //         labelStyle:
+                                //             TextStyle(color: Colors.black),
+                                //         focusColor: Colors.black,
+                                //         fillColor: Colors.black,
+                                //         border: UnderlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //                 color: Colors.black))),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 16,
                                 ),
@@ -495,26 +495,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                SizedBox(
-                                  width: size.width * .9,
-                                  child: const TextField(
-                                    cursorColor: Colors.black,
-                                    maxLines: 3,
-                                    decoration: InputDecoration(
-                                        labelText:
-                                            "Descriptif du service ( 3 à 5 phrases)",
-                                        labelStyle:
-                                            TextStyle(color: Colors.black),
-                                        focusColor: Colors.black,
-                                        fillColor: Colors.black,
-                                        border: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.black))),
-                                  ),
-                                ),
+                                // const SizedBox(
+                                //   height: 8,
+                                // ),
+                                // SizedBox(
+                                //   width: size.width * .9,
+                                //   child: const TextField(
+                                //     cursorColor: Colors.black,
+                                //     maxLines: 3,
+                                //     decoration: InputDecoration(
+                                //         labelText:
+                                //             "Descriptif du service ( 3 à 5 phrases)",
+                                //         labelStyle:
+                                //             TextStyle(color: Colors.black),
+                                //         focusColor: Colors.black,
+                                //         fillColor: Colors.black,
+                                //         border: UnderlineInputBorder(
+                                //             borderSide: BorderSide(
+                                //                 color: Colors.black))),
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 16,
                                 ),

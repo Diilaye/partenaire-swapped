@@ -4,7 +4,17 @@ import 'package:partenaire/utils/requette-by-dii.dart';
 class PartenaireService {
   Future<List<PartenaireModel>> all() async {
     return await getResponse(url: '/partenaires').then((value) {
-      return PartenaireModel.fromList(data: value['data']);
+      return PartenaireModel.fromList(data: value['body']['data']);
+    });
+  }
+
+  Future<String?> getIdentifiant(String id) async {
+    return await getResponse(url: '/partenaires/identifiant/$id').then((value) {
+      if (value['status'] == 200) {
+        return value['body']['data']['identifiant'];
+      } else {
+        return null;
+      }
     });
   }
 

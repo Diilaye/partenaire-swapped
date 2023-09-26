@@ -4,11 +4,13 @@ import 'package:partenaire/bloc/add-logement-bloc.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
+import 'package:partenaire/bloc/client-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
+import 'package:partenaire/bloc/partenaire-valid-bloc.dart';
 import 'package:partenaire/bloc/reservation-bloc.dart';
-import 'package:partenaire/screens/close-paiement-screen.dart';
-import 'package:partenaire/screens/success-paiement-screen.dart';
+import 'package:partenaire/bloc/settings-bloc.dart';
+import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
 import 'package:partenaire/screens/dashbord-logement.dart';
 import 'package:partenaire/screens/dashbord-restaurant.dart';
@@ -33,6 +35,10 @@ void main() {
       ChangeNotifierProvider(create: (_) => AdminPartenaireBloc()),
       ChangeNotifierProvider(create: (_) => AddLogementBloc()),
       ChangeNotifierProvider(create: (_) => ReservationBloc()),
+      ChangeNotifierProvider(create: (_) => SettingsBloc()),
+      ChangeNotifierProvider(create: (_) => PartenaireValidBloc()),
+      ChangeNotifierProvider(create: (_) => ClientAdminBloc()),
+      ChangeNotifierProvider(create: (_) => UpdateLogementBloc()),
     ],
     child: const MyApp(),
   ));
@@ -77,8 +83,6 @@ class MyApp extends StatelessWidget {
               },
             ),
         '/login': (context) => const LoginScreen(),
-        '/success': (context) => const SuccessPaiementScreen(),
-        '/failled': (context) => const ClosePaiementScreen(),
       },
     );
   }

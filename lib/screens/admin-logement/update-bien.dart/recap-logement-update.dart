@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/add-logement-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
+import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:provider/provider.dart';
 
-class RecapLogement extends StatelessWidget {
-  const RecapLogement({super.key});
+class RecapLogementUpdate extends StatelessWidget {
+  const RecapLogementUpdate({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final addLogementBloc = Provider.of<AddLogementBloc>(context);
+    final updateLogementBloc = Provider.of<UpdateLogementBloc>(context);
     final adminLogementBloc = Provider.of<AdminPartenaireBloc>(context);
     return Column(
       children: [
@@ -63,16 +64,27 @@ class RecapLogement extends StatelessWidget {
                               dotIncreasedColor: noir,
                               dotColor: noir,
                               images: [
-                                addLogementBloc.photoCouverture[1],
-                                addLogementBloc.photo1[1],
-                                addLogementBloc.photo2[1],
-                                addLogementBloc.photo3[1],
-                                addLogementBloc.photo4[1],
+                                updateLogementBloc.photoCouverture[1] ??
+                                    updateLogementBloc.photoCouverture[2],
+                                updateLogementBloc.photo1[1] ??
+                                    updateLogementBloc.photo1[2],
+                                updateLogementBloc.photo2[1] ??
+                                    updateLogementBloc.photo2[2],
+                                updateLogementBloc.photo3[1] ??
+                                    updateLogementBloc.photo3[2],
+                                updateLogementBloc.photo4[1] ??
+                                    updateLogementBloc.photo4[2],
                               ]
-                                  .map((e) => Image.memory(
-                                        e,
-                                        fit: BoxFit.cover,
-                                      ))
+                                  // ignore: unrelated_type_equality_checks
+                                  .map((e) => e.runtimeType == String
+                                      ? Image.network(
+                                          e,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.memory(
+                                          e,
+                                          fit: BoxFit.cover,
+                                        ))
                                   .toList()),
                         ),
                         SizedBox(
@@ -81,7 +93,7 @@ class RecapLogement extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              addLogementBloc.titreChambre.text,
+                              updateLogementBloc.titreChambre.text,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: noir,
@@ -95,7 +107,7 @@ class RecapLogement extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "${addLogementBloc.tarif_nuit.text} (FGN) /nuits",
+                              "${updateLogementBloc.tarifNuit.text} (FGN) /nuits",
                               style: TextStyle(
                                   fontSize: 14,
                                   color: noir,
@@ -113,7 +125,7 @@ class RecapLogement extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              addLogementBloc.adresse.text,
+                              updateLogementBloc.adresse.text,
                               style: TextStyle(
                                   fontSize: 14,
                                   color: noir,
@@ -126,7 +138,7 @@ class RecapLogement extends StatelessWidget {
                               EdgeInsets.symmetric(horizontal: size.width * .0),
                           child: SizedBox(
                             child: Text(
-                              addLogementBloc.descriptionLogement.text,
+                              updateLogementBloc.descriptionLogement.text,
                               style: const TextStyle(
                                   fontSize: 12, fontWeight: FontWeight.w300),
                             ),
@@ -150,11 +162,11 @@ class RecapLogement extends StatelessWidget {
                           height: 70,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
-                            children: addLogementBloc.commoditeGerenal
+                            children: updateLogementBloc.commoditeGerenal
                                 .map((e) => Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: GestureDetector(
-                                        onTap: () => addLogementBloc
+                                        onTap: () => updateLogementBloc
                                             .setSelectedCommoditeGeneral(e),
                                         child: Column(
                                           children: [
@@ -189,7 +201,7 @@ class RecapLogement extends StatelessWidget {
                                 .toList(),
                           ),
                         ),
-                        if (addLogementBloc.selectedCommoditeGeneral != null)
+                        if (updateLogementBloc.selectedCommoditeGeneral != null)
                           Column(
                             children: [
                               const SizedBox(
@@ -198,7 +210,7 @@ class RecapLogement extends StatelessWidget {
                               Row(
                                 children: [
                                   Text(
-                                    addLogementBloc
+                                    updateLogementBloc
                                             .selectedCommoditeGeneral!['titre']
                                         as String,
                                     style: TextStyle(
@@ -211,7 +223,7 @@ class RecapLogement extends StatelessWidget {
                                 height: 8,
                               ),
                               Column(
-                                children: addLogementBloc
+                                children: updateLogementBloc
                                     .selectedCommoditeGeneral!['sub']
                                     .map<Widget>((e) => Column(
                                           children: [
@@ -261,7 +273,8 @@ class RecapLogement extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: () => addLogementBloc.changeMenuAdd(3),
+                              onTap: () =>
+                                  updateLogementBloc.changeMenuUpdate(3),
                               child: Container(
                                 height: 45,
                                 decoration: BoxDecoration(
@@ -289,9 +302,12 @@ class RecapLogement extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                addLogementBloc.addLogementFun();
-                                if (addLogementBloc.biensAdd != null) {
+                                await updateLogementBloc.updateLogementFun();
+                                if (updateLogementBloc.biensUpdate != null) {
+                                  print("await adminLogementBloc.getAllBien()");
                                   await adminLogementBloc.getAllBien();
+                                  adminLogementBloc.setMenu(2);
+                                  updateLogementBloc.changeMenuUpdate(0);
                                   Navigator.popAndPushNamed(context, "/");
                                 }
                               },
@@ -305,13 +321,13 @@ class RecapLogement extends StatelessWidget {
                                     SizedBox(
                                       width: 12,
                                     ),
-                                    addLogementBloc.chargementAddFun
+                                    updateLogementBloc.chargementUpdateFun
                                         ? CircularProgressIndicator(
                                             backgroundColor: noir,
                                             color: blanc,
                                           )
                                         : Text(
-                                            "Publier l'annonce".toUpperCase(),
+                                            "MODIFIER l'annonce".toUpperCase(),
                                             style: TextStyle(color: blanc),
                                           ),
                                     SizedBox(

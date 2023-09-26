@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
+import 'package:partenaire/screens/admin-dashbord/client-utilisateur-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/overview-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/partenaire-utilisateur-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/view-partenaire-valid-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaires-screen.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
@@ -199,6 +201,34 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: size.width * .03,
+                          ),
+                          const Icon(
+                            CupertinoIcons.money_dollar,
+                            size: 13,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            'virements',
+                            style: TextStyle(fontSize: 14, color: noir),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: size.height * .05,
                   ),
@@ -216,33 +246,39 @@ class DashbordAdminScreen extends StatelessWidget {
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
+                  GestureDetector(
+                    onTap: () => adminBloc.setMenu(4),
+                    child: Container(
+                      color: adminBloc.menu == 4 ? gris.withOpacity(.3) : blanc,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: size.width * .03,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          const Icon(
-                            CupertinoIcons.person_3_fill,
-                            size: 13,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.person_3_fill,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'utilisateurs',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
                           ),
                           const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'utilisateurs',
-                            style: TextStyle(fontSize: 14, color: noir),
+                            height: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .01,
@@ -275,25 +311,67 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: size.height * .05,
-                  ),
-                  Row(
+                  Column(
                     children: [
-                      SizedBox(
-                        width: size.width * .025,
+                      const SizedBox(
+                        height: 8,
                       ),
-                      Text(
-                        'Admin',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: noir),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: size.width * .03,
+                          ),
+                          const Icon(
+                            CupertinoIcons.money_dollar,
+                            size: 13,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            'recharges',
+                            style: TextStyle(fontSize: 14, color: noir),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
                       ),
                     ],
                   ),
                   SizedBox(
                     height: size.height * .01,
+                  ),
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: size.width * .03,
+                          ),
+                          const Icon(
+                            CupertinoIcons.info_circle,
+                            size: 13,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            'réclamations',
+                            style: TextStyle(fontSize: 14, color: noir),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * .1,
                   ),
                   Column(
                     children: [
@@ -313,7 +391,7 @@ class DashbordAdminScreen extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'utilisateurs',
+                            'Administrateur',
                             style: TextStyle(fontSize: 14, color: noir),
                           ),
                         ],
@@ -325,37 +403,6 @@ class DashbordAdminScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: size.height * .01,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * .03,
-                          ),
-                          const Icon(
-                            CupertinoIcons.square_list,
-                            size: 13,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Commandes',
-                            style: TextStyle(fontSize: 14, color: noir),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * .05,
                   ),
                   Column(
                     children: [
@@ -376,37 +423,6 @@ class DashbordAdminScreen extends StatelessWidget {
                           ),
                           Text(
                             'Help & Support',
-                            style: TextStyle(fontSize: 14, color: noir),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * .01,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * .03,
-                          ),
-                          const Icon(
-                            CupertinoIcons.list_bullet_below_rectangle,
-                            size: 13,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Réclamations',
                             style: TextStyle(fontSize: 14, color: noir),
                           ),
                         ],
@@ -505,17 +521,23 @@ class DashbordAdminScreen extends StatelessWidget {
                   ]),
                   child: adminBloc.menu == 0
                       ? const OverviewScreen()
-                      : adminBloc.menu == 10
-                          ? ViewPartenaireScreen(
-                              partenaire: partenaireAdminBloc.partenaire!)
-                          : const PartenaireUtilisateurScreen(),
+                      : adminBloc.menu == 4
+                          ? const ClientUtilisateurScreen()
+                          : adminBloc.menu == 10
+                              ? ViewPartenaireScreen(
+                                  partenaire: partenaireAdminBloc.partenaire!)
+                              : adminBloc.menu == 11
+                                  ? ViewPartenaireValidScreen(
+                                      partenaire:
+                                          partenaireAdminBloc.partenaire!)
+                                  : const PartenaireUtilisateurScreen(),
                 )),
           ],
         ),
       ),
       floatingActionButton: adminBloc.menu == 1
           ? FloatingActionButton.small(
-              onPressed: () => adminBloc.setMenu(10),
+              onPressed: () => null,
               backgroundColor: vertFonce,
               child: Icon(Icons.add, color: blanc),
             )

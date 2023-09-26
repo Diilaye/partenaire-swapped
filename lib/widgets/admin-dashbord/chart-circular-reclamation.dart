@@ -6,7 +6,7 @@ import 'package:partenaire/utils/colors-by-dii.dart';
 class CircularChartReclamation extends StatelessWidget {
   final double chartRadius = 40.0;
   final double strokeWidth = 15.0;
-  final double value = 0.7;
+  final double value = 1;
   final Color color;
 
   const CircularChartReclamation(
@@ -24,10 +24,10 @@ class CircularChartReclamation extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '70%',
+                '100%',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              Text('réclamations traité',
+              Text('traité',
                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
             ],
           ),

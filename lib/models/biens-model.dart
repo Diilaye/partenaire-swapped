@@ -1,7 +1,5 @@
-import 'package:partenaire/models/file-model.dart';
-
 class BiensModels {
-  List<FileModel>? galery;
+  List<Galery>? galery;
   List<String>? commoditeChambre;
   List<String>? commoditeSalon;
   List<String>? commoditeCuisine;
@@ -13,9 +11,11 @@ class BiensModels {
   List<Null>? notes;
   List<Null>? commentaires;
   bool? isDisponible;
+  List<ConditionAnulation>? conditionAnulation;
   String? adresse;
   String? typeLogement;
   String? titre;
+  String? description;
   int? nbreChambre;
   int? nbreVoyageur;
   int? nbreSalleBain;
@@ -23,8 +23,9 @@ class BiensModels {
   int? tarif;
   int? tarifLocataireSupplementaire;
   int? tarifMenagere;
-  String? id;
   String? idParent;
+  int? nbreLit;
+  String? id;
 
   BiensModels(
       {this.galery,
@@ -39,9 +40,11 @@ class BiensModels {
       this.notes,
       this.commentaires,
       this.isDisponible,
+      this.conditionAnulation,
       this.adresse,
       this.typeLogement,
       this.titre,
+      this.description,
       this.nbreChambre,
       this.nbreVoyageur,
       this.nbreSalleBain,
@@ -50,13 +53,14 @@ class BiensModels {
       this.tarifLocataireSupplementaire,
       this.tarifMenagere,
       this.idParent,
+      this.nbreLit,
       this.id});
 
   BiensModels.fromJson(Map<String, dynamic> json) {
     if (json['galery'] != null) {
-      galery = <FileModel>[];
+      galery = <Galery>[];
       json['galery'].forEach((v) {
-        galery!.add(FileModel.fromJson(v));
+        galery!.add(new Galery.fromJson(v));
       });
     }
     commoditeChambre = json['commoditeChambre'].cast<String>();
@@ -66,28 +70,35 @@ class BiensModels {
     commoditeBuanderie = json['commoditeBuanderie'].cast<String>();
     commoditeJardin = json['commoditeJardin'].cast<String>();
     commoditeServiceAnnexe = json['commoditeServiceAnnexe'].cast<String>();
-    if (json['reservations'] != null) {
-      reservations = <Null>[];
-      json['reservations'].forEach((v) {
-        reservations!.add(null);
-      });
-    }
-    if (json['notes'] != null) {
-      notes = <Null>[];
-      json['notes'].forEach((v) {
-        notes!.add(null);
-      });
-    }
-    if (json['commentaires'] != null) {
-      commentaires = <Null>[];
-      json['commentaires'].forEach((v) {
-        commentaires!.add(null);
-      });
-    }
+    // if (json['reservations'] != null) {
+    //   reservations = <Null>[];
+    //   json['reservations'].forEach((v) {
+    //     reservations!.add(new Null.fromJson(v));
+    //   });
+    // }
+    // if (json['notes'] != null) {
+    //   notes = <Null>[];
+    //   json['notes'].forEach((v) {
+    //     notes!.add(new Null.fromJson(v));
+    //   });
+    // }
+    // if (json['commentaires'] != null) {
+    //   commentaires = <Null>[];
+    //   json['commentaires'].forEach((v) {
+    //     commentaires!.add(new Null.fromJson(v));
+    //   });
+    // }
     isDisponible = json['isDisponible'];
+    if (json['conditionAnulation'] != null) {
+      conditionAnulation = <ConditionAnulation>[];
+      json['conditionAnulation'].forEach((v) {
+        conditionAnulation!.add(new ConditionAnulation.fromJson(v));
+      });
+    }
     adresse = json['adresse'];
     typeLogement = json['typeLogement'];
     titre = json['titre'];
+    description = json['description'];
     nbreChambre = json['nbreChambre'];
     nbreVoyageur = json['nbreVoyageur'];
     nbreSalleBain = json['nbreSalleBain'];
@@ -95,8 +106,9 @@ class BiensModels {
     tarif = json['tarif'];
     tarifLocataireSupplementaire = json['tarifLocataireSupplementaire'];
     tarifMenagere = json['tarif_menagere'];
-    id = json['id'];
     idParent = json['idParent'];
+    nbreLit = json['nbreLit'];
+    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -111,7 +123,6 @@ class BiensModels {
     data['commoditeBuanderie'] = this.commoditeBuanderie;
     data['commoditeJardin'] = this.commoditeJardin;
     data['commoditeServiceAnnexe'] = this.commoditeServiceAnnexe;
-
     // if (this.reservations != null) {
     //   data['reservations'] = this.reservations!.map((v) => v.toJson()).toList();
     // }
@@ -121,11 +132,15 @@ class BiensModels {
     // if (this.commentaires != null) {
     //   data['commentaires'] = this.commentaires!.map((v) => v.toJson()).toList();
     // }
-
     data['isDisponible'] = this.isDisponible;
+    if (this.conditionAnulation != null) {
+      data['conditionAnulation'] =
+          this.conditionAnulation!.map((v) => v.toJson()).toList();
+    }
     data['adresse'] = this.adresse;
     data['typeLogement'] = this.typeLogement;
     data['titre'] = this.titre;
+    data['description'] = this.description;
     data['nbreChambre'] = this.nbreChambre;
     data['nbreVoyageur'] = this.nbreVoyageur;
     data['nbreSalleBain'] = this.nbreSalleBain;
@@ -133,8 +148,9 @@ class BiensModels {
     data['tarif'] = this.tarif;
     data['tarifLocataireSupplementaire'] = this.tarifLocataireSupplementaire;
     data['tarif_menagere'] = this.tarifMenagere;
-    data['id'] = this.id;
     data['idParent'] = this.idParent;
+    data['nbreLit'] = this.nbreLit;
+    data['id'] = this.id;
     return data;
   }
 
@@ -145,5 +161,49 @@ class BiensModels {
       liste.add(BiensModels.fromJson(element));
     }
     return liste;
+  }
+}
+
+class Galery {
+  String? date;
+  String? url;
+  String? type;
+  String? id;
+
+  Galery({this.date, this.url, this.type, this.id});
+
+  Galery.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    url = json['url'];
+    type = json['type'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['date'] = this.date;
+    data['url'] = this.url;
+    data['type'] = this.type;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class ConditionAnulation {
+  String? pourcantage;
+  String? jour;
+
+  ConditionAnulation({this.pourcantage, this.jour});
+
+  ConditionAnulation.fromJson(Map<String, dynamic> json) {
+    pourcantage = json['pourcantage'];
+    jour = json['jour'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['pourcantage'] = this.pourcantage;
+    data['jour'] = this.jour;
+    return data;
   }
 }

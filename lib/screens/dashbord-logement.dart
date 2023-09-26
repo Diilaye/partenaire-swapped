@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
+import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/screens/admin-logement/add-logement.dart';
+import 'package:partenaire/screens/admin-logement/add-reservation.dart';
 import 'package:partenaire/screens/admin-logement/liste-biens.dart';
 import 'package:partenaire/screens/admin-logement/liste-reservation.dart';
 import 'package:partenaire/screens/admin-logement/overview-screen.dart';
+import 'package:partenaire/screens/admin-logement/settings-screen.dart';
+import 'package:partenaire/screens/admin-logement/update-bien.dart/update-one.dart';
+import 'package:partenaire/screens/admin-logement/update-logement.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +22,7 @@ class DashbordLogementScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final logementAdminBloc = Provider.of<AdminPartenaireBloc>(context);
+    final updateLogementBloc = Provider.of<UpdateLogementBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -221,45 +227,45 @@ class DashbordLogementScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: size.height * .01,
-                  ),
-                  GestureDetector(
-                    onTap: () => logementAdminBloc.setMenu(3),
-                    child: Container(
-                      color: logementAdminBloc.menu == 3
-                          ? gris.withOpacity(.3)
-                          : blanc,
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: size.width * .03,
-                              ),
-                              const Icon(
-                                CupertinoIcons.add,
-                                size: 13,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                'ajouter',
-                                style: TextStyle(fontSize: 14, color: noir),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: size.height * .01,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () => logementAdminBloc.setMenu(3),
+                  //   child: Container(
+                  //     color: logementAdminBloc.menu == 3
+                  //         ? gris.withOpacity(.3)
+                  //         : blanc,
+                  //     child: Column(
+                  //       children: [
+                  //         const SizedBox(
+                  //           height: 8,
+                  //         ),
+                  //         Row(
+                  //           children: [
+                  //             SizedBox(
+                  //               width: size.width * .03,
+                  //             ),
+                  //             const Icon(
+                  //               CupertinoIcons.add,
+                  //               size: 13,
+                  //             ),
+                  //             const SizedBox(
+                  //               width: 4,
+                  //             ),
+                  //             Text(
+                  //               'ajouter',
+                  //               style: TextStyle(fontSize: 14, color: noir),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //         const SizedBox(
+                  //           height: 8,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: size.height * .01,
                   ),
@@ -364,33 +370,41 @@ class DashbordLogementScreen extends StatelessWidget {
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
+                  GestureDetector(
+                    onTap: () => logementAdminBloc.setMenu(7),
+                    child: Container(
+                      color: logementAdminBloc.menu == 7
+                          ? gris.withOpacity(.3)
+                          : blanc,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: size.width * .03,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          const Icon(
-                            CupertinoIcons.settings,
-                            size: 13,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.settings,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'Paramètres',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
                           ),
                           const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'Paramètres',
-                            style: TextStyle(fontSize: 14, color: noir),
+                            height: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .01,
@@ -455,10 +469,17 @@ class DashbordLogementScreen extends StatelessWidget {
                             : logementAdminBloc.menu == 2
                                 ? const ListeBiensScreen()
                                 : logementAdminBloc.menu == 3
-                                    ? Column()
+                                    ? const AddReservationScreen()
                                     : logementAdminBloc.menu == 4
                                         ? const ListeReservation()
-                                        : Column())),
+                                        : logementAdminBloc.menu == 7
+                                            ? const SettingsScreen()
+                                            : logementAdminBloc.menu == 10
+                                                ? UpdateLogementScreen(
+                                                    bien: updateLogementBloc
+                                                        .bien!,
+                                                  )
+                                                : Column())),
           ],
         ),
       ),

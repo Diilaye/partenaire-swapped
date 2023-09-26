@@ -58,7 +58,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
               ),
               const overviewStatWidget(
                   title: "Montants",
-                  chiffre: "000,000,000 FGN",
+                  chiffre: "0 GNF",
                   estimation: "0",
                   description: "vous n'avez pas encore d'activite"),
               SizedBox(

@@ -2,6 +2,7 @@ import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
+import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class ListeBiensScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final logementBloc = Provider.of<AdminPartenaireBloc>(context);
+    final updateLogementBloc = Provider.of<UpdateLogementBloc>(context);
     return ListView(
       children: [
         SizedBox(
@@ -94,11 +96,16 @@ class ListeBiensScreen extends StatelessWidget {
                                                         const SizedBox(
                                                           width: 4,
                                                         ),
-                                                        Text(
-                                                          e.titre!,
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: noir),
+                                                        Expanded(
+                                                          child: Text(
+                                                            e.titre!,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -144,6 +151,87 @@ class ListeBiensScreen extends StatelessWidget {
                                                         ),
                                                       ],
                                                     ),
+                                                    SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            updateLogementBloc
+                                                                .setBien(e);
+                                                            logementBloc
+                                                                .setMenu(10);
+                                                          },
+                                                          child: Container(
+                                                            height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4),
+                                                              color: noir,
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                                Text(
+                                                                  'Modifier',
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          blanc),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            updateLogementBloc
+                                                                .setBien(e);
+                                                            logementBloc
+                                                                .setMenu(3);
+                                                          },
+                                                          child: Container(
+                                                            height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4),
+                                                              color:
+                                                                  jauneLogement,
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                                Text(
+                                                                  'Reserver',
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          blanc),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ],
                                                 )),
                                                 // Column(

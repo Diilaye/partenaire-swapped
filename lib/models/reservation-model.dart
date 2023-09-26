@@ -1,4 +1,5 @@
 import 'package:partenaire/models/message-model.dart';
+import 'package:partenaire/models/prospect-model.dart';
 
 class ReservationModel {
   String? status;
@@ -6,6 +7,7 @@ class ReservationModel {
   Bien? bien;
   User? user;
   Client? client;
+  ProspectModel? prospect;
   String? dateDebut;
   String? dateFin;
   String? id;
@@ -17,6 +19,7 @@ class ReservationModel {
       this.bien,
       this.user,
       this.client,
+      this.prospect,
       this.dateDebut,
       this.dateFin,
       this.messages,
@@ -29,6 +32,10 @@ class ReservationModel {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     client =
         json['client'] != null ? new Client.fromJson(json['client']) : null;
+
+    prospect = json['prospect'] != null
+        ? new ProspectModel.fromJson(json['prospect'])
+        : null;
     dateDebut = json['dateDebut'];
     dateFin = json['dateFin'];
     id = json['id'];

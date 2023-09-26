@@ -26,7 +26,7 @@ class ViewPartenaireScreen extends StatelessWidget {
               width: size.width * .01,
             ),
             const Text(
-              'Partenaire > utilusateurs',
+              'Partenaire > utilisateurs',
               style: TextStyle(fontSize: 16),
             ),
           ],

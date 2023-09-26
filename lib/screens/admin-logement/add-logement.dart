@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/add-logement-bloc.dart';
-import 'package:partenaire/screens/admin-logement/add-four.dart';
-import 'package:partenaire/screens/admin-logement/add-one.dart';
-import 'package:partenaire/screens/admin-logement/add-three.dart';
-import 'package:partenaire/screens/admin-logement/add-two.dart';
-import 'package:partenaire/screens/admin-logement/recap-logement.dart';
+import 'package:partenaire/screens/admin-logement/add-bien/add-four.dart';
+import 'package:partenaire/screens/admin-logement/add-bien/add-one.dart';
+import 'package:partenaire/screens/admin-logement/add-bien/add-three.dart';
+import 'package:partenaire/screens/admin-logement/add-bien/add-two.dart';
+import 'package:partenaire/screens/admin-logement/add-bien/recap-logement.dart';
 import 'package:provider/provider.dart';
 
 class AddLogementScreen extends StatelessWidget {

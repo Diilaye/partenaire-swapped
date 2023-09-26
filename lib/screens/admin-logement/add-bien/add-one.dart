@@ -24,94 +24,8 @@ class AddOneLogement extends StatelessWidget {
             style: TextStyle(fontSize: 20),
           ),
         ),
-        Row(
-          children: [
-            SizedBox(
-              width: size.width * .01,
-            ),
-            Expanded(
-              child: TextField(
-                cursorColor: Colors.black,
-                controller: addLogementBloc.adresse,
-                onChanged: (value) =>
-                    addLogementBloc.setListePlaceAutocomplet(),
-                decoration: const InputDecoration(
-                    labelText: 'Où est situé votre logement ?',
-                    suffixIcon: Padding(
-                      padding: EdgeInsetsDirectional.only(end: 12.0),
-                      child: Icon(CupertinoIcons
-                          .compass), // myIcon is a 48px-wide widget.
-                    ),
-                    labelStyle: TextStyle(color: Colors.black),
-                    focusColor: Colors.black,
-                    fillColor: Colors.black,
-                    border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black))),
-              ),
-            ),
-            SizedBox(
-              width: size.width * .01,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        if (addLogementBloc.listePlaceAutocomplet.isNotEmpty)
-          Row(
-            children: [
-              SizedBox(
-                width: size.width * .01,
-              ),
-              Expanded(
-                child: Column(
-                  children: addLogementBloc.listePlaceAutocomplet
-                      .map((e) => Row(
-                            children: [
-                              SizedBox(
-                                width: size.width * .01,
-                              ),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () =>
-                                      addLogementBloc.selectPlaceSlected(e),
-                                  child: Container(
-                                    decoration:
-                                        BoxDecoration(color: blanc, boxShadow: [
-                                      BoxShadow(
-                                          offset: const Offset(0, 0),
-                                          blurRadius: .5,
-                                          color: noir.withOpacity(.1))
-                                    ]),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              e.description!.toUpperCase()),
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ))
-                      .toList(),
-                ),
-              ),
-              SizedBox(
-                width: size.width * .01,
-              ),
-            ],
-          ),
         SizedBox(
-          height: size.height * .0,
+          height: size.height * .01,
         ),
         Row(
           children: [
@@ -359,6 +273,95 @@ class AddOneLogement extends StatelessWidget {
           ),
         const SizedBox(
           height: 8,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: size.width * .01,
+            ),
+            Expanded(
+              child: TextField(
+                cursorColor: Colors.black,
+                controller: addLogementBloc.adresse,
+                onChanged: (value) =>
+                    addLogementBloc.setListePlaceAutocomplet(),
+                decoration: const InputDecoration(
+                    labelText: 'Où est situé votre logement ?',
+                    suffixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(end: 12.0),
+                      child: Icon(CupertinoIcons
+                          .compass), // myIcon is a 48px-wide widget.
+                    ),
+                    labelStyle: TextStyle(color: Colors.black),
+                    focusColor: Colors.black,
+                    fillColor: Colors.black,
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
+            ),
+            SizedBox(
+              width: size.width * .01,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        if (addLogementBloc.listePlaceAutocomplet.isNotEmpty)
+          Row(
+            children: [
+              SizedBox(
+                width: size.width * .01,
+              ),
+              Expanded(
+                child: Column(
+                  children: addLogementBloc.listePlaceAutocomplet
+                      .map((e) => Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .01,
+                              ),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      addLogementBloc.selectPlaceSlected(e),
+                                  child: Container(
+                                    decoration:
+                                        BoxDecoration(color: blanc, boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 0),
+                                          blurRadius: .5,
+                                          color: noir.withOpacity(.1))
+                                    ]),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              e.description!.toUpperCase()),
+                                        ),
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+              ),
+              SizedBox(
+                width: size.width * .01,
+              ),
+            ],
+          ),
+        SizedBox(
+          height: size.height * .01,
         ),
         Row(
           children: [

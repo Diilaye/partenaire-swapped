@@ -22,7 +22,8 @@ Future getResponse({
   return http.get(urlFinal, headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"
-  }).then((value) => json.decode(value.body));
+  }).then(
+      (value) => {"body": json.decode(value.body), "status": value.statusCode});
 }
 
 Future deleteResponse({
@@ -54,11 +55,11 @@ Future putResponse(
   });
   Uri urlFinal = Uri.parse(url1);
   print(urlFinal);
+
   return http.put(urlFinal, body: json.encode(body), headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"
   }).then((value) {
-    print(value.statusCode);
     return {"body": json.decode(value.body), "status": value.statusCode};
   });
 }

@@ -19,8 +19,15 @@ class ListeReservation extends StatelessWidget {
         ? Column(
             children: <Widget>[
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: TableCalendar(
+                  headerStyle: const HeaderStyle(
+                    leftChevronVisible: true,
+                    rightChevronVisible: true,
+                    headerPadding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    formatButtonVisible: false,
+                  ),
                   locale: 'fr_FR',
                   startingDayOfWeek: StartingDayOfWeek.monday,
 
@@ -43,41 +50,42 @@ class ListeReservation extends StatelessWidget {
               ),
               SizedBox(height: size.height * .02),
               Expanded(
+                flex: 2,
                 child: Row(
                   children: [
                     SizedBox(
                       width: size.width * .01,
                     ),
                     Expanded(
-                        flex: 3,
                         child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: blanc,
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(0, 0),
-                                    blurRadius: 1,
-                                    color: noir.withOpacity(.2))
-                              ]),
-                          child: Column(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: blanc,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 0),
+                                blurRadius: 1,
+                                color: noir.withOpacity(.2))
+                          ]),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
                             children: [
                               const SizedBox(
-                                height: 8,
+                                width: 8,
                               ),
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Text('Dernières réservations'),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 24,
-                              ),
-                              Expanded(
-                                  child: Column(
+                              const Text('Dernières réservations'),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Expanded(
+                              flex: 2,
+                              child: Column(
                                 children: [
                                   const Row(
                                     children: [
@@ -105,11 +113,14 @@ class ListeReservation extends StatelessWidget {
                                               color: e.status ==
                                                       'accept-partenaire'
                                                   ? vert.withOpacity(.2)
-                                                  : blanc,
+                                                  : e.status ==
+                                                          'create-partenaire'
+                                                      ? meuveClair
+                                                      : blanc,
                                               child: Column(
                                                 children: [
                                                   const SizedBox(
-                                                    height: 16,
+                                                    height: 8,
                                                   ),
                                                   Row(
                                                     children: [
@@ -127,6 +138,9 @@ class ListeReservation extends StatelessWidget {
                                                           flex: 2,
                                                           child: Text(
                                                               e.bien!.titre!,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               style: TextStyle(
                                                                   fontSize: 12,
                                                                   color:
@@ -228,9 +242,13 @@ class ListeReservation extends StatelessWidget {
                                                                   child: Center(
                                                                 child:
                                                                     IconButton(
-                                                                        onPressed: () =>
-                                                                            reservationBloc.setSelectedReservation(
-                                                                                e),
+                                                                        onPressed:
+                                                                            () {
+                                                                          if (e.prospect ==
+                                                                              null) {
+                                                                            reservationBloc.setSelectedReservation(e);
+                                                                          }
+                                                                        },
                                                                         icon:
                                                                             Icon(
                                                                           CupertinoIcons
@@ -269,7 +287,7 @@ class ListeReservation extends StatelessWidget {
                                                     ],
                                                   ),
                                                   const SizedBox(
-                                                    height: 16,
+                                                    height: 8,
                                                   )
                                                 ],
                                               ),
@@ -278,12 +296,12 @@ class ListeReservation extends StatelessWidget {
                                   )
                                 ],
                               )),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                            ],
+                          const SizedBox(
+                            height: 8,
                           ),
-                        )),
+                        ],
+                      ),
+                    )),
                     SizedBox(
                       width: size.width * .01,
                     ),
@@ -425,47 +443,52 @@ class ListeReservation extends StatelessWidget {
                                                           fontSize: 20),
                                                     ),
                                                     const Spacer(),
-                                                    GestureDetector(
-                                                      onTap: () => dialogRequest(
-                                                              context: context,
-                                                              title:
-                                                                  "vous êtes ur de vouloir accepter cette réservartion")
-                                                          .then((value) {
-                                                        if (value) {
-                                                          reservationBloc
-                                                              .updateStatusReservation(
-                                                                  reservationBloc
-                                                                      .selectedReservation!
-                                                                      .id!);
-                                                        }
-                                                      }),
-                                                      child: Container(
-                                                          height: 35,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            color: vert,
-                                                          ),
-                                                          child: Row(
-                                                            children: [
-                                                              const SizedBox(
-                                                                width: 16,
-                                                              ),
-                                                              Text(
-                                                                " Valider ",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        blanc),
-                                                              ),
-                                                              const SizedBox(
-                                                                width: 16,
-                                                              ),
-                                                            ],
-                                                          )),
-                                                    ),
+                                                    if (reservationBloc
+                                                            .selectedReservation!
+                                                            .status ==
+                                                        "create")
+                                                      GestureDetector(
+                                                        onTap: () => dialogRequest(
+                                                                context:
+                                                                    context,
+                                                                title:
+                                                                    "vous êtes ur de vouloir accepter cette réservartion")
+                                                            .then((value) {
+                                                          if (value) {
+                                                            reservationBloc
+                                                                .updateStatusReservation(
+                                                                    reservationBloc
+                                                                        .selectedReservation!
+                                                                        .id!);
+                                                          }
+                                                        }),
+                                                        child: Container(
+                                                            height: 35,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              color: vert,
+                                                            ),
+                                                            child: Row(
+                                                              children: [
+                                                                const SizedBox(
+                                                                  width: 16,
+                                                                ),
+                                                                Text(
+                                                                  " Valider ",
+                                                                  style: TextStyle(
+                                                                      color:
+                                                                          blanc),
+                                                                ),
+                                                                const SizedBox(
+                                                                  width: 16,
+                                                                ),
+                                                              ],
+                                                            )),
+                                                      ),
                                                     SizedBox(
                                                       width: 16,
                                                     ),

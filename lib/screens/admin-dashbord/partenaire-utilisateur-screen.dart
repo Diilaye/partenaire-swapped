@@ -2,18 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
+import 'package:partenaire/bloc/partenaire-valid-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
 import 'package:provider/provider.dart';
 
-class PartenaireUtilisateurScreen extends StatelessWidget {
+class PartenaireUtilisateurScreen extends StatefulWidget {
   const PartenaireUtilisateurScreen({super.key});
 
+  @override
+  State<PartenaireUtilisateurScreen> createState() =>
+      _PartenaireUtilisateurScreenState();
+}
+
+class _PartenaireUtilisateurScreenState
+    extends State<PartenaireUtilisateurScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final partenaireBloc = Provider.of<PartenaireAdmonBloc>(context);
+    final partenaireValidBloc = Provider.of<PartenaireValidBloc>(context);
     final menuBloc = Provider.of<AdminBloc>(context);
 
     return ListView(
@@ -27,7 +36,7 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
               width: size.width * .01,
             ),
             const Text(
-              'Partenaire > utilusateurs',
+              'Partenaire > utilisateurs',
               style: TextStyle(fontSize: 16),
             ),
           ],
@@ -119,65 +128,115 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                         SizedBox(
                           width: 8,
                         ),
-                        Container(
-                            // width: 90,
-                            height: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: noir)),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 4,
+                        SizedBox(
+                          width: 150,
+                          height: 40,
+                          child: Center(
+                            child: FormField<String>(
+                              builder: (FormFieldState<String> state) {
+                                return InputDecorator(
+                                  decoration: const InputDecoration(
+                                      border: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.black))),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: partenaireBloc.selectedService,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          // filterBloc.changeTrierPar(newValue!);
+                                          state.didChange(newValue);
+                                        });
+                                        partenaireBloc
+                                            .setSelectedService(newValue!);
+                                      },
+                                      iconSize: 12,
+                                      items: partenaireBloc.listeService
+                                          .map((String value) {
+                                        if (value == "") {
+                                          return const DropdownMenuItem<String>(
+                                            value: "",
+                                            child: Text(
+                                              "Tous les services",
+                                            ),
+                                          );
+                                        } else {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                            ),
+                                          );
+                                        }
+                                      }).toList(),
+                                    ),
                                   ),
-                                  const Text('Tous services'),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.arrow_down_circle,
-                                    size: 12,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                ],
-                              ),
-                            )),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                         const Spacer(),
-                        Container(
-                            // width: 90,
-                            height: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: noir)),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 4,
+                        SizedBox(
+                          width: 120,
+                          height: 40,
+                          child: Center(
+                            child: FormField<String>(
+                              builder: (FormFieldState<String> state) {
+                                return InputDecorator(
+                                  decoration: const InputDecoration(
+                                      border: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.black))),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      value: partenaireBloc.selectedStatus,
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          // filterBloc.changeTrierPar(newValue!);
+                                          state.didChange(newValue);
+                                        });
+                                        partenaireBloc
+                                            .setSelectedStatus(newValue!);
+                                      },
+                                      iconSize: 12,
+                                      items: partenaireBloc.listeStatus
+                                          .map((String value) {
+                                        if (value == "") {
+                                          return const DropdownMenuItem<String>(
+                                            value: "",
+                                            child: Text(
+                                              "Tous les status",
+                                            ),
+                                          );
+                                        } else {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                            ),
+                                          );
+                                        }
+                                      }).toList(),
+                                    ),
                                   ),
-                                  const Text('Tous les status'),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.arrow_down_circle,
-                                    size: 12,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                ],
-                              ),
-                            )),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           width: 8,
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TextField(
+                      onChanged: (value) => partenaireBloc.setTelSearch(value),
+                      decoration: const InputDecoration(
+                          labelText: 'Rechercher par numero de telephone'),
                     ),
                     const SizedBox(
                       height: 32,
@@ -224,8 +283,8 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                             if (partenaireBloc.listePartenaire != null)
                               Column(
                                 children: partenaireBloc.listePartenaire!
-                                    .where((element) =>
-                                        element.status == 'inactive')
+                                    .where((element) => partenaireBloc
+                                        .filterListePartenaire(element))
                                     .map((e) => Column(
                                           children: [
                                             Row(
@@ -284,11 +343,19 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                                                       MainAxisAlignment.start,
                                                   children: [
                                                     GestureDetector(
-                                                      onTap: () {
+                                                      onTap: () async {
                                                         partenaireBloc
                                                             .setSelectPartenaire(
                                                                 e);
-                                                        menuBloc.setMenu(10);
+                                                        if (e.status ==
+                                                            "active") {
+                                                          await partenaireValidBloc
+                                                              .getIdentifiant(
+                                                                  e.id!);
+                                                          menuBloc.setMenu(11);
+                                                        } else {
+                                                          menuBloc.setMenu(10);
+                                                        }
                                                       },
                                                       child: Container(
                                                         height: 20,
@@ -346,12 +413,23 @@ class PartenaireUtilisateurScreen extends StatelessWidget {
                                                             SizedBox(
                                                               width: 4,
                                                             ),
-                                                            Text(
-                                                              "Supprimer",
-                                                              style: TextStyle(
-                                                                  color: rouge,
-                                                                  fontSize: 10),
-                                                            ),
+                                                            e.status == "active"
+                                                                ? Text(
+                                                                    "Blocker",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            rouge,
+                                                                        fontSize:
+                                                                            10),
+                                                                  )
+                                                                : Text(
+                                                                    "Supprimer",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            rouge,
+                                                                        fontSize:
+                                                                            10),
+                                                                  ),
                                                             SizedBox(
                                                               width: 4,
                                                             ),

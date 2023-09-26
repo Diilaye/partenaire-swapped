@@ -22,12 +22,68 @@ class PartenaireAdmonBloc with ChangeNotifier {
 
   PartenaireService partenaireService = PartenaireService();
 
+  List<String> listeService = ["", "Logement", "Mobilité", "Restaurant"];
+  String selectedService = "";
+
+  List<String> listeStatus = ["", "active", "inactive"];
+  String selectedStatus = "";
+
+  setSelectedService(String value) {
+    selectedService = value;
+    notifyListeners();
+  }
+
+  setSelectedStatus(String value) {
+    selectedStatus = value;
+    notifyListeners();
+  }
+
   List<PlaceAutocomplete> listePlaceAutocomplet = [];
   PlaceAutocomplete? placeSelected;
   String? deletePartenaire;
 
   PartenaireAdmonBloc() {
     getAllPartenaire();
+  }
+
+  String telSearch = "";
+
+  setTelSearch(String value) {
+    telSearch = value;
+    notifyListeners();
+  }
+
+  filterListePartenaire(PartenaireModel element) {
+    if (selectedService == "" && selectedStatus == "") {
+      if (element.telephoneInterlocuteur!.contains(telSearch) ||
+          telSearch == "") {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (selectedService == "" && selectedStatus != "") {
+      if (element.telephoneInterlocuteur!.contains(telSearch) ||
+          telSearch == "") {
+        return element.status! == selectedStatus;
+      } else {
+        return false;
+      }
+    } else if (selectedService != "" && selectedStatus == "") {
+      if (element.telephoneInterlocuteur!.contains(telSearch) ||
+          telSearch == "") {
+        return element.service! == selectedService.toLowerCase();
+      } else {
+        return false;
+      }
+    } else {
+      if (element.telephoneInterlocuteur!.contains(telSearch) ||
+          telSearch == "") {
+        return (element.service! == selectedService.toLowerCase()) &&
+            element.status! == selectedStatus;
+      } else {
+        return false;
+      }
+    }
   }
 
   setSelectPartenaire(PartenaireModel? part) async {
