@@ -465,7 +465,8 @@ class AddLogementBloc with ChangeNotifier {
   }
 
   setListePlaceAutocomplet() async {
-    listePlaceAutocomplet = await mapService.adresseAutoComplet(adresse.text);
+    listePlaceAutocomplet =
+        await mapService.adresseAutoComplet(adresse.text, "");
     notifyListeners();
   }
 

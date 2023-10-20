@@ -163,7 +163,7 @@ class ListeReservation extends StatelessWidget {
                                                       Expanded(
                                                           child: Text(
                                                               e.dateDebut!
-                                                                  .split(" ")
+                                                                  .split("T")
                                                                   .first
                                                                   .split("-")
                                                                   .reversed
@@ -175,7 +175,7 @@ class ListeReservation extends StatelessWidget {
                                                       Expanded(
                                                           child: Text(
                                                               e.dateFin!
-                                                                  .split(" ")
+                                                                  .split("T")
                                                                   .first
                                                                   .split("-")
                                                                   .reversed
@@ -425,7 +425,7 @@ class ListeReservation extends StatelessWidget {
                                                   child: Row(
                                                     children: [
                                                       Text(
-                                                        " Date debut : ${reservationBloc.selectedReservation!.dateDebut!.split(" ")[0].split("-").reversed.join("-")} Date fin : ${reservationBloc.selectedReservation!.dateFin!.split(" ")[0].split("-").reversed.join("-")} ",
+                                                        " Date debut : ${reservationBloc.selectedReservation!.dateDebut!.split("T")[0].split("-").reversed.join("-")} Date fin : ${reservationBloc.selectedReservation!.dateFin!.split("T")[0].split("-").reversed.join("-")} ",
                                                         style: TextStyle(
                                                             fontSize: 20),
                                                       ),

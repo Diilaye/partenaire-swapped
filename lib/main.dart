@@ -5,10 +5,15 @@ import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
 import 'package:partenaire/bloc/client-admin-bloc.dart';
+import 'package:partenaire/bloc/faq-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
 import 'package:partenaire/bloc/partenaire-valid-bloc.dart';
 import 'package:partenaire/bloc/reservation-bloc.dart';
+import 'package:partenaire/bloc/restaurant/add-offre-special-bloc.dart';
+import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
+import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
+import 'package:partenaire/bloc/restaurant/parametres-restaurant-bloc.dart';
 import 'package:partenaire/bloc/settings-bloc.dart';
 import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
@@ -39,6 +44,11 @@ void main() {
       ChangeNotifierProvider(create: (_) => PartenaireValidBloc()),
       ChangeNotifierProvider(create: (_) => ClientAdminBloc()),
       ChangeNotifierProvider(create: (_) => UpdateLogementBloc()),
+      ChangeNotifierProvider(create: (_) => AdminRestaurantBloc()),
+      ChangeNotifierProvider(create: (_) => AddPlatRestaurantBloc()),
+      ChangeNotifierProvider(create: (_) => ParametresRestaurantBloc()),
+      ChangeNotifierProvider(create: (_) => FaqBloc()),
+      ChangeNotifierProvider(create: (_) => AddOffreSpecialBloc()),
     ],
     child: const MyApp(),
   ));

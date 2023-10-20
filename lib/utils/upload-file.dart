@@ -12,7 +12,20 @@ Future getImage(int source) async => ImagePicker.platform
       if (value == null) {
         return [null, null, null];
       }
-      print("vous etes icie");
+      return [await postpIC(image: value), await value.readAsBytes(), null];
+    });
+
+// ignore: invalid_use_of_visible_for_testing_member
+Future getImageModif(int source, Map map, String id) async =>
+    ImagePicker.platform
+        // ignore: deprecated_member_use
+        .getImage(
+            imageQuality: 100,
+            source: source == 1 ? ImageSource.gallery : ImageSource.camera)
+        .then((value) async {
+      if (value == null) {
+        return [id, null, map];
+      }
       return [await postpIC(image: value), await value.readAsBytes(), null];
     });
 

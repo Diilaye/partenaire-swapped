@@ -14,5 +14,10 @@ Future<TimeOfDay?> showTimeByDii(BuildContext context) async {
   return showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),
-  ).then((value) => value);
+  ).then((value) {
+    if (value == null) {
+      return null;
+    }
+    return value;
+  });
 }

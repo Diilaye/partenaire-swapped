@@ -6,7 +6,57 @@ import 'package:partenaire/services/partenaire-service.dart';
 import 'package:partenaire/utils/upload-file.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../utils/colors-by-dii.dart';
+
 class PartenairesBloc with ChangeNotifier {
+  Color colorHoverAPropos = blanc.withOpacity(.4);
+
+  setHoverColorAPropos() {
+    colorHoverAPropos = blanc;
+    notifyListeners();
+  }
+
+  exitHoverColorAPropos() {
+    colorHoverAPropos = blanc.withOpacity(.4);
+    notifyListeners();
+  }
+
+  Color colorHoverPartenaire = blanc.withOpacity(.4);
+
+  setHoverColorPartenaire() {
+    colorHoverPartenaire = blanc;
+    notifyListeners();
+  }
+
+  exitHoverColorPartenaire() {
+    colorHoverPartenaire = blanc.withOpacity(.4);
+    notifyListeners();
+  }
+
+  Color colorHoverFaq = blanc.withOpacity(.4);
+
+  setHoverColorFaq() {
+    colorHoverFaq = blanc;
+    notifyListeners();
+  }
+
+  exitHoverColorFaq() {
+    colorHoverFaq = blanc.withOpacity(.4);
+    notifyListeners();
+  }
+
+  Color colorHoverLogin = blanc.withOpacity(.4);
+
+  setHoverColorLogin() {
+    colorHoverLogin = blanc;
+    notifyListeners();
+  }
+
+  exitHoverColorLogin() {
+    colorHoverLogin = blanc.withOpacity(.4);
+    notifyListeners();
+  }
+
   MapService mapService = MapService();
   PartenaireService partenaireService = PartenaireService();
 
@@ -25,8 +75,8 @@ class PartenairesBloc with ChangeNotifier {
   }
 
   setListePlaceAutocomplet() async {
-    listePlaceAutocomplet =
-        await mapService.adresseAutoComplet(geolocatisationEntreprise.text);
+    listePlaceAutocomplet = await mapService.adresseAutoComplet(
+        geolocatisationEntreprise.text, selectedPaysValue);
     notifyListeners();
   }
 
@@ -41,9 +91,17 @@ class PartenairesBloc with ChangeNotifier {
 
   TextEditingController nomEnreprise = TextEditingController();
 
-  List<String> listeService = ["", "Logement", "Mobilité", "Restaurant"];
+  List<String> listePays = ["", "Guinee", "Cote d'ivoire", "Sénégal"];
 
-  String selectedService = "";
+  String selectedPays = "";
+  String selectedPaysValue = "gn";
+
+  setSelectedPays(String value) {
+    selectedPays = value;
+    selectedPaysValue = selectedPays == "" ? 'gn' : selectedPays;
+    notifyListeners();
+  }
+
   TextEditingController presentationEnreprise = TextEditingController();
   TextEditingController nomInterlocuteurEnreprise = TextEditingController();
   TextEditingController prenomInterlocuteurEnreprise = TextEditingController();
@@ -55,6 +113,9 @@ class PartenairesBloc with ChangeNotifier {
   TextEditingController geolocatisationEntreprise = TextEditingController();
   TextEditingController dateRV = TextEditingController();
   TextEditingController heureRV = TextEditingController();
+  List<String> listeService = ["", "Logement", "Mobilité", "Restaurant"];
+
+  String selectedService = "";
 
   setSelectedService(String value) {
     selectedService = value;
@@ -135,6 +196,7 @@ class PartenairesBloc with ChangeNotifier {
       "prenomInterlocuteur": prenomInterlocuteurEnreprise.text,
       "telephoneInterlocuteur": telephoneInterlocuteurEnreprise.text,
       "photoExterieur": [photo1Exterieur.first, photo2Exterieur.first],
+      "pays": selectedPaysValue,
       "photoInterne": [
         photo1Interieur.first,
         photo2Interieur.first,
@@ -167,7 +229,16 @@ class PartenairesBloc with ChangeNotifier {
       partenaireModel = await partenaireService.add(body);
 
       if (partenaireModel != null) {
+        Fluttertoast.showToast(
+            msg: "Enregistrement réussi ",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            webPosition: "center",
+            webBgColor: "linear-gradient(to right, #2E8C1F, #2E8C1F)",
+            fontSize: 14.0);
         selectedService = "";
+        selectedPays = "";
 
         presentationEnreprise.text = "";
         nomInterlocuteurEnreprise.text = "";
@@ -185,6 +256,7 @@ class PartenairesBloc with ChangeNotifier {
         photo1Interieur = [null, null];
         photo2Interieur = [null, null];
         photo3Interieur = [null, null];
+        partenaireModel = null;
       }
     }
 

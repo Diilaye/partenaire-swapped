@@ -19,166 +19,138 @@ class LoginScreen extends StatelessWidget {
           toolbarHeight: .0,
           elevation: .0,
         ),
-        body: Stack(
+        backgroundColor: blanc,
+        body: Column(
           children: [
-            Container(
-                height: size.height,
-                width: size.width,
-                decoration: const BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/bg.jpeg"),
-                        fit: BoxFit.cover)),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: .0, sigmaY: .0),
-                  child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                  ),
-                )),
-            Container(
-              height: size.height,
-              width: size.width,
-              color: Colors.black.withOpacity(.1),
-              child: ListView(
+            SizedBox(
+              height: 60,
+              child: Row(
                 children: [
-                  const SizedBox(
-                    height: 10,
-                    width: 10,
-                  ),
-                  SizedBox(
-                    height: size.height * .45,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Logement, Restauration et Mobilité  avec SwapeD'
-                            .toUpperCase(),
-                        style: TextStyle(
-                            fontSize: size.width * .03,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Se sentir chez soit, ou Que je soi'.toUpperCase(),
-                        style: TextStyle(
-                            fontSize: size.width * .02,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    width: size.width * .95,
-                    color: blanc,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
                         SizedBox(
-                          width: size.width * .9,
-                          child: TextField(
-                            cursorColor: Colors.black,
-                            controller: authBloc.identifiant,
-                            decoration: const InputDecoration(
-                                labelText: 'Identifiant',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusColor: Colors.black,
-                                fillColor: Colors.black,
-                                border: UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black))),
-                          ),
+                          width: size.width * .025,
                         ),
-                        const SizedBox(
-                          height: 8,
+                        ImageIcon(
+                          const AssetImage("assets/images/swape.png"),
+                          size: 20,
+                          color: noir,
                         ),
-                        SizedBox(
-                          width: size.width * .9,
-                          child: TextField(
-                            cursorColor: Colors.black,
-                            controller: authBloc.password,
-                            obscureText: authBloc.viewPassword,
-                            decoration: InputDecoration(
-                                labelText: 'Mot de passe',
-                                suffixIcon: IconButton(
-                                  onPressed: () => authBloc.setViewPassword(),
-                                  icon: authBloc.viewPassword
-                                      ? const Icon(CupertinoIcons.eye_slash)
-                                      : const Icon(CupertinoIcons.eye),
-                                ),
-                                labelStyle:
-                                    const TextStyle(color: Colors.black),
-                                focusColor: Colors.black,
-                                fillColor: Colors.black,
-                                border: const UnderlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black))),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () => authBloc.loginFunction(context),
-                              child: Container(
-                                height: 50,
-                                width: 240,
-                                decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(4),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: const Offset(0, 0),
-                                          blurRadius: 2,
-                                          color: Colors.white.withOpacity(.2))
-                                    ]),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    authBloc.chargement
-                                        ? CircularProgressIndicator(
-                                            backgroundColor: noir,
-                                            color: blanc,
-                                          )
-                                        : const Text(
-                                            "Se connecter",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white),
-                                          ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 16,
+                        Text(
+                          'waped'.toUpperCase(),
+                          style: TextStyle(color: noir),
                         ),
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    width: 10,
+                  ),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: size.height * .1,
+            ),
+            Text(
+              'Connectez-vous à votre compte',
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'Content de vous revoir! Veuillez entrer vos coordonnées',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+            ),
+            SizedBox(
+              height: size.height * .05,
+            ),
+            SizedBox(
+              width: size.width * .3,
+              height: 60,
+              child: TextField(
+                cursorColor: Colors.black,
+                controller: authBloc.identifiant,
+                decoration: const InputDecoration(
+                    labelText: 'Identifiant',
+                    labelStyle: TextStyle(color: Colors.black),
+                    focusColor: Colors.black,
+                    fillColor: Colors.black,
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              width: size.width * .3,
+              height: 60,
+              child: TextField(
+                cursorColor: Colors.black,
+                controller: authBloc.password,
+                obscureText: authBloc.viewPassword,
+                decoration: InputDecoration(
+                    labelText: 'Mot de passe',
+                    suffixIcon: IconButton(
+                      onPressed: () => authBloc.setViewPassword(),
+                      icon: authBloc.viewPassword
+                          ? const Icon(CupertinoIcons.eye_slash)
+                          : const Icon(CupertinoIcons.eye),
+                    ),
+                    labelStyle: const TextStyle(color: Colors.black),
+                    focusColor: Colors.black,
+                    fillColor: Colors.black,
+                    border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black))),
+              ),
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => authBloc.loginFunction(context),
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(4),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(0, 0),
+                              blurRadius: 2,
+                              color: Colors.white.withOpacity(.2))
+                        ]),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        authBloc.chargement
+                            ? CircularProgressIndicator(
+                                backgroundColor: noir,
+                                color: blanc,
+                              )
+                            : const Text(
+                                "Se connecter",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white),
+                              ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 16,
+            ),
           ],
         ));
   }

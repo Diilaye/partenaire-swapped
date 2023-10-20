@@ -4,9 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   Future<AdminUserModel?> auth(Map<String, dynamic> body) async {
-    print(body);
+    // print(body);
     return await postResponse(url: '/admin-user/auth', body: body)
         .then((value) async {
+      // print(value);
       if (value['status'] == 200) {
         AdminUserModel auth = AdminUserModel.fromJson(value['body']['data']);
         await SharedPreferences.getInstance().then((prefs) {
@@ -22,7 +23,7 @@ class AuthService {
 
   Future<AdminUserModel?> getAuth() async {
     return await getResponse(url: '/admin-user/auth').then((value) async {
-      print(value);
+      // print(value);
       if (value['status'] == 200) {
         AdminUserModel auth = AdminUserModel.fromJson(value['body']['data']);
         return auth;

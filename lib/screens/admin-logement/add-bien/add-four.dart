@@ -61,7 +61,7 @@ class AddFourLogement extends StatelessWidget {
                 cursorColor: Colors.black,
                 controller: addLogementBloc.tarif_nuit,
                 decoration: const InputDecoration(
-                    labelText: 'Tarif (GNF) / nuit',
+                    labelText: 'Tarif TTC (GNF) / nuit',
                     labelStyle: TextStyle(color: Colors.black),
                     focusColor: Colors.black,
                     fillColor: Colors.black,
@@ -88,7 +88,7 @@ class AddFourLogement extends StatelessWidget {
                 cursorColor: Colors.black,
                 decoration: const InputDecoration(
                     labelText:
-                        'Tarif par locataire supplémentaire ( 0 GNF recommandé)',
+                        'Tarif TTC par locataire supplémentaire ( 0 GNF recommandé)',
                     labelStyle: TextStyle(color: Colors.black),
                     focusColor: Colors.black,
                     fillColor: Colors.black,
@@ -114,7 +114,7 @@ class AddFourLogement extends StatelessWidget {
                 cursorColor: Colors.black,
                 controller: addLogementBloc.tarif_femme_menagere,
                 decoration: const InputDecoration(
-                    labelText: 'Frais de ménage (0 GNF préconisé)',
+                    labelText: 'Frais de ménage TTC (0 GNF préconisé)',
                     labelStyle: TextStyle(color: Colors.black),
                     focusColor: Colors.black,
                     fillColor: Colors.black,
@@ -359,7 +359,7 @@ class AddFourLogement extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(" jours avant la date de début de votre séjour",
+                      Text("jours avant la date de début de votre séjour",
                           style: TextStyle(color: noir, fontSize: 16))
                     ],
                   ),
