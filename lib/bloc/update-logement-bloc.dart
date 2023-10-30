@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:partenaire/models/biens-model.dart';
 import 'package:partenaire/models/place-autocomplete-model.dart';
 import 'package:partenaire/services/bien-service.dart';
+import 'package:partenaire/services/logement-service.dart';
 import 'package:partenaire/services/map-service.dart';
 import 'package:partenaire/utils/upload-file.dart';
 
@@ -11,12 +12,21 @@ class UpdateLogementBloc with ChangeNotifier {
   List<Map<String, dynamic>> commoditeGerenal = [];
   Map<String, dynamic>? selectedCommoditeGeneral;
 
+  LogementService logementService = LogementService();
+
   setSelectedCommoditeGeneral(Map<String, dynamic>? select) {
     if (selectedCommoditeGeneral == select) {
       selectedCommoditeGeneral = null;
     } else {
       selectedCommoditeGeneral = select;
     }
+    notifyListeners();
+  }
+
+  String paysAuth = "gn";
+
+  getAuthPays() async {
+    paysAuth = await logementService.getPays();
     notifyListeners();
   }
 
@@ -70,11 +80,22 @@ class UpdateLogementBloc with ChangeNotifier {
 
   BiensModels? bien;
 
-  setBien(BiensModels b) {
+  setBien(BiensModels b) async {
     bien = b;
-    setSelectedType(listeTypeLogements
+
+    if (listeTypeLogements
         .where((element) => element['titre'] == b.typeLogement!)
-        .first);
+        .isEmpty) {
+      seletectedType = {"url": "assets/images/hotels.png", "titre": 'Hôtels'};
+      seletectedTypeHotel = listeTypeLogementsHotels
+          .where((element) => element['titre'] == b.typeLogement!)
+          .first;
+    } else {
+      setSelectedType(listeTypeLogements
+          .where((element) => element['titre'] == b.typeLogement!)
+          .first);
+    }
+    notifyListeners();
     adresse.text = b.adresse!;
     titreChambre.text = b.titre!;
     nbreChambre.text = b.nbreChambre!.toString();
@@ -138,6 +159,9 @@ class UpdateLogementBloc with ChangeNotifier {
           .where((element) => element['commodite'] == e)
           .first);
     });
+    notifyListeners();
+
+    await getAuthPays();
 
     notifyListeners();
   }
@@ -175,7 +199,7 @@ class UpdateLogementBloc with ChangeNotifier {
 
   setListePlaceAutocomplet() async {
     listePlaceAutocomplet =
-        await mapService.adresseAutoComplet(adresse.text, "");
+        await mapService.adresseAutoComplet(adresse.text, paysAuth);
     notifyListeners();
   }
 

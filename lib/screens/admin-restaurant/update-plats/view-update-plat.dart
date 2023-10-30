@@ -55,7 +55,7 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                         SizedBox(
                           height: size.height * .01,
                         ),
-                        Container(
+                        SizedBox(
                           height: 450,
                           width: 450,
                           child: Carousel(
@@ -63,15 +63,22 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                               dotBgColor: blanc,
                               dotIncreasedColor: noir,
                               dotColor: noir,
-                              images: <String>[
-                                addPlatRestaurantBloc.photoUpdate1[2]['url'],
-                                addPlatRestaurantBloc.photoUpdate2[2]['url']
-                              ]
-                                  .map((e) => Image.network(
-                                        e,
-                                        fit: BoxFit.cover,
-                                      ))
-                                  .toList()),
+                              images: [
+                                addPlatRestaurantBloc.photoUpdate1,
+                                addPlatRestaurantBloc.photoUpdate2
+                              ].map((e) {
+                                if (e[2].runtimeType == Null) {
+                                  return Image.memory(
+                                    e[1],
+                                    fit: BoxFit.cover,
+                                  );
+                                } else {
+                                  return Image.network(
+                                    e[2]['url'],
+                                    fit: BoxFit.cover,
+                                  );
+                                }
+                              }).toList()),
                         ),
                         SizedBox(
                           height: 4,

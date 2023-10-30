@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Se sentir chez soit, ou Que je soi'.toUpperCase(),
+                          'Se sentir chez soi, ou Que je sois'.toUpperCase(),
                           style: TextStyle(
                               fontSize: size.width * .02,
                               fontWeight: FontWeight.w700,

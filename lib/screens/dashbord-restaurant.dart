@@ -6,9 +6,11 @@ import 'package:partenaire/screens/admin-restaurant/add-offre-special/add-offre.
 import 'package:partenaire/screens/admin-restaurant/add-plats-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/liste-offre-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/liste-plats.dart';
+import 'package:partenaire/screens/admin-restaurant/liste-reservations.dart';
 import 'package:partenaire/screens/admin-restaurant/modifier-plats.dart';
 import 'package:partenaire/screens/admin-restaurant/overview-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/parametre-restaurant-screen.dart';
+import 'package:partenaire/screens/admin-restaurant/qr-code-screen.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:provider/provider.dart';
@@ -409,6 +411,45 @@ class DashbordRestaurant extends StatelessWidget {
                   SizedBox(
                     height: size.height * .05,
                   ),
+                  GestureDetector(
+                    onTap: () => restaurantAdminBloc.setMenu(7),
+                    child: Container(
+                      color: restaurantAdminBloc.menu == 7
+                          ? gris.withOpacity(.3)
+                          : blanc,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.qrcode,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'Qr-code',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: size.height * .01,
+                  ),
                   Column(
                     children: [
                       const SizedBox(
@@ -573,11 +614,17 @@ class DashbordRestaurant extends StatelessWidget {
                                     ? const AddOffreScreen()
                                     : restaurantAdminBloc.menu == 4
                                         ? const ListeOffreSpecialScreen()
-                                        : restaurantAdminBloc.menu == 9
-                                            ? const ParametreRestaurantScreen()
-                                            : restaurantAdminBloc.menu == 12
-                                                ? const UpdatePlatsScreen()
-                                                : Container())),
+                                        : restaurantAdminBloc.menu == 6
+                                            ? const ListeReservationRestaurantScreen()
+                                            : restaurantAdminBloc.menu == 7
+                                                ? const QrcodeRestaurantScreen()
+                                                : restaurantAdminBloc.menu == 9
+                                                    ? const ParametreRestaurantScreen()
+                                                    : restaurantAdminBloc
+                                                                .menu ==
+                                                            12
+                                                        ? const UpdatePlatsScreen()
+                                                        : Container())),
           ],
         ),
       ),

@@ -1,11 +1,13 @@
 import 'package:partenaire/models/offre-special-restaurant-model.dart';
 import 'package:partenaire/models/plats-model.dart';
+import 'package:partenaire/models/reservation-restaurant-model.dart';
 import 'package:partenaire/models/restaurant-model.dart';
 import 'package:partenaire/utils/requette-by-dii.dart';
 
 class RestaurantService {
   Future<Restaurantmodel?> getResto() async {
     return getResponse(url: "/restaurants").then((value) {
+      // print(value);
       if (value['status'] == 200) {
         return Restaurantmodel.fromJson(value['body']['data']);
       }
@@ -43,7 +45,7 @@ class RestaurantService {
 
   Future<List<PlatsRestaurantsModel>> allPlatsRestaurants() async {
     return getResponse(url: '/plats/byRestaurant').then((value) {
-      print(value);
+      // print(value);
       if (value['status'] == 200) {
         return PlatsRestaurantsModel.fromList(data: value['body']['data']);
       }
@@ -52,7 +54,7 @@ class RestaurantService {
   }
 
   Future<String?> addOffreSpecialMenu(Map<String, dynamic> body) {
-    print(body);
+    // print(body);
     return postResponse(url: '/special-offres', body: body).then((value) {
       // print(value);
       if (value['status'] == 201) {
@@ -65,13 +67,36 @@ class RestaurantService {
 
   Future<List<OffreSpecialRestaurantsModel>> getOffreSpecialMenu() {
     return getResponse(url: '/special-offres/byRestaurant').then((value) {
-      print(value);
+      // print(value);
       if (value['status'] == 200) {
         return OffreSpecialRestaurantsModel.fromList(
             data: value['body']['data']);
       } else {
         return [];
       }
+    });
+  }
+
+  Future<List<ReservationRestaurantModel>> getAllReservation() async {
+    return getResponse(url: '/reservations-restaurant/byRestaurant')
+        .then((value) {
+      print(value);
+      if (value['status'] == 200) {
+        return ReservationRestaurantModel.fromList(data: value['body']['data']);
+      }
+      return [];
+    });
+  }
+
+  Future<String?> updateReservation(
+      String id, Map<String, dynamic> body) async {
+    return putResponse(url: '/reservations-restaurant/$id', body: body)
+        .then((value) {
+      print(value);
+      if (value['status'] == 200) {
+        return "modification reussi";
+      }
+      return null;
     });
   }
 }

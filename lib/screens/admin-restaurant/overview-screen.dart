@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/price-format.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
+import 'package:provider/provider.dart';
 
 class OverViewScreenRestaurantAdmin extends StatelessWidget {
   const OverViewScreenRestaurantAdmin({super.key});
@@ -10,6 +12,7 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final adminRestaurantBloc = Provider.of<AdminRestaurantBloc>(context);
 
     return ListView(
       children: [
@@ -53,11 +56,12 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
+              overviewStatWidget(
                   title: "Réservation de table",
-                  chiffre: "0 ",
+                  chiffre:
+                      adminRestaurantBloc.listeReservations.length.toString(),
                   estimation: "0",
-                  description: "vous n'avez pas encore d'activite"),
+                  description: "Nombre de réservations est de 12%"),
               SizedBox(
                 width: size.width * .01,
               ),

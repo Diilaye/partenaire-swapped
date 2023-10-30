@@ -1,6 +1,8 @@
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
+import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/price-format.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,7 @@ class ViewPlatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final addPlatRestaurantBloc = Provider.of<AddPlatRestaurantBloc>(context);
+    final adminRestaurantBloc = Provider.of<AdminRestaurantBloc>(context);
 
     return Column(
       children: [
@@ -101,7 +104,6 @@ class ViewPlatScreen extends StatelessWidget {
                                   color: noir,
                                   fontWeight: FontWeight.w600),
                             ),
-                            Text("(GNF)")
                           ],
                         ),
                         Padding(
@@ -215,7 +217,31 @@ class ViewPlatScreen extends StatelessWidget {
                               width: size.width * .05,
                             ),
                             GestureDetector(
-                              onTap: () => addPlatRestaurantBloc.addPlats(),
+                              onTap: () async {
+                                await addPlatRestaurantBloc.addPlats();
+                                if (addPlatRestaurantBloc.result != null) {
+                                  Fluttertoast.showToast(
+                                      msg: "plats ajouté avec succes",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 3,
+                                      webPosition: "center",
+                                      webBgColor:
+                                          "linear-gradient(to right, #2E8C1F, #2E8C1F)",
+                                      fontSize: 14.0);
+                                  adminRestaurantBloc.getAllPlats();
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: "Une Erreur a été detecté",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 3,
+                                      webPosition: "center",
+                                      webBgColor:
+                                          "linear-gradient(to right, #9D0208, #9D0208)",
+                                      fontSize: 14.0);
+                                }
+                              },
                               child: Container(
                                 height: 45,
                                 decoration: BoxDecoration(

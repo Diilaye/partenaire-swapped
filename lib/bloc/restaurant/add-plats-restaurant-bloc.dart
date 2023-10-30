@@ -31,7 +31,7 @@ class AddPlatRestaurantBloc with ChangeNotifier {
 
     disponible = platsSelected!.isDisponible! == true ? 0 : 1;
 
-    selectedMenu = platsSelected!.menu!;
+    selectedMenu = platsSelected!.menu!.map((e) => e.toString()).toList();
     print("selectedMenu = platsSelected!.menu!");
     print(selectedMenu);
     print(platsSelected!.menu!);
@@ -267,6 +267,8 @@ class AddPlatRestaurantBloc with ChangeNotifier {
 
   bool chargementAddPlats = false;
 
+  String? result;
+
   addPlats() async {
     chargementAddPlats = true;
     notifyListeners();
@@ -286,18 +288,10 @@ class AddPlatRestaurantBloc with ChangeNotifier {
       "isLivraible": livrable == 0 ? true : false,
       "isDisponible": disponible == 0 ? true : false,
     };
-    String? result = await restaurantService.addPlats(body);
+    result = await restaurantService.addPlats(body);
     if (result != null) {
-      Fluttertoast.showToast(
-          msg: "plats ajouté avec succes",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          webPosition: "center",
-          webBgColor: "linear-gradient(to right, #2E8C1F, #2E8C1F)",
-          fontSize: 14.0);
       resetData();
-    }
+    } else {}
     chargementAddPlats = false;
     notifyListeners();
   }

@@ -165,49 +165,50 @@ class ListeOffreSpecialScreen extends StatelessWidget {
                                                     SizedBox(
                                                       height: 2,
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // adminRestaurantBloc
-                                                            //     .setMenu(12);
-                                                            // addPlatRestaurantBloc
-                                                            //     .setPlatSelected(
-                                                            //         e);
-                                                          },
-                                                          child: Container(
-                                                            height: 30,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          4),
-                                                              color: noir,
-                                                            ),
-                                                            child: Row(
-                                                              children: [
-                                                                SizedBox(
-                                                                  width: 8,
-                                                                ),
-                                                                Text(
-                                                                  'Modifier',
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          blanc),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 8,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
+                                                    //Modification after
+                                                    // Row(
+                                                    //   mainAxisAlignment:
+                                                    //       MainAxisAlignment
+                                                    //           .spaceAround,
+                                                    //   children: [
+                                                    //     GestureDetector(
+                                                    //       onTap: () {
+                                                    //         // adminRestaurantBloc
+                                                    //         //     .setMenu(12);
+                                                    //         // addPlatRestaurantBloc
+                                                    //         //     .setPlatSelected(
+                                                    //         //         e);
+                                                    //       },
+                                                    //       child: Container(
+                                                    //         height: 30,
+                                                    //         decoration:
+                                                    //             BoxDecoration(
+                                                    //           borderRadius:
+                                                    //               BorderRadius
+                                                    //                   .circular(
+                                                    //                       4),
+                                                    //           color: noir,
+                                                    //         ),
+                                                    //         child: Row(
+                                                    //           children: [
+                                                    //             SizedBox(
+                                                    //               width: 8,
+                                                    //             ),
+                                                    //             Text(
+                                                    //               'Modifier',
+                                                    //               style: TextStyle(
+                                                    //                   color:
+                                                    //                       blanc),
+                                                    //             ),
+                                                    //             SizedBox(
+                                                    //               width: 8,
+                                                    //             ),
+                                                    //           ],
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ],
+                                                    // )
                                                   ],
                                                 )),
                                                 Column(

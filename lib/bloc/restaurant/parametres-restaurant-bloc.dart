@@ -30,6 +30,7 @@ class ParametresRestaurantBloc with ChangeNotifier {
         // ignore: iterable_contains_unrelated_type
         .where((e) => resto!.specialite!.contains(e['id']))
         .toList();
+
     selectedCommodites = commodites
         // ignore: iterable_contains_unrelated_type
         .where((e) => resto!.commodite!.contains(e['commodite']))
@@ -39,6 +40,7 @@ class ParametresRestaurantBloc with ChangeNotifier {
         // ignore: iterable_contains_unrelated_type
         .where((e) => resto!.jourOuvertures!.contains(e))
         .toList();
+
     nom.text = resto!.nomEntreprise!;
     description.text = resto!.descriptionEntreprise!;
     telephone.text = resto!.telephone!;
@@ -94,6 +96,12 @@ class ParametresRestaurantBloc with ChangeNotifier {
       "titre": 'Vue sur l\'eau',
       'commodite': "vue-sur-eau"
     },
+    {"url": "assets/images/wifi.jpg", "titre": 'Wifi', 'commodite': "wifi"},
+    {
+      "url": "assets/images/traiteur.jpg",
+      "titre": 'Traiteur',
+      'commodite': "traiteur"
+    },
   ];
 
   setSelectedCommodite(Map<String, String> select) {
@@ -140,7 +148,7 @@ class ParametresRestaurantBloc with ChangeNotifier {
 
   setListePlaceAutocomplet() async {
     listePlaceAutocomplet =
-        await mapService.adresseAutoComplet(adresse.text, '');
+        await mapService.adresseAutoComplet(adresse.text, resto!.pays!);
     notifyListeners();
   }
 

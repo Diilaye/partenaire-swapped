@@ -14,6 +14,7 @@ import 'package:partenaire/bloc/restaurant/add-offre-special-bloc.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/parametres-restaurant-bloc.dart';
+import 'package:partenaire/bloc/restaurant/qr-code-bloc.dart';
 import 'package:partenaire/bloc/settings-bloc.dart';
 import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
@@ -49,6 +50,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => ParametresRestaurantBloc()),
       ChangeNotifierProvider(create: (_) => FaqBloc()),
       ChangeNotifierProvider(create: (_) => AddOffreSpecialBloc()),
+      ChangeNotifierProvider(create: (_) => QrcodeBloc()),
     ],
     child: const MyApp(),
   ));

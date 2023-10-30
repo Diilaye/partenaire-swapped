@@ -164,7 +164,6 @@ class UpdateFourLogement extends StatelessWidget {
             ),
             Expanded(
                 child: Container(
-              height: size.height * .32,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: blanc,
@@ -364,6 +363,9 @@ class UpdateFourLogement extends StatelessWidget {
                       Text(" jours avant la date de début de votre séjour",
                           style: TextStyle(color: noir, fontSize: 16))
                     ],
+                  ),
+                  const SizedBox(
+                    height: 24,
                   ),
                 ],
               ),

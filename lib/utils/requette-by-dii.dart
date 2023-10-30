@@ -19,7 +19,7 @@ Future getResponse({
     token = prefs.getString("token") ?? '';
   });
   // print(urlFinal);
-  print(token);
+  // print(token);
   return http.get(urlFinal, headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"

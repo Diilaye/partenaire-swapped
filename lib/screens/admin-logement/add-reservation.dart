@@ -53,204 +53,171 @@ class AddReservationScreen extends StatelessWidget {
         SizedBox(height: size.height * .02),
         Expanded(
           flex: 2,
-          child: Row(
+          child: ListView(
             children: [
-              SizedBox(
-                width: size.width * .01,
+              const SizedBox(
+                height: 8,
               ),
-              Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: blanc,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 0),
-                              blurRadius: 1,
-                              color: noir.withOpacity(.2))
-                        ]),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            const Text('Ajouter réservations'),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Expanded(
-                            child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: TextField(
-                                    readOnly: true,
-                                    controller: reservationBloc.dateDebut,
-                                    decoration: InputDecoration(
-                                        labelText: reservationBloc
-                                                .dateDebut.text.isEmpty
-                                            ? 'Date début'
-                                            : '',
-                                        border: const UnderlineInputBorder()),
-                                    onTap: () {
-                                      showDatePicker(
-                                              context: context,
-                                              locale: const Locale("fr", "FR"),
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(2023),
-                                              lastDate: DateTime(2030))
-                                          .then((value) => reservationBloc
-                                              .setDateDebut(value));
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: TextField(
-                                    readOnly: true,
-                                    controller: reservationBloc.dateFin,
-                                    decoration: InputDecoration(
-                                        labelText:
-                                            reservationBloc.dateFin.text.isEmpty
-                                                ? 'Date fin'
-                                                : '',
-                                        border: const UnderlineInputBorder()),
-                                    onTap: () {
-                                      showDatePicker(
-                                              context: context,
-                                              locale: const Locale("fr", "FR"),
-                                              initialDate: DateTime.now(),
-                                              firstDate: DateTime(2023),
-                                              lastDate: DateTime(2030))
-                                          .then((value) => reservationBloc
-                                              .setDateFin(value));
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: 'Nom complet de l\'invité'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        labelText: 'Téléphone de l\'invité'),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Row(
-                              children: [
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () async {
-                                    await reservationBloc.addReservation(
-                                        updateLogementBloc.bien!.id!);
-
-                                    if (reservationBloc.addReserve != null) {
-                                      adminLogementBloc.setMenu(3);
-                                      reservationBloc.menuReservation = 0;
-                                      reservationBloc.getAllReservation();
-                                      Navigator.popAndPushNamed(context, "/");
-                                    }
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        color: noir),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 12,
-                                        ),
-                                        Center(
-                                          child: reservationBloc.chargementAdd
-                                              ? CircularProgressIndicator(
-                                                  color: blanc,
-                                                  backgroundColor: noir,
-                                                )
-                                              : Text(
-                                                  'Enregister',
-                                                  style:
-                                                      TextStyle(color: blanc),
-                                                ),
-                                        ),
-                                        SizedBox(
-                                          width: 12,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
+              const Row(
+                children: [
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  const Text('Ajouter réservations'),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextField(
+                      readOnly: true,
+                      controller: reservationBloc.dateDebut,
+                      decoration: InputDecoration(
+                          labelText: reservationBloc.dateDebut.text.isEmpty
+                              ? 'Date début'
+                              : '',
+                          border: const UnderlineInputBorder()),
+                      onTap: () {
+                        showDatePicker(
+                                context: context,
+                                locale: const Locale("fr", "FR"),
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2023),
+                                lastDate: DateTime(2030))
+                            .then(
+                                (value) => reservationBloc.setDateDebut(value));
+                      },
                     ),
-                  )),
-              SizedBox(
-                width: size.width * .01,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextField(
+                      readOnly: true,
+                      controller: reservationBloc.dateFin,
+                      decoration: InputDecoration(
+                          labelText: reservationBloc.dateFin.text.isEmpty
+                              ? 'Date fin'
+                              : '',
+                          border: const UnderlineInputBorder()),
+                      onTap: () {
+                        showDatePicker(
+                                context: context,
+                                locale: const Locale("fr", "FR"),
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2023),
+                                lastDate: DateTime(2030))
+                            .then((value) => reservationBloc.setDateFin(value));
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                          labelText: 'Nom complet de l\'invité'),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      decoration:
+                          InputDecoration(labelText: 'Téléphone de l\'invité'),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: () async {
+                      await reservationBloc
+                          .addReservation(updateLogementBloc.bien!.id!);
+
+                      if (reservationBloc.addReserve != null) {
+                        adminLogementBloc.setMenu(3);
+                        reservationBloc.menuReservation = 0;
+                        reservationBloc.getAllReservation();
+                        Navigator.popAndPushNamed(context, "/");
+                      }
+                    },
+                    child: Container(
+                      height: 35,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4), color: noir),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 12,
+                          ),
+                          Center(
+                            child: reservationBloc.chargementAdd
+                                ? CircularProgressIndicator(
+                                    color: blanc,
+                                    backgroundColor: noir,
+                                  )
+                                : Text(
+                                    'Enregister',
+                                    style: TextStyle(color: blanc),
+                                  ),
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
               ),
             ],
           ),

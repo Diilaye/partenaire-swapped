@@ -17,7 +17,7 @@ class ParametreRestaurantScreen extends StatelessWidget {
     final parametresRestaurantBloc =
         Provider.of<ParametresRestaurantBloc>(context);
     Size size = MediaQuery.of(context).size;
-    return ListView(
+    return Column(
       children: [
         SizedBox(
           height: size.height * .02,
@@ -290,7 +290,7 @@ class ParametreRestaurantScreen extends StatelessWidget {
                   ),
                   Expanded(
                       child: Container(
-                    height: size.height * .8,
+                    height: size.height * .85,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: blanc,
@@ -300,22 +300,22 @@ class ParametreRestaurantScreen extends StatelessWidget {
                     child: ListView(
                       children: [
                         const SizedBox(
-                          height: 8,
+                          height: 24,
                         ),
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 4,
                             ),
                             Expanded(
                               child: SizedBox(
-                                height: 145,
+                                height: 200,
                                 child: Column(
                                   children: [
                                     SizedBox(
                                       height: 8,
                                     ),
-                                    Row(
+                                    const Row(
                                       children: [
                                         SizedBox(
                                           width: 8,
@@ -323,10 +323,12 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                         Text('choisir les types de spécialités')
                                       ],
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
-                                    Expanded(
+                                    SizedBox(
+                                        height: 130,
+                                        width: size.width,
                                         child: Row(
                                             children:
                                                 parametresRestaurantBloc
@@ -652,13 +654,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
-                                                    child: Image.network(
-                                                      parametresRestaurantBloc
-                                                          .photoCover[2]['url'],
-                                                      height: 150,
-                                                      width: 150,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    child: parametresRestaurantBloc
+                                                                .resto ==
+                                                            null
+                                                        ? const CircularProgressIndicator()
+                                                        : Image.network(
+                                                            parametresRestaurantBloc
+                                                                    .photoCover[
+                                                                2]['url'],
+                                                            height: 150,
+                                                            width: 150,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   Positioned(
                                                       top: 60,
@@ -725,13 +732,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
-                                                    child: Image.network(
-                                                      parametresRestaurantBloc
-                                                          .photo1[2]['url'],
-                                                      height: 150,
-                                                      width: 150,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    child: parametresRestaurantBloc
+                                                                .resto ==
+                                                            null
+                                                        ? const CircularProgressIndicator()
+                                                        : Image.network(
+                                                            parametresRestaurantBloc
+                                                                    .photo1[2]
+                                                                ['url'],
+                                                            height: 150,
+                                                            width: 150,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   Positioned(
                                                       top: 60,
@@ -781,13 +793,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               8),
-                                                      child: Image.network(
-                                                        parametresRestaurantBloc
-                                                            .photo2[2]['url'],
-                                                        height: 150,
-                                                        width: 150,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                                      child: parametresRestaurantBloc
+                                                                  .resto ==
+                                                              null
+                                                          ? const CircularProgressIndicator()
+                                                          : Image.network(
+                                                              parametresRestaurantBloc
+                                                                      .photo2[2]
+                                                                  ['url'],
+                                                              height: 150,
+                                                              width: 150,
+                                                              fit: BoxFit.cover,
+                                                            ),
                                                     ),
                                                     Positioned(
                                                         top: 60,
@@ -838,13 +855,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
-                                                    child: Image.network(
-                                                      parametresRestaurantBloc
-                                                          .photo3[2]['url'],
-                                                      height: 150,
-                                                      width: 150,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    child: parametresRestaurantBloc
+                                                                .resto ==
+                                                            null
+                                                        ? const CircularProgressIndicator()
+                                                        : Image.network(
+                                                            parametresRestaurantBloc
+                                                                    .photo3[2]
+                                                                ['url'],
+                                                            height: 150,
+                                                            width: 150,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   Positioned(
                                                       top: 60,
@@ -893,13 +915,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
-                                                    child: Image.network(
-                                                      parametresRestaurantBloc
-                                                          .photo4[2]['url'],
-                                                      height: 150,
-                                                      width: 150,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    child: parametresRestaurantBloc
+                                                                .resto ==
+                                                            null
+                                                        ? const CircularProgressIndicator()
+                                                        : Image.network(
+                                                            parametresRestaurantBloc
+                                                                    .photo4[2]
+                                                                ['url'],
+                                                            height: 150,
+                                                            width: 150,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   Positioned(
                                                       top: 60,
@@ -949,13 +976,18 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
-                                                    child: Image.network(
-                                                      parametresRestaurantBloc
-                                                          .photo5[2]['url'],
-                                                      height: 150,
-                                                      width: 150,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                    child: parametresRestaurantBloc
+                                                                .resto ==
+                                                            null
+                                                        ? const CircularProgressIndicator()
+                                                        : Image.network(
+                                                            parametresRestaurantBloc
+                                                                    .photo5[2]
+                                                                ['url'],
+                                                            height: 150,
+                                                            width: 150,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                   ),
                                                   Positioned(
                                                       top: 60,
@@ -984,68 +1016,61 @@ class ParametreRestaurantScreen extends StatelessWidget {
                         const SizedBox(
                           height: 24,
                         ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: size.width * .005,
-                              ),
-                              Row(
-                                children: parametresRestaurantBloc.jours
-                                    .map((e) => Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 20.0),
-                                          child: GestureDetector(
-                                            onTap: () =>
-                                                parametresRestaurantBloc
-                                                    .setSlectedJour(e),
-                                            child: Container(
-                                              height: 35,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(6),
-                                                  color:
-                                                      parametresRestaurantBloc
-                                                              .selectJour
-                                                              .contains(e)
-                                                          ? noir
-                                                          : blanc,
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: noir
-                                                            .withOpacity(.3),
-                                                        blurRadius: 3)
-                                                  ]),
-                                              child: Row(
-                                                children: [
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Text(
-                                                    e,
-                                                    style: TextStyle(
-                                                        color:
-                                                            parametresRestaurantBloc
-                                                                    .selectJour
-                                                                    .contains(e)
-                                                                ? blanc
-                                                                : noir),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                ],
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: size.width * .005,
+                            ),
+                            ...parametresRestaurantBloc.jours
+                                .map((e) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 20.0),
+                                      child: GestureDetector(
+                                        onTap: () => parametresRestaurantBloc
+                                            .setSlectedJour(e),
+                                        child: Container(
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              color: parametresRestaurantBloc
+                                                      .selectJour
+                                                      .contains(e)
+                                                  ? noir
+                                                  : blanc,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: noir.withOpacity(.3),
+                                                    blurRadius: 3)
+                                              ]),
+                                          child: Row(
+                                            children: [
+                                              const SizedBox(
+                                                width: 20,
                                               ),
-                                            ),
+                                              Text(
+                                                e,
+                                                style: TextStyle(
+                                                    color:
+                                                        parametresRestaurantBloc
+                                                                .selectJour
+                                                                .contains(e)
+                                                            ? blanc
+                                                            : noir),
+                                              ),
+                                              const SizedBox(
+                                                width: 20,
+                                              ),
+                                            ],
                                           ),
-                                        ))
-                                    .toList(),
-                              ),
-                              SizedBox(
-                                width: size.width * .005,
-                              ),
-                            ],
-                          ),
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            SizedBox(
+                              width: size.width * .005,
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 24,
@@ -1101,6 +1126,7 @@ class ParametreRestaurantScreen extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 130,
+                          width: size.width,
                           child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: parametresRestaurantBloc.commodites
@@ -1225,7 +1251,7 @@ class ParametreRestaurantScreen extends StatelessWidget {
                 ],
               ),
             ],
-          ),
+          )
       ],
     );
   }

@@ -5,6 +5,7 @@ import 'package:partenaire/models/biens-model.dart';
 import 'package:partenaire/models/place-autocomplete-model.dart';
 import 'package:partenaire/services/auth-service.dart';
 import 'package:partenaire/services/bien-service.dart';
+import 'package:partenaire/services/logement-service.dart';
 import 'package:partenaire/services/map-service.dart';
 import 'package:partenaire/utils/upload-file.dart';
 
@@ -17,7 +18,16 @@ class AddLogementBloc with ChangeNotifier {
 
   AuthService authService = AuthService();
 
+  LogementService logementService = LogementService();
+
   AdminUserModel? auth;
+
+  String paysAuth = "gn";
+
+  getAuthPays() async {
+    paysAuth = await logementService.getPays();
+    notifyListeners();
+  }
 
   getUser() async {
     auth = await authService.getAuth();
@@ -466,7 +476,7 @@ class AddLogementBloc with ChangeNotifier {
 
   setListePlaceAutocomplet() async {
     listePlaceAutocomplet =
-        await mapService.adresseAutoComplet(adresse.text, "");
+        await mapService.adresseAutoComplet(adresse.text, paysAuth);
     notifyListeners();
   }
 

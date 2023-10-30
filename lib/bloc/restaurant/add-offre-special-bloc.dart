@@ -146,6 +146,8 @@ class AddOffreSpecialBloc with ChangeNotifier {
       "dateFin": dateEnd!.toIso8601String(),
       "galery": photo[0],
       "complements": listeComplement
+          .where((e) => e['ctrl'].text != "")
+          .toList()
           .map((e) =>
               {"name": e['ctrl'].text, "prix": int.parse(e['ctrlPrix'].text)})
           .toList(),

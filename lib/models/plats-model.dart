@@ -2,7 +2,7 @@ class PlatsRestaurantsModel {
   bool? isFreeLivraison;
   List<Galery>? galery;
   String? specialite;
-  List<String>? menu;
+  List<dynamic>? menu;
   String? pays;
   List<Complements>? complements;
   List<Null>? commandes;
@@ -43,7 +43,7 @@ class PlatsRestaurantsModel {
       });
     }
     specialite = json['specialite'];
-    menu = json['menu'].cast<String>();
+    menu = json['menu'];
     pays = json['pays'];
     if (json['complements'] != null) {
       complements = <Complements>[];
@@ -88,7 +88,9 @@ class PlatsRestaurantsModel {
     data['menu'] = this.menu;
     data['pays'] = this.pays;
     if (this.complements != null) {
-      data['complements'] = this.complements!.map((v) => v.toJson()).toList();
+      data['complements'] = this.complements!.isEmpty
+          ? []
+          : this.complements!.map((v) => v.toJson()).toList();
     }
     // if (this.commandes != null) {
     //   data['commandes'] = this.commandes!.map((v) => v.toJson()).toList();

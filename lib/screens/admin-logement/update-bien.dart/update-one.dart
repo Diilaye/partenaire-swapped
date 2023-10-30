@@ -89,8 +89,9 @@ class UpdateOneLogement extends StatelessWidget {
                                                   SizedBox(
                                                     height: 15,
                                                     child: updateLogementBloc
-                                                                .seletectedType ==
-                                                            e
+                                                                    .seletectedType![
+                                                                'titre'] ==
+                                                            e['titre']
                                                         ? Row(
                                                             children: [
                                                               const Spacer(),
@@ -178,8 +179,10 @@ class UpdateOneLogement extends StatelessWidget {
                                             children: [
                                               Container(
                                                 child: GestureDetector(
-                                                  onTap: () => addLogementBloc
-                                                      .setSelectedTypeHotel(e),
+                                                  onTap: () =>
+                                                      updateLogementBloc
+                                                          .setSelectedTypeHotel(
+                                                              e),
                                                   child: Container(
                                                     width: 100,
                                                     height: 100,
@@ -205,9 +208,10 @@ class UpdateOneLogement extends StatelessWidget {
                                                         ),
                                                         SizedBox(
                                                           height: 10,
-                                                          child: addLogementBloc
-                                                                      .seletectedTypeHotel ==
-                                                                  e
+                                                          child: updateLogementBloc
+                                                                          .seletectedTypeHotel![
+                                                                      'titre'] ==
+                                                                  e['titre']
                                                               ? Row(
                                                                   children: [
                                                                     const Spacer(),

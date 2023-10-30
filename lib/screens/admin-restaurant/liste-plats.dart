@@ -245,7 +245,7 @@ class ListePlatsScreen extends StatelessWidget {
                                             width: 6,
                                           ),
                                           Text(
-                                            "${e.specialite!}/${e.menu!.join('-')}",
+                                            "${e.specialite!}/${e.menu!.map((e) => e.toString()).toList().join('-')}",
                                             style: TextStyle(
                                                 color: noir, fontSize: 10),
                                           ),
