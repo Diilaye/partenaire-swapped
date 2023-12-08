@@ -4,9 +4,8 @@ class ClientModel {
   String? sexe;
   String? email;
   String? statusCompte;
-  String? telephoneMOMO;
+  String? telephone;
   String? token;
-  String? telephoneOM;
   String? id;
 
   ClientModel(
@@ -15,9 +14,8 @@ class ClientModel {
       this.sexe,
       this.email,
       this.statusCompte,
-      this.telephoneMOMO,
+      this.telephone,
       this.token,
-      this.telephoneOM,
       this.id});
 
   ClientModel.fromJson(Map<String, dynamic> json) {
@@ -26,9 +24,8 @@ class ClientModel {
     sexe = json['sexe'];
     email = json['email'];
     statusCompte = json['statusCompte'];
-    telephoneMOMO = json['telephoneMOMO'];
+    telephone = json['telephone'];
     token = json['token'];
-    telephoneOM = json['telephoneOM'];
     id = json['id'];
   }
 
@@ -39,9 +36,8 @@ class ClientModel {
     data['sexe'] = this.sexe;
     data['email'] = this.email;
     data['statusCompte'] = this.statusCompte;
-    data['telephoneMOMO'] = this.telephoneMOMO;
+    data['telephone'] = this.telephone;
     data['token'] = this.token;
-    data['telephoneOM'] = this.telephoneOM;
     data['id'] = this.id;
     return data;
   }

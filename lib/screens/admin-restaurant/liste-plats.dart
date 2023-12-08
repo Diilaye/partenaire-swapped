@@ -1,4 +1,4 @@
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+// import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
@@ -61,21 +61,34 @@ class ListePlatsScreen extends StatelessWidget {
                                     children: [
                                       Expanded(
                                           flex: 3,
-                                          child: Carousel(
-                                              dotColor: blanc,
-                                              autoplay: false,
-                                              dotBgColor: Colors.transparent,
-                                              dotSize: 6.0,
-                                              dotSpacing: 20,
-                                              boxFit: BoxFit.cover,
-                                              images: e.galery!
-                                                  .map(
-                                                    (ev) => Image.network(
-                                                      ev.url!,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  )
-                                                  .toList())),
+                                          child: PageView(
+                                            children: e.galery!
+                                                .map(
+                                                  (ev) => Image.network(
+                                                    ev.url!,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                                .toList(),
+                                          )
+
+                                          // Carousel(
+                                          //     dotColor: blanc,
+                                          //     autoplay: false,
+                                          //     dotBgColor: Colors.transparent,
+                                          //     dotSize: 6.0,
+                                          //     dotSpacing: 20,
+                                          //     boxFit: BoxFit.cover,
+                                          //     images: e.galery!
+                                          //         .map(
+                                          //           (ev) => Image.network(
+                                          //             ev.url!,
+                                          //             fit: BoxFit.cover,
+                                          //           ),
+                                          //         )
+                                          //         .toList())
+
+                                          ),
                                       Expanded(
                                           flex: 2,
                                           child: Container(

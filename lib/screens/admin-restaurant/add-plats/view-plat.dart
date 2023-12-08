@@ -1,4 +1,3 @@
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
@@ -59,20 +58,32 @@ class ViewPlatScreen extends StatelessWidget {
                         Container(
                           height: 450,
                           width: 450,
-                          child: Carousel(
-                              boxFit: BoxFit.cover,
-                              dotBgColor: blanc,
-                              dotIncreasedColor: noir,
-                              dotColor: noir,
-                              images: [
-                                addPlatRestaurantBloc.photo1[1],
-                                addPlatRestaurantBloc.photo2[1]
-                              ]
-                                  .map((e) => Image.memory(
-                                        e,
-                                        fit: BoxFit.cover,
-                                      ))
-                                  .toList()),
+                          child: PageView(
+                            children: [
+                              addPlatRestaurantBloc.photo1[1],
+                              addPlatRestaurantBloc.photo2[1]
+                            ]
+                                .map((e) => Image.memory(
+                                      e,
+                                      fit: BoxFit.cover,
+                                    ))
+                                .toList(),
+                          ),
+
+                          // Carousel(
+                          //     boxFit: BoxFit.cover,
+                          //     dotBgColor: blanc,
+                          //     dotIncreasedColor: noir,
+                          //     dotColor: noir,
+                          //     images: [
+                          //       addPlatRestaurantBloc.photo1[1],
+                          //       addPlatRestaurantBloc.photo2[1]
+                          //     ]
+                          //         .map((e) => Image.memory(
+                          //               e,
+                          //               fit: BoxFit.cover,
+                          //             ))
+                          //         .toList()),
                         ),
                         SizedBox(
                           height: 4,
@@ -131,7 +142,7 @@ class ViewPlatScreen extends StatelessWidget {
                         SizedBox(
                           height: size.height * .01,
                         ),
-                        if (addPlatRestaurantBloc.listeComplement.length >= 1)
+                        if (addPlatRestaurantBloc.listeComplement.length > 1)
                           Column(
                             children: addPlatRestaurantBloc.listeComplement
                                 .map((e) => Column(

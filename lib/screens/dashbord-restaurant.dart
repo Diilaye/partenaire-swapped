@@ -4,6 +4,8 @@ import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/screens/admin-restaurant/add-offre-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/add-offre-special/add-offre.dart';
 import 'package:partenaire/screens/admin-restaurant/add-plats-screen.dart';
+import 'package:partenaire/screens/admin-restaurant/commande-screen.dart/liste-commande-screen.dart';
+import 'package:partenaire/screens/admin-restaurant/commande-screen.dart/view-detail-cmd.dart';
 import 'package:partenaire/screens/admin-restaurant/liste-offre-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/liste-plats.dart';
 import 'package:partenaire/screens/admin-restaurant/liste-reservations.dart';
@@ -614,17 +616,25 @@ class DashbordRestaurant extends StatelessWidget {
                                     ? const AddOffreScreen()
                                     : restaurantAdminBloc.menu == 4
                                         ? const ListeOffreSpecialScreen()
-                                        : restaurantAdminBloc.menu == 6
-                                            ? const ListeReservationRestaurantScreen()
-                                            : restaurantAdminBloc.menu == 7
-                                                ? const QrcodeRestaurantScreen()
-                                                : restaurantAdminBloc.menu == 9
-                                                    ? const ParametreRestaurantScreen()
+                                        : restaurantAdminBloc.menu == 5
+                                            ? const ListeCommandeScreen()
+                                            : restaurantAdminBloc.menu == 6
+                                                ? const ListeReservationRestaurantScreen()
+                                                : restaurantAdminBloc.menu == 7
+                                                    ? const QrcodeRestaurantScreen()
                                                     : restaurantAdminBloc
                                                                 .menu ==
-                                                            12
-                                                        ? const UpdatePlatsScreen()
-                                                        : Container())),
+                                                            9
+                                                        ? const ParametreRestaurantScreen()
+                                                        : restaurantAdminBloc
+                                                                    .menu ==
+                                                                12
+                                                            ? const UpdatePlatsScreen()
+                                                            : restaurantAdminBloc
+                                                                        .menu ==
+                                                                    13
+                                                                ? const ViewDetailCmdScreen()
+                                                                : Container())),
           ],
         ),
       ),

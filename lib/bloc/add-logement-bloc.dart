@@ -599,6 +599,8 @@ class AddLogementBloc with ChangeNotifier {
 
     biensAdd = await bienService.add(body);
 
+    print(biensAdd);
+
     if (biensAdd != null) {
       Fluttertoast.showToast(
           msg: "Bien ajouté avec réussite",

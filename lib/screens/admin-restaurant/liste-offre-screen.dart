@@ -1,4 +1,4 @@
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+// import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
@@ -58,20 +58,30 @@ class ListeOffreSpecialScreen extends StatelessWidget {
                                     children: [
                                       Expanded(
                                           flex: 3,
-                                          child: Carousel(
-                                            dotColor: blanc,
-                                            autoplay: false,
-                                            dotBgColor: Colors.transparent,
-                                            dotSize: 6.0,
-                                            dotSpacing: 20,
-                                            boxFit: BoxFit.cover,
-                                            images: [
+                                          child: PageView(
+                                            children: [
                                               Image.network(
                                                 e.galery!.url!,
                                                 fit: BoxFit.cover,
                                               )
                                             ],
-                                          )),
+                                          )
+
+                                          // Carousel(
+                                          //   dotColor: blanc,
+                                          //   autoplay: false,
+                                          //   dotBgColor: Colors.transparent,
+                                          //   dotSize: 6.0,
+                                          //   dotSpacing: 20,
+                                          //   boxFit: BoxFit.cover,
+                                          //   images: [
+                                          //     Image.network(
+                                          //       e.galery!.url!,
+                                          //       fit: BoxFit.cover,
+                                          //     )
+                                          //   ],
+                                          // )
+                                          ),
                                       Expanded(
                                           flex: 2,
                                           child: Container(

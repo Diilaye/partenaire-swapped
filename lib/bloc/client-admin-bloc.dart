@@ -23,8 +23,8 @@ class ClientAdminBloc with ChangeNotifier {
     if (telSearch == "") {
       return true;
     } else {
-      if (e.telephoneMOMO!.contains(telSearch) ||
-          e.telephoneOM!.contains(telSearch)) {
+      if (e.telephone!.contains(telSearch) ||
+          e.telephone!.contains(telSearch)) {
         return true;
       } else {
         return false;

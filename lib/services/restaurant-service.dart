@@ -1,3 +1,4 @@
+import 'package:partenaire/models/commande-restaurant-model.dart';
 import 'package:partenaire/models/offre-special-restaurant-model.dart';
 import 'package:partenaire/models/plats-model.dart';
 import 'package:partenaire/models/reservation-restaurant-model.dart';
@@ -80,7 +81,6 @@ class RestaurantService {
   Future<List<ReservationRestaurantModel>> getAllReservation() async {
     return getResponse(url: '/reservations-restaurant/byRestaurant')
         .then((value) {
-      print(value);
       if (value['status'] == 200) {
         return ReservationRestaurantModel.fromList(data: value['body']['data']);
       }
@@ -92,8 +92,37 @@ class RestaurantService {
       String id, Map<String, dynamic> body) async {
     return putResponse(url: '/reservations-restaurant/$id', body: body)
         .then((value) {
-      print(value);
       if (value['status'] == 200) {
+        return "modification reussi";
+      }
+      return null;
+    });
+  }
+
+  Future<List<CommandeRestaurantModel>> getCommande() async {
+    return getResponse(url: '/pannier-commande/restaurant').then((value) {
+      if (value['status'] == 201) {
+        return CommandeRestaurantModel.fromList(data: value['body']['data']);
+      }
+      return [];
+    });
+  }
+
+  Future<List<CommandeRestaurantModel>> getAdminCommande() async {
+    return getResponse(url: '/pannier-commande/').then((value) {
+      if (value['status'] == 201) {
+        return CommandeRestaurantModel.fromList(data: value['body']['data']);
+      }
+      return [];
+    });
+  }
+
+  Future<String?> updateCommandePannier(
+      String id, Map<String, dynamic> body) async {
+    print(body);
+    return putResponse(url: '/pannier-commande/$id', body: body).then((value) {
+      print(value);
+      if (value['status'] == 201) {
         return "modification reussi";
       }
       return null;

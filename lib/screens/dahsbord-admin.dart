@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/screens/admin-dashbord/client-utilisateur-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/liste-commande-screen-admin.dart';
 import 'package:partenaire/screens/admin-dashbord/overview-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/partenaire-utilisateur-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/view-detail-cmd-admin.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaire-valid-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaires-screen.dart';
+import 'package:partenaire/screens/admin-restaurant/commande-screen.dart/view-detail-cmd.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:provider/provider.dart';
@@ -173,6 +176,40 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  GestureDetector(
+                    onTap: () => adminBloc.setMenu(2),
+                    child: Container(
+                      color: adminBloc.menu == 2 ? gris.withOpacity(.3) : blanc,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.square_list,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'commandes',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Column(
                     children: [
                       const SizedBox(
@@ -191,7 +228,7 @@ class DashbordAdminScreen extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            'commandes',
+                            'offres speciales',
                             style: TextStyle(fontSize: 14, color: noir),
                           ),
                         ],
@@ -280,37 +317,37 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: size.height * .01,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: size.width * .03,
-                          ),
-                          const Icon(
-                            CupertinoIcons.square_list,
-                            size: 13,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'commandes',
-                            style: TextStyle(fontSize: 14, color: noir),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
-                  ),
+                  // SizedBox(
+                  //   height: size.height * .01,
+                  // ),
+                  // Column(
+                  //   children: [
+                  //     const SizedBox(
+                  //       height: 8,
+                  //     ),
+                  //     Row(
+                  //       children: [
+                  //         SizedBox(
+                  //           width: size.width * .03,
+                  //         ),
+                  //         const Icon(
+                  //           CupertinoIcons.square_list,
+                  //           size: 13,
+                  //         ),
+                  //         const SizedBox(
+                  //           width: 4,
+                  //         ),
+                  //         Text(
+                  //           'commandes',
+                  //           style: TextStyle(fontSize: 14, color: noir),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     const SizedBox(
+                  //       height: 8,
+                  //     ),
+                  //   ],
+                  // ),
                   Column(
                     children: [
                       const SizedBox(
@@ -521,16 +558,21 @@ class DashbordAdminScreen extends StatelessWidget {
                   ]),
                   child: adminBloc.menu == 0
                       ? const OverviewScreen()
-                      : adminBloc.menu == 4
-                          ? const ClientUtilisateurScreen()
-                          : adminBloc.menu == 10
-                              ? ViewPartenaireScreen(
-                                  partenaire: partenaireAdminBloc.partenaire!)
-                              : adminBloc.menu == 11
-                                  ? ViewPartenaireValidScreen(
+                      : adminBloc.menu == 2
+                          ? const ListeCommandeScreenAdmin()
+                          : adminBloc.menu == 4
+                              ? const ClientUtilisateurScreen()
+                              : adminBloc.menu == 10
+                                  ? ViewPartenaireScreen(
                                       partenaire:
                                           partenaireAdminBloc.partenaire!)
-                                  : const PartenaireUtilisateurScreen(),
+                                  : adminBloc.menu == 11
+                                      ? ViewPartenaireValidScreen(
+                                          partenaire:
+                                              partenaireAdminBloc.partenaire!)
+                                      : adminBloc.menu == 12
+                                          ? const ViewDetailCmdAdminScreen()
+                                          : const PartenaireUtilisateurScreen(),
                 )),
           ],
         ),

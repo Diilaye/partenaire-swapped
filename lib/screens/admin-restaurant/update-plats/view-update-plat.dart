@@ -1,4 +1,4 @@
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+// import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
@@ -56,14 +56,10 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                           height: size.height * .01,
                         ),
                         SizedBox(
-                          height: 450,
-                          width: 450,
-                          child: Carousel(
-                              boxFit: BoxFit.cover,
-                              dotBgColor: blanc,
-                              dotIncreasedColor: noir,
-                              dotColor: noir,
-                              images: [
+                            height: 450,
+                            width: 450,
+                            child: PageView(
+                              children: [
                                 addPlatRestaurantBloc.photoUpdate1,
                                 addPlatRestaurantBloc.photoUpdate2
                               ].map((e) {
@@ -78,9 +74,32 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   );
                                 }
-                              }).toList()),
-                        ),
-                        SizedBox(
+                              }).toList(),
+                            )
+
+                            // Carousel(
+                            //     boxFit: BoxFit.cover,
+                            //     dotBgColor: blanc,
+                            //     dotIncreasedColor: noir,
+                            //     dotColor: noir,
+                            //     images: [
+                            //       addPlatRestaurantBloc.photoUpdate1,
+                            //       addPlatRestaurantBloc.photoUpdate2
+                            //     ].map((e) {
+                            //       if (e[2].runtimeType == Null) {
+                            //         return Image.memory(
+                            //           e[1],
+                            //           fit: BoxFit.cover,
+                            //         );
+                            //       } else {
+                            //         return Image.network(
+                            //           e[2]['url'],
+                            //           fit: BoxFit.cover,
+                            //         );
+                            //       }
+                            //     }).toList()),
+                            ),
+                        const SizedBox(
                           height: 4,
                         ),
                         Row(
@@ -98,7 +117,7 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                                 : Text("Sur place")
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 4,
                         ),
                         Row(
@@ -131,7 +150,7 @@ class ViewUpdatePlatScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text('Complements plat',
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w300))
                           ],
                         ),

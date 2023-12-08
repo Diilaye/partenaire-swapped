@@ -43,7 +43,7 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                 width: size.width * .01,
               ),
               overviewStatWidget(
-                  title: "Total logemnts",
+                  title: "Total logements",
                   chiffre: logementAdminBloc.listeBien.length.toString(),
                   estimation: "0",
                   description: "vous n'avez pas encore d'activite"),
@@ -965,182 +965,191 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                               height: 16,
                             ),
                             Column(
-                              children: reservationBloc.reservations
-                                  .map((e) => Container(
-                                        color: e.status == 'accept-partenaire'
-                                            ? vert.withOpacity(.2)
-                                            : e.status == 'create-partenaire'
-                                                ? meuveClair
-                                                : blanc,
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
+                              children: reservationBloc.reservations.isEmpty
+                                  ? const [CircularProgressIndicator()]
+                                  : reservationBloc.reservations
+                                      .map((e) => Container(
+                                            color:
+                                                e.status == 'accept-partenaire'
+                                                    ? vert.withOpacity(.2)
+                                                    : e.status ==
+                                                            'create-partenaire'
+                                                        ? meuveClair
+                                                        : blanc,
+                                            child: Column(
                                               children: [
-                                                SizedBox(
-                                                  width: 16,
+                                                const SizedBox(
+                                                  height: 8,
                                                 ),
-                                                Expanded(
-                                                    child: Text(
-                                                        "#${e.id!.substring(0, 6)}",
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(e.bien!.titre!,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        getFormatPrice(e
-                                                                .bien!.tarif! *
-                                                            DateTime.parse(
-                                                                    e.dateFin!)
-                                                                .difference(
-                                                                    DateTime.parse(e
-                                                                        .dateDebut!))
-                                                                .inDays),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        e.dateDebut!
-                                                            .split("T")
-                                                            .first
-                                                            .split("-")
-                                                            .reversed
-                                                            .join("-"),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        e.dateFin!
-                                                            .split("T")
-                                                            .first
-                                                            .split("-")
-                                                            .reversed
-                                                            .join("-"),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Center(
-                                                  child: Row(
-                                                    children: [
-                                                      const SizedBox(
-                                                        width: 12,
-                                                      ),
-                                                      Container(
-                                                        width: 15,
-                                                        height: 15,
-                                                        decoration: BoxDecoration(
-                                                            color: e.status! ==
-                                                                    "create"
-                                                                ? orange
-                                                                : vertFonce,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                            border: Border.all(
+                                                Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 16,
+                                                    ),
+                                                    Expanded(
+                                                        child: Text(
+                                                            "#${e.id!.substring(0, 6)}",
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir))),
+                                                    Expanded(
+                                                        flex: 2,
+                                                        child: Text(
+                                                            e.bien!.titre!,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir))),
+                                                    Expanded(
+                                                        child: Text(
+                                                            getFormatPrice(e
+                                                                    .bien!
+                                                                    .tarif! *
+                                                                DateTime.parse(e
+                                                                        .dateFin!)
+                                                                    .difference(
+                                                                        DateTime.parse(e
+                                                                            .dateDebut!))
+                                                                    .inDays),
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir))),
+                                                    Expanded(
+                                                        child: Text(
+                                                            e.dateDebut!
+                                                                .split("T")
+                                                                .first
+                                                                .split("-")
+                                                                .reversed
+                                                                .join("-"),
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir))),
+                                                    Expanded(
+                                                        child: Text(
+                                                            e.dateFin!
+                                                                .split("T")
+                                                                .first
+                                                                .split("-")
+                                                                .reversed
+                                                                .join("-"),
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: noir))),
+                                                    Expanded(
+                                                        child: Center(
+                                                      child: Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                            width: 12,
+                                                          ),
+                                                          Container(
+                                                            width: 15,
+                                                            height: 15,
+                                                            decoration: BoxDecoration(
                                                                 color: e.status! ==
                                                                         "create"
                                                                     ? orange
-                                                                    : vertFonce)),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Row(
-                                                      children: [
-                                                        // Expanded(
-                                                        //     child: Center(
-                                                        //   child: IconButton(
-                                                        //     onPressed: () => reservationBloc
-                                                        //         .selectedRangeDate(
-                                                        //             DateTime.parse(e
-                                                        //                 .dateDebut!),
-                                                        //             DateTime.parse(
-                                                        //                 e.dateFin!)),
-                                                        //     icon: Icon(
-                                                        //       CupertinoIcons
-                                                        //           .calendar,
-                                                        //       color: noir,
-                                                        //     ),
-                                                        //   ),
-                                                        // )),
-                                                        // const SizedBox(
-                                                        //   width: 8,
-                                                        // ),
-                                                        Expanded(
-                                                            child: Center(
-                                                          child: IconButton(
-                                                              onPressed: () {
-                                                                if (e.prospect ==
-                                                                    null) {
-                                                                  logementAdminBloc
-                                                                      .setMenu(
-                                                                          4);
-                                                                  reservationBloc
-                                                                      .setSelectedReservation(
-                                                                          e);
-                                                                }
-                                                              },
-                                                              icon: Icon(
-                                                                CupertinoIcons
-                                                                    .eye_fill,
-                                                                color: jaune,
-                                                              )),
-                                                        )),
-                                                        const SizedBox(
-                                                          width: 8,
-                                                        ),
-                                                        Expanded(
-                                                            child: Center(
-                                                          child: Icon(
-                                                            CupertinoIcons
-                                                                .checkmark,
-                                                            color: vert,
+                                                                    : vertFonce,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15),
+                                                                border: Border.all(
+                                                                    color: e.status! ==
+                                                                            "create"
+                                                                        ? orange
+                                                                        : vertFonce)),
                                                           ),
-                                                        )),
-                                                        SizedBox(
-                                                          width: 8,
-                                                        ),
-                                                        Expanded(
-                                                            child: Center(
-                                                          child: Icon(
-                                                            CupertinoIcons
-                                                                .delete,
-                                                            color: rouge,
+                                                          const SizedBox(
+                                                            width: 6,
                                                           ),
-                                                        )),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     )),
-                                                SizedBox(
-                                                  width: 16,
+                                                    Expanded(
+                                                        flex: 2,
+                                                        child: Row(
+                                                          children: [
+                                                            // Expanded(
+                                                            //     child: Center(
+                                                            //   child: IconButton(
+                                                            //     onPressed: () => reservationBloc
+                                                            //         .selectedRangeDate(
+                                                            //             DateTime.parse(e
+                                                            //                 .dateDebut!),
+                                                            //             DateTime.parse(
+                                                            //                 e.dateFin!)),
+                                                            //     icon: Icon(
+                                                            //       CupertinoIcons
+                                                            //           .calendar,
+                                                            //       color: noir,
+                                                            //     ),
+                                                            //   ),
+                                                            // )),
+                                                            // const SizedBox(
+                                                            //   width: 8,
+                                                            // ),
+                                                            Expanded(
+                                                                child: Center(
+                                                              child: IconButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    if (e.prospect ==
+                                                                        null) {
+                                                                      logementAdminBloc
+                                                                          .setMenu(
+                                                                              4);
+                                                                      reservationBloc
+                                                                          .setSelectedReservation(
+                                                                              e);
+                                                                    }
+                                                                  },
+                                                                  icon: Icon(
+                                                                    CupertinoIcons
+                                                                        .eye_fill,
+                                                                    color:
+                                                                        jaune,
+                                                                  )),
+                                                            )),
+                                                            const SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            Expanded(
+                                                                child: Center(
+                                                              child: Icon(
+                                                                CupertinoIcons
+                                                                    .checkmark,
+                                                                color: vert,
+                                                              ),
+                                                            )),
+                                                            SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            Expanded(
+                                                                child: Center(
+                                                              child: Icon(
+                                                                CupertinoIcons
+                                                                    .delete,
+                                                                color: rouge,
+                                                              ),
+                                                            )),
+                                                          ],
+                                                        )),
+                                                    SizedBox(
+                                                      width: 16,
+                                                    ),
+                                                  ],
                                                 ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                )
                                               ],
                                             ),
-                                            const SizedBox(
-                                              height: 8,
-                                            )
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
+                                          ))
+                                      .toList(),
                             )
                           ],
                         )),
@@ -1150,349 +1159,6 @@ class OverViewScreenLogementAdmin extends StatelessWidget {
                       ],
                     ),
                   )),
-              // SizedBox(
-              //   width: size.width * .01,
-              // ),
-              // Expanded(
-              //     flex: 2,
-              //     child: Column(
-              //       children: [
-              //         Expanded(
-              //             flex: 2,
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                   borderRadius: BorderRadius.circular(8),
-              //                   color: blanc,
-              //                   boxShadow: [
-              //                     BoxShadow(
-              //                         offset: const Offset(0, 0),
-              //                         blurRadius: 1,
-              //                         color: noir.withOpacity(.2))
-              //                   ]),
-              //               child: Column(
-              //                 children: [
-              //                   const SizedBox(
-              //                     height: 8,
-              //                   ),
-              //                   Row(
-              //                     children: [
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                       Text('Réclamations'),
-              //                       const Spacer(),
-              //                       Text('Voir +'),
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                     ],
-              //                   ),
-              //                   Expanded(
-              //                       child: Row(
-              //                     children: [
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                       Expanded(
-              //                         child: Row(
-              //                           children: [
-              //                             Expanded(
-              //                                 flex: 4,
-              //                                 child: CircularChartReclamation(
-              //                                   color: vertFonce,
-              //                                 )),
-              //                             Expanded(
-              //                               flex: 2,
-              //                               child: Column(
-              //                                 mainAxisAlignment:
-              //                                     MainAxisAlignment.center,
-              //                                 children: [
-              //                                   Row(
-              //                                     mainAxisAlignment:
-              //                                         MainAxisAlignment.center,
-              //                                     children: [
-              //                                       Icon(
-              //                                         Icons.square,
-              //                                         color:
-              //                                             noir.withOpacity(.4),
-              //                                       ),
-              //                                       SizedBox(
-              //                                         width: 8,
-              //                                       ),
-              //                                       Text('30%')
-              //                                     ],
-              //                                   ),
-              //                                   SizedBox(
-              //                                     height: 16,
-              //                                   ),
-              //                                   Row(
-              //                                     mainAxisAlignment:
-              //                                         MainAxisAlignment.center,
-              //                                     children: [
-              //                                       Icon(
-              //                                         Icons.square,
-              //                                         color: vertFonce,
-              //                                       ),
-              //                                       SizedBox(
-              //                                         width: 8,
-              //                                       ),
-              //                                       Text('70%')
-              //                                     ],
-              //                                   ),
-              //                                 ],
-              //                               ),
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ),
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                     ],
-              //                   )),
-              //                   const SizedBox(
-              //                     height: 8,
-              //                   ),
-              //                 ],
-              //               ),
-              //             )),
-              //         SizedBox(
-              //           height: size.height * .01,
-              //         ),
-              //         Expanded(
-              //             flex: 3,
-              //             child: Container(
-              //               decoration: BoxDecoration(
-              //                   borderRadius: BorderRadius.circular(8),
-              //                   color: blanc,
-              //                   boxShadow: [
-              //                     BoxShadow(
-              //                         offset: const Offset(0, 0),
-              //                         blurRadius: 1,
-              //                         color: noir.withOpacity(.2))
-              //                   ]),
-              //               child: Column(
-              //                 children: [
-              //                   const SizedBox(
-              //                     height: 8,
-              //                   ),
-              //                   Row(
-              //                     children: [
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                       Text('Top partenaires'),
-              //                       const Spacer(),
-              //                       Text('Voir +'),
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                     ],
-              //                   ),
-              //                   const SizedBox(
-              //                     height: 8,
-              //                   ),
-              //                   Expanded(
-              //                       child: Row(
-              //                     children: [
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                       Expanded(
-              //                           child: Column(
-              //                         children: [
-              //                           Row(
-              //                             children: [
-              //                               SizedBox(
-              //                                 width: 4,
-              //                               ),
-              //                               Expanded(
-              //                                   flex: 2, child: Text("Nom")),
-              //                               Expanded(
-              //                                   child: Row(
-              //                                 children: [
-              //                                   Text("Montant"),
-              //                                 ],
-              //                               )),
-              //                               Expanded(
-              //                                   child: Row(
-              //                                 children: [
-              //                                   const Spacer(),
-              //                                   Text("%"),
-              //                                 ],
-              //                               )),
-              //                               SizedBox(
-              //                                 width: 4,
-              //                               ),
-              //                             ],
-              //                           ),
-              //                           SizedBox(
-              //                             height: 8,
-              //                           ),
-              //                           Column(
-              //                             children: List.generate(
-              //                                 4,
-              //                                 (index) => Column(
-              //                                       children: [
-              //                                         Row(
-              //                                           children: [
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                             Expanded(
-              //                                                 flex: 2,
-              //                                                 child: Text(
-              //                                                   "Restaurant Le Bambou",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 Text(
-              //                                                   "150,000,000",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 const Spacer(),
-              //                                                 Text(
-              //                                                   "12%",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                           ],
-              //                                         ),
-              //                                         SizedBox(
-              //                                           height: 8,
-              //                                         ),
-              //                                         Row(
-              //                                           children: [
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                             Expanded(
-              //                                                 flex: 2,
-              //                                                 child: Text(
-              //                                                   "Hôtel Milinium",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 Text(
-              //                                                   "120,000,000",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 const Spacer(),
-              //                                                 Text(
-              //                                                   "10%",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                           ],
-              //                                         ),
-              //                                         SizedBox(
-              //                                           height: 8,
-              //                                         ),
-              //                                         Row(
-              //                                           children: [
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                             Expanded(
-              //                                                 flex: 2,
-              //                                                 child: Text(
-              //                                                   "Immo Tapi",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 Text(
-              //                                                   "30,000,000",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             Expanded(
-              //                                                 child: Row(
-              //                                               children: [
-              //                                                 const Spacer(),
-              //                                                 Text(
-              //                                                   "19%",
-              //                                                   style: TextStyle(
-              //                                                       color: noir,
-              //                                                       fontSize:
-              //                                                           10),
-              //                                                 ),
-              //                                               ],
-              //                                             )),
-              //                                             SizedBox(
-              //                                               width: 4,
-              //                                             ),
-              //                                           ],
-              //                                         ),
-              //                                         SizedBox(
-              //                                           height: 8,
-              //                                         ),
-              //                                       ],
-              //                                     )),
-              //                           )
-              //                         ],
-              //                       )),
-              //                       SizedBox(
-              //                         width: 8,
-              //                       ),
-              //                     ],
-              //                   )),
-              //                   const SizedBox(
-              //                     height: 8,
-              //                   ),
-              //                 ],
-              //               ),
-              //             )),
-              //       ],
-              //     )),
               SizedBox(
                 width: size.width * .01,
               ),

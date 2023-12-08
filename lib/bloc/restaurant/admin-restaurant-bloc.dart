@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:partenaire/models/commande-restaurant-model.dart';
 import 'package:partenaire/models/offre-special-restaurant-model.dart';
 import 'package:partenaire/models/plats-model.dart';
 import 'package:partenaire/models/reservation-restaurant-model.dart';
@@ -9,6 +10,15 @@ import 'package:partenaire/utils/colors-by-dii.dart';
 class AdminRestaurantBloc with ChangeNotifier {
   int menu = 0;
 
+  List<String> listeStatus = ["", "PENDING", "PREPARATION", "LIVRAISON"];
+
+  String selectedStatus = "";
+
+  setSelectedStatus(String value) {
+    selectedStatus = value;
+    notifyListeners();
+  }
+
   RestaurantService restaurantService = RestaurantService();
 
   List<PlatsRestaurantsModel> listes = [];
@@ -17,10 +27,25 @@ class AdminRestaurantBloc with ChangeNotifier {
 
   List<ReservationRestaurantModel> listeReservations = [];
 
+  List<CommandeRestaurantModel>? listeCommandes;
+
+  CommandeRestaurantModel? selectedCommande;
+
+  setSelectedCommande(CommandeRestaurantModel? select) {
+    selectedCommande = select;
+    notifyListeners();
+  }
+
   AdminRestaurantBloc() {
+    getAllCommandes();
     getAllReservation();
     getAllPlats();
     getAllOffres();
+  }
+
+  getAllCommandes() async {
+    listeCommandes = await restaurantService.getCommande();
+    notifyListeners();
   }
 
   getAllReservation() async {
@@ -28,7 +53,6 @@ class AdminRestaurantBloc with ChangeNotifier {
     listeReservations = await restaurantService.getAllReservation();
     print("listeReservations");
     print(listeReservations.length);
-
     notifyListeners();
   }
 
@@ -106,5 +130,15 @@ class AdminRestaurantBloc with ChangeNotifier {
   setMenuParam(int select) {
     menuParams = select;
     notifyListeners();
+  }
+
+  updateStatusCommandePannier(
+      CommandeRestaurantModel? select, String status) async {
+    Map<String, dynamic> body = {"etatLivraison": status};
+    String? resutl =
+        await restaurantService.updateCommandePannier(select!.id!, body);
+    if (resutl != null) {
+      await getAllCommandes();
+    }
   }
 }

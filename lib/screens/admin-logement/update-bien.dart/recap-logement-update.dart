@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:partenaire/bloc/add-logement-bloc.dart';
+// import 'package:partenaire/bloc/add-logement-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/update-logement-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+// import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:provider/provider.dart';
 
 class RecapLogementUpdate extends StatelessWidget {
@@ -56,14 +56,10 @@ class RecapLogementUpdate extends StatelessWidget {
                           height: size.height * .01,
                         ),
                         Container(
-                          height: 450,
-                          width: 450,
-                          child: Carousel(
-                              boxFit: BoxFit.cover,
-                              dotBgColor: blanc,
-                              dotIncreasedColor: noir,
-                              dotColor: noir,
-                              images: [
+                            height: 450,
+                            width: 450,
+                            child: PageView(
+                              children: [
                                 updateLogementBloc.photoCouverture[1] ??
                                     updateLogementBloc.photoCouverture[2],
                                 updateLogementBloc.photo1[1] ??
@@ -85,8 +81,38 @@ class RecapLogementUpdate extends StatelessWidget {
                                           e,
                                           fit: BoxFit.cover,
                                         ))
-                                  .toList()),
-                        ),
+                                  .toList(),
+                            )
+
+                            // Carousel(
+                            //     boxFit: BoxFit.cover,
+                            //     dotBgColor: blanc,
+                            //     dotIncreasedColor: noir,
+                            //     dotColor: noir,
+                            //     images: [
+                            //       updateLogementBloc.photoCouverture[1] ??
+                            //           updateLogementBloc.photoCouverture[2],
+                            //       updateLogementBloc.photo1[1] ??
+                            //           updateLogementBloc.photo1[2],
+                            //       updateLogementBloc.photo2[1] ??
+                            //           updateLogementBloc.photo2[2],
+                            //       updateLogementBloc.photo3[1] ??
+                            //           updateLogementBloc.photo3[2],
+                            //       updateLogementBloc.photo4[1] ??
+                            //           updateLogementBloc.photo4[2],
+                            //     ]
+                            //         // ignore: unrelated_type_equality_checks
+                            //         .map((e) => e.runtimeType == String
+                            //             ? Image.network(
+                            //                 e,
+                            //                 fit: BoxFit.cover,
+                            //               )
+                            //             : Image.memory(
+                            //                 e,
+                            //                 fit: BoxFit.cover,
+                            //               ))
+                            //         .toList()),
+                            ),
                         SizedBox(
                           height: 4,
                         ),

@@ -146,17 +146,7 @@ class _ClientUtilisateurScreenState extends State<ClientUtilisateurScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text("Téléphone Momo"),
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                                Expanded(
-                                    child: Row(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Téléphone OM"),
+                                        Text("Téléphone "),
                                       ],
                                     ),
                                   ],
@@ -191,14 +181,7 @@ class _ClientUtilisateurScreenState extends State<ClientUtilisateurScreen> {
                                                 )),
                                                 Expanded(
                                                     child: Text(
-                                                  e.telephoneMOMO!,
-                                                  style: TextStyle(
-                                                      color: noir,
-                                                      fontSize: 10),
-                                                )),
-                                                Expanded(
-                                                    child: Text(
-                                                  e.telephoneOM!,
+                                                  e.telephone!,
                                                   style: TextStyle(
                                                       color: noir,
                                                       fontSize: 10),

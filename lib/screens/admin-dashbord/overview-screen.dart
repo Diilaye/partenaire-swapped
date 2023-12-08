@@ -1,18 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/client-admin-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
+import 'package:partenaire/utils/price-format.dart';
+import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:partenaire/widgets/admin-dashbord/chart-circular-reclamation.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
 import 'package:provider/provider.dart';
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
 
+  @override
+  State<OverviewScreen> createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final clientAdminBloc = Provider.of<ClientAdminBloc>(context);
+    final adminBloc = Provider.of<AdminBloc>(context);
 
     return ListView(
       children: [
@@ -591,229 +600,245 @@ class OverviewScreen extends StatelessWidget {
                 width: size.width * .01,
               ),
               Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: blanc,
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 0),
-                              blurRadius: 1,
-                              color: noir.withOpacity(.2))
-                        ]),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Row(
-                          children: [
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            const Text('Dernières commandes'),
-                            const Spacer(),
-                            Container(
-                                width: 90,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: noir)),
-                                child: Center(child: Text('Voir tous'))),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: [
+                      Expanded(
+                          flex: 3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: blanc,
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: const Offset(0, 0),
+                                      blurRadius: 1,
+                                      color: noir.withOpacity(.2))
+                                ]),
                             child: Column(
-                          children: [
-                            const Row(
                               children: [
-                                SizedBox(
-                                  width: 16,
+                                const SizedBox(
+                                  height: 8,
                                 ),
-                                Expanded(child: Text("N° cmd")),
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Text('Dernières commandes'),
+                                    const Spacer(),
+                                    SizedBox(
+                                      width: 200,
+                                      height: 40,
+                                      child: Center(
+                                        child: FormField<String>(
+                                          builder:
+                                              (FormFieldState<String> state) {
+                                            return InputDecorator(
+                                              decoration: const InputDecoration(
+                                                  border: UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color:
+                                                              Colors.black))),
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton<String>(
+                                                  value:
+                                                      adminBloc.selectedStatus,
+                                                  onChanged: (newValue) {
+                                                    setState(() {
+                                                      state.didChange(newValue);
+                                                    });
+                                                    adminBloc.setSelectedStatus(
+                                                        newValue!);
+                                                  },
+                                                  iconSize: 12,
+                                                  items: adminBloc.listeStatus
+                                                      .map((String value) {
+                                                    if (value == "") {
+                                                      return const DropdownMenuItem<
+                                                          String>(
+                                                        value: "",
+                                                        child: Text(
+                                                          "Tous les commandes",
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Text(
+                                                          value,
+                                                        ),
+                                                      );
+                                                    }
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Container(
+                                        width: 90,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(color: noir)),
+                                        child:
+                                            Center(child: Text('Voir tous'))),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 24,
+                                ),
                                 Expanded(
-                                    flex: 2, child: Text("Détails produit")),
-                                Expanded(child: Text("Montant")),
-                                Expanded(child: Text("Date")),
-                                Expanded(child: Text("Statut")),
-                                SizedBox(
-                                  width: 16,
+                                    child: Column(
+                                  children: [
+                                    const Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(flex: 1, child: Text("N°")),
+                                        Expanded(child: Text("Montant TTC")),
+                                        Expanded(child: Text("Date")),
+                                        Expanded(child: Text("Statut")),
+                                        Expanded(
+                                            flex: 1, child: Text("Action")),
+                                        SizedBox(
+                                          width: 16,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Column(
+                                      // ignore: unnecessary_null_comparison
+                                      children: adminBloc.listeCommandes == null
+                                          ? const [CircularProgressIndicator()]
+                                          : adminBloc.listeCommandes!
+                                              .where((element) =>
+                                                  (element.etatLivraison ==
+                                                      adminBloc
+                                                          .selectedStatus) ||
+                                                  adminBloc.selectedStatus ==
+                                                      "")
+                                              .map((e) => Container(
+                                                    color: e.etatLivraison ==
+                                                            "PENDING"
+                                                        ? blanc
+                                                        : e.etatLivraison ==
+                                                                "PREPARATION"
+                                                            ? orange
+                                                            : vert,
+                                                    child: Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 8,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 16,
+                                                            ),
+                                                            Expanded(
+                                                                flex: 1,
+                                                                child: Text(
+                                                                    "${e.reference}",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color:
+                                                                            noir))),
+                                                            Expanded(
+                                                                child: Text(
+                                                                    getFormatPrice(e
+                                                                        .prixOffre!),
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color:
+                                                                            noir))),
+                                                            Expanded(
+                                                                child: Text(
+                                                                    e
+                                                                        .dateTransactionSuccess!,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            12,
+                                                                        color:
+                                                                            noir))),
+                                                            Expanded(
+                                                              child: Text(
+                                                                  e
+                                                                      .etatLivraison!,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color:
+                                                                          noir)),
+                                                            ),
+                                                            Expanded(
+                                                                flex: 1,
+                                                                child: Row(
+                                                                  children: [
+                                                                    SizedBox(
+                                                                      width: 8,
+                                                                    ),
+                                                                    Expanded(
+                                                                        child: Center(
+                                                                            child: Row(
+                                                                      children: [
+                                                                        IconButton(
+                                                                          onPressed:
+                                                                              () {
+                                                                            adminBloc.setSelectedCommande(e);
+                                                                            adminBloc.setMenu(12);
+                                                                          },
+                                                                          icon:
+                                                                              const Icon(CupertinoIcons.eye_solid),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          width:
+                                                                              8,
+                                                                        ),
+                                                                      ],
+                                                                    ))),
+                                                                  ],
+                                                                )),
+                                                            SizedBox(
+                                                              width: 16,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 8,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                    )
+                                  ],
+                                )),
+                                const SizedBox(
+                                  height: 8,
                                 ),
                               ],
                             ),
-                            Column(
-                              children: List.generate(
-                                  0,
-                                  (index) => Column(
-                                        children: [
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              Expanded(
-                                                  child: Text("#12345",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  flex: 2,
-                                                  child: Text(
-                                                      "Hambourger Bambou",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("150,000",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("29-08-2023",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          border: Border.all(
-                                                              color:
-                                                                  vertFonce)),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "Expédié",
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: vertFonce),
-                                                      )))),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              Expanded(
-                                                  child: Text("#12345",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  flex: 2,
-                                                  child: Text(
-                                                      "Hambourger Bambou",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("150,000",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("29-08-2023",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          border: Border.all(
-                                                              color: jaune)),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "En attente",
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: jaune),
-                                                      )))),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.01,
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                              Expanded(
-                                                  child: Text("#12345",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  flex: 2,
-                                                  child: Text(
-                                                      "Hambourger Bambou",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("150,000",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Text("29-08-2023",
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: noir))),
-                                              Expanded(
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          border: Border.all(
-                                                              color: rouge)),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "Annulé",
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: rouge),
-                                                      )))),
-                                              SizedBox(
-                                                width: 16,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )),
-                            )
-                          ],
-                        )),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                      ],
-                    ),
+                          )),
+                    ],
                   )),
               SizedBox(
                 width: size.width * .01,
@@ -881,10 +906,14 @@ class OverviewScreen extends StatelessWidget {
                                                       color:
                                                           noir.withOpacity(.4),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 8,
                                                     ),
-                                                    Text('0%')
+                                                    const Text(
+                                                      '   0%',
+                                                      style: TextStyle(
+                                                          fontSize: 10),
+                                                    )
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -898,10 +927,14 @@ class OverviewScreen extends StatelessWidget {
                                                       Icons.square,
                                                       color: vertFonce,
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 8,
                                                     ),
-                                                    Text('100%')
+                                                    const Text(
+                                                      '100%',
+                                                      style: TextStyle(
+                                                          fontSize: 10),
+                                                    )
                                                   ],
                                                 ),
                                               ],

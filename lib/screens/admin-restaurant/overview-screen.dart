@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/restaurant/admin-restaurant-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/price-format.dart';
+import 'package:partenaire/utils/requette-dialog.dart';
 import 'package:partenaire/widgets/admin-dashbord/overview-stat-widget.dart';
 import 'package:provider/provider.dart';
 
-class OverViewScreenRestaurantAdmin extends StatelessWidget {
+class OverViewScreenRestaurantAdmin extends StatefulWidget {
   const OverViewScreenRestaurantAdmin({super.key});
 
+  @override
+  State<OverViewScreenRestaurantAdmin> createState() =>
+      _OverViewScreenRestaurantAdminState();
+}
+
+class _OverViewScreenRestaurantAdminState
+    extends State<OverViewScreenRestaurantAdmin> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,7 +50,9 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
               ),
               overviewStatWidget(
                   title: "Total commandes",
-                  chiffre: "0",
+                  chiffre: adminRestaurantBloc.listeCommandes == null
+                      ? "0"
+                      : adminRestaurantBloc.listeCommandes!.length.toString(),
                   estimation: "0",
                   description: "vous n'avez pas encore d'activite"),
               SizedBox(
@@ -50,7 +60,14 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
               ),
               overviewStatWidget(
                   title: "commande en cours",
-                  chiffre: "0",
+                  chiffre: adminRestaurantBloc.listeCommandes == null
+                      ? "0"
+                      : adminRestaurantBloc.listeCommandes!
+                          .where((element) =>
+                              element.etatLivraison == "PENDING" ||
+                              element.etatLivraison == "PREPARATION")
+                          .length
+                          .toString(),
                   estimation: "0",
                   description: "vous n'avez pas encore d'activite"),
               SizedBox(
@@ -65,9 +82,11 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
+              overviewStatWidget(
                   title: "Montants",
-                  chiffre: "0 GNF",
+                  chiffre: adminRestaurantBloc.listeCommandes == null
+                      ? "0 GNF"
+                      : getAllMontant(adminRestaurantBloc.listeCommandes!),
                   estimation: "0",
                   description: "vous n'avez pas encore d'activite"),
               SizedBox(
@@ -933,6 +952,72 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
                             ),
                             const Text('Dernières commandes'),
                             const Spacer(),
+                            SizedBox(
+                              width: 200,
+                              height: 40,
+                              child: Center(
+                                child: FormField<String>(
+                                  builder: (FormFieldState<String> state) {
+                                    return InputDecorator(
+                                      decoration: const InputDecoration(
+                                          border: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black))),
+                                      child: DropdownButtonHideUnderline(
+                                        child: DropdownButton<String>(
+                                          value: adminRestaurantBloc
+                                              .selectedStatus,
+                                          onChanged: (newValue) {
+                                            setState(() {
+                                              state.didChange(newValue);
+                                            });
+                                            adminRestaurantBloc
+                                                .setSelectedStatus(newValue!);
+                                          },
+                                          iconSize: 12,
+                                          items: adminRestaurantBloc.listeStatus
+                                              .map((String value) {
+                                            if (value == "") {
+                                              return const DropdownMenuItem<
+                                                  String>(
+                                                value: "",
+                                                child: Text(
+                                                  "Tous les commandes",
+                                                ),
+                                              );
+                                            } else {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                ),
+                                              );
+                                            }
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              onPressed: () {
+                                dialogRequestInfo(
+                                    context: context,
+                                    text1:
+                                        "La préparation de la commande est en cours du côté du restaurateur. Une fois préparée, la commande est confiée à l'un de nos livreurs à moto. ",
+                                    text2:
+                                        "La commande est en cours de livraison par un de nos livreurs.",
+                                    text3:
+                                        "La livraison a été effectuée avec succès et la commande a été remis au destinataire.");
+                              },
+                              icon: const Icon(Icons.info),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
                             Container(
                                 width: 90,
                                 height: 25,
@@ -957,12 +1042,10 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
                                   width: 16,
                                 ),
                                 Expanded(child: Text("N°")),
-                                Expanded(flex: 2, child: Text("Nom")),
-                                Expanded(child: Text("Montant")),
-                                Expanded(child: Text("Date debut")),
-                                Expanded(child: Text("Date fin")),
+                                Expanded(child: Text("Montant TTC")),
+                                Expanded(child: Text("Date")),
                                 Expanded(child: Text("Statut")),
-                                Expanded(flex: 2, child: Text("Action")),
+                                Expanded(flex: 3, child: Text("Action")),
                                 SizedBox(
                                   width: 16,
                                 ),
@@ -972,175 +1055,166 @@ class OverViewScreenRestaurantAdmin extends StatelessWidget {
                               height: 16,
                             ),
                             Column(
-                              children: []
-                                  .map((e) => Container(
-                                        color: e.status == 'accept-partenaire'
-                                            ? vert.withOpacity(.2)
-                                            : e.status == 'create-partenaire'
-                                                ? meuveClair
-                                                : blanc,
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 16,
-                                                ),
-                                                Expanded(
-                                                    child: Text(
-                                                        "#${e.id!.substring(0, 6)}",
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Text(e.bien!.titre!,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        getFormatPrice(e
-                                                                .bien!.tarif! *
-                                                            DateTime.parse(
-                                                                    e.dateFin!)
-                                                                .difference(
-                                                                    DateTime.parse(e
-                                                                        .dateDebut!))
-                                                                .inDays),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        e.dateDebut!
-                                                            .split("T")
-                                                            .first
-                                                            .split("-")
-                                                            .reversed
-                                                            .join("-"),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Text(
-                                                        e.dateFin!
-                                                            .split("T")
-                                                            .first
-                                                            .split("-")
-                                                            .reversed
-                                                            .join("-"),
-                                                        style: TextStyle(
-                                                            fontSize: 12,
-                                                            color: noir))),
-                                                Expanded(
-                                                    child: Center(
-                                                  child: Row(
-                                                    children: [
-                                                      const SizedBox(
-                                                        width: 12,
-                                                      ),
-                                                      Container(
-                                                        width: 15,
-                                                        height: 15,
-                                                        decoration: BoxDecoration(
-                                                            color: e.status! ==
-                                                                    "create"
-                                                                ? orange
-                                                                : vertFonce,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        15),
-                                                            border: Border.all(
-                                                                color: e.status! ==
-                                                                        "create"
-                                                                    ? orange
-                                                                    : vertFonce)),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 6,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )),
-                                                Expanded(
-                                                    flex: 2,
-                                                    child: Row(
+                              // ignore: unnecessary_null_comparison
+                              children:
+                                  adminRestaurantBloc.listeCommandes == null
+                                      ? const [CircularProgressIndicator()]
+                                      : adminRestaurantBloc.listeCommandes!
+                                          .where((element) =>
+                                              (element.etatLivraison ==
+                                                  adminRestaurantBloc
+                                                      .selectedStatus) ||
+                                              adminRestaurantBloc
+                                                      .selectedStatus ==
+                                                  "")
+                                          .map((e) => Container(
+                                                color:
+                                                    e.etatLivraison == "PENDING"
+                                                        ? blanc
+                                                        : e.etatLivraison ==
+                                                                "PREPARATION"
+                                                            ? orange
+                                                            : vert,
+                                                child: Column(
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Row(
                                                       children: [
-                                                        // Expanded(
-                                                        //     child: Center(
-                                                        //   child: IconButton(
-                                                        //     onPressed: () => reservationBloc
-                                                        //         .selectedRangeDate(
-                                                        //             DateTime.parse(e
-                                                        //                 .dateDebut!),
-                                                        //             DateTime.parse(
-                                                        //                 e.dateFin!)),
-                                                        //     icon: Icon(
-                                                        //       CupertinoIcons
-                                                        //           .calendar,
-                                                        //       color: noir,
-                                                        //     ),
-                                                        //   ),
-                                                        // )),
-                                                        // const SizedBox(
-                                                        //   width: 8,
-                                                        // ),
-                                                        Expanded(
-                                                            child: Center(
-                                                          child: IconButton(
-                                                              onPressed: () {
-                                                                if (e.prospect ==
-                                                                    null) {}
-                                                              },
-                                                              icon: Icon(
-                                                                CupertinoIcons
-                                                                    .eye_fill,
-                                                                color: jaune,
-                                                              )),
-                                                        )),
-                                                        const SizedBox(
-                                                          width: 8,
-                                                        ),
-                                                        Expanded(
-                                                            child: Center(
-                                                          child: Icon(
-                                                            CupertinoIcons
-                                                                .checkmark,
-                                                            color: vert,
-                                                          ),
-                                                        )),
                                                         SizedBox(
-                                                          width: 8,
+                                                          width: 16,
                                                         ),
                                                         Expanded(
-                                                            child: Center(
-                                                          child: Icon(
-                                                            CupertinoIcons
-                                                                .delete,
-                                                            color: rouge,
-                                                          ),
-                                                        )),
+                                                            child: Text(
+                                                                "${e.reference}",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color:
+                                                                        noir))),
+                                                        Expanded(
+                                                            child: Text(
+                                                                getFormatPrice(e
+                                                                    .prixOffre!),
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color:
+                                                                        noir))),
+                                                        Expanded(
+                                                            child: Text(
+                                                                e
+                                                                    .dateTransactionSuccess!,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        12,
+                                                                    color:
+                                                                        noir))),
+                                                        Expanded(
+                                                          child: Text(
+                                                              e.etatLivraison!,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: noir)),
+                                                        ),
+                                                        Expanded(
+                                                            flex: 3,
+                                                            child: Row(
+                                                              children: [
+                                                                Expanded(
+                                                                    child: Center(
+                                                                        child: Row(
+                                                                  children: [
+                                                                    IconButton(
+                                                                      onPressed: () => dialogRequest(
+                                                                              context: context,
+                                                                              title: "Vous êtes sur de lancer la PREPARATION".toUpperCase())
+                                                                          .then((value) async {
+                                                                        if (value) {
+                                                                          await adminRestaurantBloc.updateStatusCommandePannier(
+                                                                              e,
+                                                                              "PREPARATION");
+                                                                          adminRestaurantBloc
+                                                                              .setMenu(0);
+                                                                        }
+                                                                      }),
+                                                                      icon: const ImageIcon(
+                                                                          AssetImage(
+                                                                              "assets/images/preparion.png")),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8,
+                                                                    ),
+                                                                  ],
+                                                                ))),
+                                                                const SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                                Expanded(
+                                                                    child: Center(
+                                                                        child: Row(
+                                                                  children: [
+                                                                    IconButton(
+                                                                      onPressed: () => dialogRequest(
+                                                                              context: context,
+                                                                              title: "Vous êtes sur de lancer la Livraison".toUpperCase())
+                                                                          .then((value) async {
+                                                                        if (value) {
+                                                                          await adminRestaurantBloc.updateStatusCommandePannier(
+                                                                              e,
+                                                                              "LIVRAISON");
+                                                                          adminRestaurantBloc
+                                                                              .setMenu(0);
+                                                                        }
+                                                                      }),
+                                                                      icon: const ImageIcon(
+                                                                          AssetImage(
+                                                                              "assets/images/livraison.png")),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8,
+                                                                    ),
+                                                                  ],
+                                                                ))),
+                                                                SizedBox(
+                                                                  width: 8,
+                                                                ),
+                                                                Expanded(
+                                                                    child: Center(
+                                                                        child: Row(
+                                                                  children: [
+                                                                    IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        adminRestaurantBloc
+                                                                            .setSelectedCommande(e);
+                                                                        adminRestaurantBloc
+                                                                            .setMenu(13);
+                                                                      },
+                                                                      icon: const Icon(
+                                                                          CupertinoIcons
+                                                                              .eye_solid),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: 8,
+                                                                    ),
+                                                                  ],
+                                                                ))),
+                                                              ],
+                                                            )),
+                                                        SizedBox(
+                                                          width: 16,
+                                                        ),
                                                       ],
-                                                    )),
-                                                SizedBox(
-                                                  width: 16,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    )
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
-                                            )
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
+                                              ))
+                                          .toList(),
                             )
                           ],
                         )),

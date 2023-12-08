@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/add-logement-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
-import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+// import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:provider/provider.dart';
 
 class RecapLogement extends StatelessWidget {
@@ -55,14 +55,10 @@ class RecapLogement extends StatelessWidget {
                           height: size.height * .01,
                         ),
                         Container(
-                          height: 450,
-                          width: 450,
-                          child: Carousel(
-                              boxFit: BoxFit.cover,
-                              dotBgColor: blanc,
-                              dotIncreasedColor: noir,
-                              dotColor: noir,
-                              images: [
+                            height: 450,
+                            width: 450,
+                            child: PageView(
+                              children: [
                                 addLogementBloc.photoCouverture[1],
                                 addLogementBloc.photo1[1],
                                 addLogementBloc.photo2[1],
@@ -73,8 +69,27 @@ class RecapLogement extends StatelessWidget {
                                         e,
                                         fit: BoxFit.cover,
                                       ))
-                                  .toList()),
-                        ),
+                                  .toList(),
+                            )
+
+                            //  Carousel(
+                            //     boxFit: BoxFit.cover,
+                            //     dotBgColor: blanc,
+                            //     dotIncreasedColor: noir,
+                            //     dotColor: noir,
+                            //     images: [
+                            //       addLogementBloc.photoCouverture[1],
+                            //       addLogementBloc.photo1[1],
+                            //       addLogementBloc.photo2[1],
+                            //       addLogementBloc.photo3[1],
+                            //       addLogementBloc.photo4[1],
+                            //     ]
+                            //         .map((e) => Image.memory(
+                            //               e,
+                            //               fit: BoxFit.cover,
+                            //             ))
+                            //         .toList()),
+                            ),
                         SizedBox(
                           height: 4,
                         ),
@@ -292,7 +307,6 @@ class RecapLogement extends StatelessWidget {
                                 await addLogementBloc.addLogementFun();
                                 if (addLogementBloc.biensAdd != null) {
                                   await adminLogementBloc.getAllBien();
-                                  Navigator.popAndPushNamed(context, "/");
                                 }
                               },
                               child: Container(

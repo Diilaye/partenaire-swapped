@@ -33,8 +33,6 @@ class PartenaireModel {
       this.id});
 
   PartenaireModel.fromJson(Map<String, dynamic> json) {
-    print("PartenaireModel.fromJson");
-    print(json);
     service = json['service'];
     nomEntreprise = json['nomEntreprise'];
     descriptionEntreprise = json['descriptionEntreprise'];

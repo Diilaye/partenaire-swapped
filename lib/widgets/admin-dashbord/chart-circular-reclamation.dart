@@ -61,7 +61,7 @@ class ChartPainter extends CustomPainter {
 
     canvas.drawCircle(center, radius, backgroundPaint);
 
-    final startAngle = -pi / 2;
+    const startAngle = -pi / 2;
     final sweepAngle = 2 * pi * value;
 
     canvas.drawArc(

@@ -152,10 +152,10 @@ class ViewOffresScreen extends StatelessWidget {
                                       ],
                                       borderRadius: BorderRadius.circular(50),
                                       color: blanc),
-                                  child: const Center(
+                                  child: Center(
                                       child: Text(
-                                    '25%',
-                                    style: TextStyle(
+                                    '${addOffreSpecialBloc.pourcentage.text}%',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 10),
                                   )),
