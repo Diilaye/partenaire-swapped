@@ -76,7 +76,7 @@ class FaqScreen extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: size.width * .02),
-                                child: Text(
+                                child: const Text(
                                     'Pour devenir partenaire SwapeD, veuillez visiter le lien swaped.deally.fr et remplir les informations requises. Une fois que vous avez complété le formulaire, notre équipe de support prendra contact avec vous pour valider votre profil. Après cette validation, nous vous fournirons vos identifiants et votre mot de passe personnels pour accéder à votre compte. '),
                               ),
                               const SizedBox(

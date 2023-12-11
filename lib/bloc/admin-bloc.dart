@@ -39,4 +39,14 @@ class AdminBloc with ChangeNotifier {
 
     notifyListeners();
   }
+
+  updateStatusCommandePannier(
+      CommandeRestaurantModel? select, String status) async {
+    Map<String, dynamic> body = {"etatLivraison": status};
+    String? resutl =
+        await restaurantService.updateCommandePannier(select!.id!, body);
+    if (resutl != null) {
+      await getAllCommandes();
+    }
+  }
 }

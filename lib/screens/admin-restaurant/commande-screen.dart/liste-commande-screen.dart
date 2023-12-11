@@ -98,7 +98,7 @@ class _ListeCommandeScreenState extends State<ListeCommandeScreen> {
                                                   String>(
                                                 value: "",
                                                 child: Text(
-                                                  "Tous les commandes",
+                                                  "Toutes les commandes",
                                                 ),
                                               );
                                             } else {

@@ -249,7 +249,6 @@ class _PartenaireUtilisateurScreenState
                         ],
                       )),
                       Expanded(child: Text("Localisation")),
-                      Expanded(child: Text("Date rv")),
                       Expanded(child: Text("Actions")),
                       SizedBox(
                         width: 4,
@@ -268,145 +267,157 @@ class _PartenaireUtilisateurScreenState
                             .map(
                               (e) => Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 32.0),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    Expanded(
-                                        child: Text(
-                                      e.service!.toUpperCase(),
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Text(
-                                      e.nomEntreprise!,
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Text(
-                                      "${e.prenomInterlocuteur!} ${e.nomInterlocuteur!}",
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Text(
-                                      e.telephoneInterlocuteur!
-                                          .split(" ")
-                                          .join("")
-                                          .replaceAll("00", "+"),
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Text(
-                                      e.localisation!,
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Text(
-                                      "${e.dateRv} à ${e.heureRv}",
-                                      style:
-                                          TextStyle(color: noir, fontSize: 10),
-                                    )),
-                                    Expanded(
-                                        child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                    horizontal: 8.0, vertical: 12),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(width: .5, color: noir)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: Row(
                                       children: [
-                                        GestureDetector(
-                                          onTap: () async {
-                                            partenaireBloc
-                                                .setSelectPartenaire(e);
-                                            if (e.status == "active") {
-                                              await partenaireValidBloc
-                                                  .getIdentifiant(e.id!);
-                                              menuBloc.setMenu(11);
-                                            } else {
-                                              menuBloc.setMenu(10);
-                                            }
-                                          },
-                                          child: Container(
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                                border:
-                                                    Border.all(color: jaune)),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  "Voir",
-                                                  style: TextStyle(
-                                                      color: jaune,
-                                                      fontSize: 10),
-                                                ),
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                        const SizedBox(
+                                          width: 4,
                                         ),
+                                        Expanded(
+                                            child: Text(
+                                          e.service!.toUpperCase(),
+                                          style: TextStyle(
+                                              color: noir, fontSize: 10),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                          e.nomEntreprise!,
+                                          style: TextStyle(
+                                              color: noir, fontSize: 10),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                          "${e.prenomInterlocuteur!} ${e.nomInterlocuteur!}",
+                                          style: TextStyle(
+                                              color: noir, fontSize: 10),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                          e.telephoneInterlocuteur!
+                                              .split(" ")
+                                              .join("")
+                                              .replaceAll("00", "+"),
+                                          style: TextStyle(
+                                              color: noir, fontSize: 10),
+                                        )),
+                                        Expanded(
+                                            child: Text(
+                                          e.localisation!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: noir, fontSize: 10),
+                                        )),
+                                        Expanded(
+                                            child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                partenaireBloc
+                                                    .setSelectPartenaire(e);
+                                                if (e.status == "active") {
+                                                  await partenaireValidBloc
+                                                      .getIdentifiant(e.id!);
+                                                  menuBloc.setMenu(11);
+                                                } else {
+                                                  menuBloc.setMenu(10);
+                                                }
+                                              },
+                                              child: Container(
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                    border: Border.all(
+                                                        color: jaune)),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    Text(
+                                                      "Voir",
+                                                      style: TextStyle(
+                                                          color: jaune,
+                                                          fontSize: 10),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 12,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () => dialogRequest(
+                                                      context: context,
+                                                      title:
+                                                          "Voullez-vous suprimer ce partenaire ?")
+                                                  .then((value) {
+                                                if (value) {
+                                                  partenaireBloc
+                                                      .deletePartenaireFun(
+                                                          e.id!);
+                                                }
+                                              }),
+                                              child: Container(
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                    border: Border.all(
+                                                        color: rouge)),
+                                                child: Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    e.status == "active"
+                                                        ? Text(
+                                                            "Bloquer",
+                                                            style: TextStyle(
+                                                                color: rouge,
+                                                                fontSize: 10),
+                                                          )
+                                                        : Text(
+                                                            "Supprimer",
+                                                            style: TextStyle(
+                                                                color: rouge,
+                                                                fontSize: 10),
+                                                          ),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 32,
+                                            ),
+                                          ],
+                                        )),
                                         SizedBox(
-                                          width: 8,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => dialogRequest(
-                                                  context: context,
-                                                  title:
-                                                      "Voullez-vous suprimer ce partenaire ?")
-                                              .then((value) {
-                                            if (value) {
-                                              partenaireBloc
-                                                  .deletePartenaireFun(e.id!);
-                                            }
-                                          }),
-                                          child: Container(
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                                border:
-                                                    Border.all(color: rouge)),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                                e.status == "active"
-                                                    ? Text(
-                                                        "Bloquer",
-                                                        style: TextStyle(
-                                                            color: rouge,
-                                                            fontSize: 10),
-                                                      )
-                                                    : Text(
-                                                        "Supprimer",
-                                                        style: TextStyle(
-                                                            color: rouge,
-                                                            fontSize: 10),
-                                                      ),
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                          width: 4,
                                         ),
                                       ],
-                                    )),
-                                    SizedBox(
-                                      width: 4,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             )

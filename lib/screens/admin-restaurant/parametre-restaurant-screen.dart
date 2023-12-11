@@ -183,7 +183,7 @@ class ParametreRestaurantScreen extends StatelessWidget {
                                 controller: settingBloc.oldPassword,
                                 obscureText: settingBloc.viewPassword,
                                 decoration: InputDecoration(
-                                    labelText: 'Encien mot de passe',
+                                    labelText: 'Ancien mot de passe',
                                     suffixIcon: IconButton(
                                         onPressed: () =>
                                             settingBloc.setViewPassword(),

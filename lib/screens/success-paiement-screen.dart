@@ -27,7 +27,7 @@ class SuccessPaiementScreen extends StatelessWidget {
                 height: 25,
               ),
               Text(
-                "waped",
+                "wApp",
                 style: TextStyle(fontSize: 25, color: noir),
               )
             ],

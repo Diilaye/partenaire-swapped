@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -821,39 +823,45 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: size.width * .025,
-                      ),
-                      ImageIcon(
-                        const AssetImage("assets/images/swape.png"),
-                        size: 20,
-                        color: blanc,
-                      ),
-                      Text(
-                        'waped'.toUpperCase(),
-                        style: TextStyle(color: blanc),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () => null,
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          width: 16,
+                        SizedBox(
+                          width: size.width * .025,
+                        ),
+                        ImageIcon(
+                          const AssetImage("assets/images/swape.png"),
+                          size: 20,
+                          color: blanc,
                         ),
                         Text(
-                          'Home'.toUpperCase(),
+                          'wApp'.toUpperCase(),
                           style: TextStyle(color: blanc),
                         ),
-                        const SizedBox(
-                          width: 16,
-                        ),
                       ],
+                    ),
+                  ),
+                  const Spacer(),
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => null,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Text(
+                            'Home'.toUpperCase(),
+                            style: TextStyle(color: blanc),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -862,6 +870,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   MouseRegion(
                     onHover: (event) => partenaireBloc.setHoverColorAPropos(),
                     onExit: (event) => partenaireBloc.exitHoverColorAPropos(),
+                    cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () => Navigator.push(
                           context,
@@ -893,6 +902,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         partenaireBloc.setHoverColorPartenaire(),
                     onExit: (event) =>
                         partenaireBloc.exitHoverColorPartenaire(),
+                    cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () => Navigator.push(
                           context,
@@ -922,6 +932,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   MouseRegion(
                     onHover: (event) => partenaireBloc.setHoverColorFaq(),
                     onExit: (event) => partenaireBloc.exitHoverColorFaq(),
+                    cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () => Navigator.push(
                           context,
@@ -951,6 +962,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   MouseRegion(
                     onHover: (event) => partenaireBloc.setHoverColorLogin(),
                     onExit: (event) => partenaireBloc.exitHoverColorLogin(),
+                    cursor: SystemMouseCursors.click,
                     child: GestureDetector(
                       onTap: () => Navigator.pushNamed(context, "/login"),
                       child: Row(

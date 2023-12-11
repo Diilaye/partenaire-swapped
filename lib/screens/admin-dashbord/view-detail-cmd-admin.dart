@@ -114,10 +114,17 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color:
-                                  adminBloc.selectedCommande!.etatLivraison !=
-                                          "PENDING"
-                                      ? vert
-                                      : blanc,
+                                  adminBloc.selectedCommande!.etatLivraison ==
+                                          "CANCEL"
+                                      ? rouge
+                                      : (adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PENDING" &&
+                                              adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PREPARATION")
+                                          ? vert
+                                          : blanc,
                               boxShadow: [
                                 BoxShadow(
                                     blurRadius: .5, color: noir.withOpacity(.3))
@@ -141,13 +148,17 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color:
-                                  (adminBloc.selectedCommande!.etatLivraison !=
-                                              "PENDING" &&
-                                          adminBloc.selectedCommande!
-                                                  .etatLivraison !=
-                                              "PREPARATION")
-                                      ? vert
-                                      : blanc,
+                                  adminBloc.selectedCommande!.etatLivraison ==
+                                          "CANCEL"
+                                      ? rouge
+                                      : (adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PENDING" &&
+                                              adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PREPARATION")
+                                          ? vert
+                                          : blanc,
                               boxShadow: [
                                 BoxShadow(
                                     blurRadius: .5, color: noir.withOpacity(.3))
@@ -171,23 +182,34 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                               color:
-                                  (adminBloc.selectedCommande!.etatLivraison !=
-                                              "PENDING" &&
-                                          adminBloc.selectedCommande!
-                                                  .etatLivraison !=
-                                              "PREPARATION" &&
-                                          adminBloc.selectedCommande!
-                                                  .etatLivraison !=
-                                              "LIVRAISON")
-                                      ? vert
-                                      : blanc,
+                                  adminBloc.selectedCommande!.etatLivraison ==
+                                          "CANCEL"
+                                      ? rouge
+                                      : (adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PENDING" &&
+                                              adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PREPARATION")
+                                          ? vert
+                                          : blanc,
                               boxShadow: [
                                 BoxShadow(
                                     blurRadius: .5, color: noir.withOpacity(.3))
                               ]),
                           child: Center(
                             child: IconButton(
-                              onPressed: () => null,
+                              onPressed: () => dialogRequest(
+                                      context: context,
+                                      title:
+                                          "Vous êtes sure de vouloir blocquer cette livraison"
+                                              .toUpperCase())
+                                  .then((value) async {
+                                await adminBloc.updateStatusCommandePannier(
+                                    adminBloc.selectedCommande!,
+                                    'BLOCK-LIVRAISON');
+                                adminBloc.setMenu(0);
+                              }),
                               icon: const ImageIcon(
                                   AssetImage("assets/images/livree.png")),
                             ),
@@ -203,7 +225,18 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                           width: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
-                              color: blanc,
+                              color:
+                                  adminBloc.selectedCommande!.etatLivraison ==
+                                          "CANCEL"
+                                      ? rouge
+                                      : (adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PENDING" &&
+                                              adminBloc.selectedCommande!
+                                                      .etatLivraison !=
+                                                  "PREPARATION")
+                                          ? vert
+                                          : blanc,
                               boxShadow: [
                                 BoxShadow(
                                     blurRadius: .5, color: noir.withOpacity(.3))
@@ -215,7 +248,11 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                                       title:
                                           "Vous êtes sure de vouloir annuler cette commande"
                                               .toUpperCase())
-                                  .then((value) async {}),
+                                  .then((value) async {
+                                await adminBloc.updateStatusCommandePannier(
+                                    adminBloc.selectedCommande!, 'CANCEL');
+                                adminBloc.setMenu(0);
+                              }),
                               icon: const ImageIcon(AssetImage(
                                   "assets/images/cancel-commande.png")),
                             ),
@@ -276,7 +313,7 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       html.window.open(
-                          'https://www.google.com/maps/search/${adminBloc.selectedCommande!.restaurant!.adresse!.split(" ").join("+")}',
+                          'https://www.google.com/maps/search/${adminBloc.selectedCommande!.restaurant!.adresse!}',
                           'new tab');
                     },
                     child: Text(
@@ -454,7 +491,7 @@ class ViewDetailCmdAdminScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     html.window.open(
-                        'https://www.google.com/maps/search/${adminBloc.selectedCommande!.addresseLivraion!.split(" ").join("+")}',
+                        'https://www.google.com/maps/search/${adminBloc.selectedCommande!.addresseLivraion!}',
                         'new tab');
                   },
                   child: Text(

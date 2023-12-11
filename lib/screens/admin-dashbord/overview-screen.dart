@@ -741,7 +741,10 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                         : e.etatLivraison ==
                                                                 "PREPARATION"
                                                             ? orange
-                                                            : vert,
+                                                            : e.etatLivraison ==
+                                                                    "CANCEL"
+                                                                ? rouge
+                                                                : vert,
                                                     child: Column(
                                                       children: [
                                                         const SizedBox(
@@ -749,7 +752,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                         ),
                                                         Row(
                                                           children: [
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 16,
                                                             ),
                                                             Expanded(
@@ -793,7 +796,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                                 flex: 1,
                                                                 child: Row(
                                                                   children: [
-                                                                    SizedBox(
+                                                                    const SizedBox(
                                                                       width: 8,
                                                                     ),
                                                                     Expanded(
@@ -809,7 +812,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                                           icon:
                                                                               const Icon(CupertinoIcons.eye_solid),
                                                                         ),
-                                                                        SizedBox(
+                                                                        const SizedBox(
                                                                           width:
                                                                               8,
                                                                         ),
@@ -817,7 +820,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                                     ))),
                                                                   ],
                                                                 )),
-                                                            SizedBox(
+                                                            const SizedBox(
                                                               width: 16,
                                                             ),
                                                           ],
@@ -864,13 +867,13 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                Row(
+                                const Row(
                                   children: [
                                     SizedBox(
                                       width: 8,
                                     ),
                                     Text('Réclamations'),
-                                    const Spacer(),
+                                    Spacer(),
                                     Text('Voir +'),
                                     SizedBox(
                                       width: 8,
@@ -880,7 +883,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                 Expanded(
                                     child: Row(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     Expanded(
@@ -916,7 +919,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                     )
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 16,
                                                 ),
                                                 Row(

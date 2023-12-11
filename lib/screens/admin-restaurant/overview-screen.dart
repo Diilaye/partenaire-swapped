@@ -83,7 +83,7 @@ class _OverViewScreenRestaurantAdminState
                 width: size.width * .01,
               ),
               overviewStatWidget(
-                  title: "Montants",
+                  title: "Montant",
                   chiffre: adminRestaurantBloc.listeCommandes == null
                       ? "0 GNF"
                       : getAllMontant(adminRestaurantBloc.listeCommandes!),
@@ -982,7 +982,7 @@ class _OverViewScreenRestaurantAdminState
                                                   String>(
                                                 value: "",
                                                 child: Text(
-                                                  "Tous les commandes",
+                                                  "Toutes les commandes",
                                                 ),
                                               );
                                             } else {
@@ -1018,13 +1018,19 @@ class _OverViewScreenRestaurantAdminState
                             const SizedBox(
                               width: 8,
                             ),
-                            Container(
-                                width: 90,
-                                height: 25,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    border: Border.all(color: noir)),
-                                child: Center(child: Text('Voir tous'))),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () => adminRestaurantBloc.setMenu(5),
+                                child: Container(
+                                    width: 90,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(color: noir)),
+                                    child: Center(child: Text('Voir tout'))),
+                              ),
+                            ),
                             const SizedBox(
                               width: 8,
                             ),
@@ -1045,7 +1051,7 @@ class _OverViewScreenRestaurantAdminState
                                 Expanded(child: Text("Montant TTC")),
                                 Expanded(child: Text("Date")),
                                 Expanded(child: Text("Statut")),
-                                Expanded(flex: 3, child: Text("Action")),
+                                Expanded(flex: 3, child: Text("Actions")),
                                 SizedBox(
                                   width: 16,
                                 ),

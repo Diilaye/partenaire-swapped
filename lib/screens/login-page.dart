@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
@@ -26,24 +24,27 @@ class LoginScreen extends StatelessWidget {
               height: 60,
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, "/"),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: size.width * .025,
-                        ),
-                        ImageIcon(
-                          const AssetImage("assets/images/swape.png"),
-                          size: 20,
-                          color: noir,
-                        ),
-                        Text(
-                          'waped'.toUpperCase(),
-                          style: TextStyle(color: noir),
-                        ),
-                      ],
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, "/"),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: size.width * .025,
+                          ),
+                          ImageIcon(
+                            const AssetImage("assets/images/swape.png"),
+                            size: 20,
+                            color: noir,
+                          ),
+                          Text(
+                            'wApp'.toUpperCase(),
+                            style: TextStyle(color: noir),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -115,34 +116,37 @@ class LoginScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () => authBloc.loginFunction(context),
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(4),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(0, 0),
-                              blurRadius: 2,
-                              color: Colors.white.withOpacity(.2))
-                        ]),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        authBloc.chargement
-                            ? CircularProgressIndicator(
-                                backgroundColor: noir,
-                                color: blanc,
-                              )
-                            : const Text(
-                                "Se connecter",
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
-                              ),
-                      ],
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () => authBloc.loginFunction(context),
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(4),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(0, 0),
+                                blurRadius: 2,
+                                color: Colors.white.withOpacity(.2))
+                          ]),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          authBloc.chargement
+                              ? CircularProgressIndicator(
+                                  backgroundColor: noir,
+                                  color: blanc,
+                                )
+                              : const Text(
+                                  "Se connecter",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
+                                ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
