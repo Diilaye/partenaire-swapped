@@ -44,7 +44,10 @@ class AdminRestaurantBloc with ChangeNotifier {
   }
 
   getAllCommandes() async {
+    print("getAllCommandes");
     listeCommandes = await restaurantService.getCommande();
+    print(listeCommandes!.length);
+
     notifyListeners();
   }
 
@@ -111,7 +114,9 @@ class AdminRestaurantBloc with ChangeNotifier {
   }
 
   getAllPlats() async {
+    print("getAllPlats");
     listes = await restaurantService.allPlatsRestaurants();
+    print(listes.length);
     notifyListeners();
   }
 

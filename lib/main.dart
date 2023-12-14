@@ -17,9 +17,12 @@ import 'package:partenaire/bloc/restaurant/parametres-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/qr-code-bloc.dart';
 import 'package:partenaire/bloc/settings-bloc.dart';
 import 'package:partenaire/bloc/update-logement-bloc.dart';
+import 'package:partenaire/screens/about-us-screen.dart';
+import 'package:partenaire/screens/add-partenaire-screen.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
 import 'package:partenaire/screens/dashbord-logement.dart';
 import 'package:partenaire/screens/dashbord-restaurant.dart';
+import 'package:partenaire/screens/faq-screen.dart';
 import 'package:partenaire/screens/home-screen.dart';
 import 'package:partenaire/screens/login-page.dart';
 import 'package:provider/provider.dart';
@@ -95,6 +98,9 @@ class MyApp extends StatelessWidget {
               },
             ),
         '/login': (context) => const LoginScreen(),
+        '/partenaires': (context) => const AddPartenaireScreen(),
+        '/faq': (context) => const FaqScreen(),
+        '/about-us': (context) => const AboutUsScreen(),
       },
     );
   }

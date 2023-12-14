@@ -1348,30 +1348,34 @@ Commentaire : Quel commentaire souhaiteriez-vous mettre à votre hôte ?
             ),
             child: Row(
               children: [
-                GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, "/"),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: size.width * .025,
-                      ),
-                      ImageIcon(
-                        const AssetImage("assets/images/swape.png"),
-                        size: 20,
-                        color: blanc,
-                      ),
-                      Text(
-                        'waped'.toUpperCase(),
-                        style: TextStyle(color: blanc),
-                      ),
-                    ],
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: size.width * .025,
+                        ),
+                        ImageIcon(
+                          const AssetImage("assets/images/swape.png"),
+                          size: 20,
+                          color: blanc,
+                        ),
+                        Text(
+                          'waped'.toUpperCase(),
+                          style: TextStyle(color: blanc),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const Spacer(),
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorFaq(),
                   onExit: (event) => partenaireBloc.exitHoverColorFaq(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.pushNamed(context, "/"),
                     child: Row(
@@ -1396,6 +1400,7 @@ Commentaire : Quel commentaire souhaiteriez-vous mettre à votre hôte ?
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorAPropos(),
                   onExit: (event) => partenaireBloc.exitHoverColorAPropos(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -1425,6 +1430,7 @@ Commentaire : Quel commentaire souhaiteriez-vous mettre à votre hôte ?
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorPartenaire(),
                   onExit: (event) => partenaireBloc.exitHoverColorPartenaire(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -1452,6 +1458,7 @@ Commentaire : Quel commentaire souhaiteriez-vous mettre à votre hôte ?
                   width: 10,
                 ),
                 MouseRegion(
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -1480,6 +1487,7 @@ Commentaire : Quel commentaire souhaiteriez-vous mettre à votre hôte ?
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorLogin(),
                   onExit: (event) => partenaireBloc.exitHoverColorLogin(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.pushNamed(context, "/login"),
                     child: Row(

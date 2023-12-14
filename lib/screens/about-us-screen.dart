@@ -380,6 +380,7 @@ class AboutUsScreen extends StatelessWidget {
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorAPropos(),
                   onExit: (event) => partenaireBloc.exitHoverColorAPropos(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.pushNamed(context, "/"),
                     child: Row(
@@ -403,6 +404,7 @@ class AboutUsScreen extends StatelessWidget {
                   width: 10,
                 ),
                 MouseRegion(
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => null,
                     child: Row(
@@ -427,6 +429,7 @@ class AboutUsScreen extends StatelessWidget {
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorPartenaire(),
                   onExit: (event) => partenaireBloc.exitHoverColorPartenaire(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -456,6 +459,7 @@ class AboutUsScreen extends StatelessWidget {
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorFaq(),
                   onExit: (event) => partenaireBloc.exitHoverColorFaq(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => MaterialPageRoute(
                       builder: (context) => const FaqScreen(),
@@ -482,6 +486,7 @@ class AboutUsScreen extends StatelessWidget {
                 MouseRegion(
                   onHover: (event) => partenaireBloc.setHoverColorLogin(),
                   onExit: (event) => partenaireBloc.exitHoverColorLogin(),
+                  cursor: SystemMouseCursors.click,
                   child: GestureDetector(
                     onTap: () => Navigator.pushNamed(context, "/login"),
                     child: Row(
