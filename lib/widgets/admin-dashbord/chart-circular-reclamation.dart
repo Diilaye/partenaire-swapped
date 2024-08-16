@@ -6,11 +6,13 @@ import 'package:partenaire/utils/colors-by-dii.dart';
 class CircularChartReclamation extends StatelessWidget {
   final double chartRadius = 40.0;
   final double strokeWidth = 15.0;
-  final double value = 1;
+  final double value;
   final Color color;
 
   const CircularChartReclamation(
-      {super.key, required this.color}); // Change this value for chart progress
+      {super.key,
+      required this.color,
+      this.value = 1}); // Change this value for chart progress
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +21,16 @@ class CircularChartReclamation extends StatelessWidget {
       height: chartRadius * 2,
       child: CustomPaint(
         painter: ChartPainter(strokeWidth, value, color),
-        child: const Center(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '100%',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                "${(value * 100)}%",
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              Text('traité',
+              const Text('traité',
                   style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)),
             ],
           ),

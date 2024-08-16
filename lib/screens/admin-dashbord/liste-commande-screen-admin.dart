@@ -210,32 +210,42 @@ class _ListeCommandeScreenAdminState extends State<ListeCommandeScreenAdmin> {
                                                         flex: 1,
                                                         child: Row(
                                                           children: [
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
                                                             Expanded(
-                                                                child: Center(
-                                                                    child: Row(
-                                                              children: [
-                                                                IconButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    adminBloc
-                                                                        .setSelectedCommande(
-                                                                            e);
-                                                                    adminBloc
-                                                                        .setMenu(
-                                                                            12);
-                                                                  },
-                                                                  icon: const Icon(
-                                                                      CupertinoIcons
-                                                                          .eye_solid),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 8,
-                                                                ),
-                                                              ],
-                                                            ))),
+                                                              child: Center(
+                                                                  child: Row(
+                                                                children: [
+                                                                  IconButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      adminBloc
+                                                                          .setSelectedCommande(
+                                                                              e);
+                                                                      adminBloc
+                                                                          .setMenu(
+                                                                              12);
+                                                                    },
+                                                                    icon: const Icon(
+                                                                        CupertinoIcons
+                                                                            .eye_solid),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 8,
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                            ),
+                                                            if (e.restaurant!
+                                                                    .typePartenaire ==
+                                                                "1")
+                                                              const Icon(
+                                                                  CupertinoIcons
+                                                                      .paperplane),
+                                                            if (e.restaurant!
+                                                                    .typePartenaire ==
+                                                                "1")
+                                                              const SizedBox(
+                                                                width: 8,
+                                                              ),
                                                           ],
                                                         )),
                                                     SizedBox(

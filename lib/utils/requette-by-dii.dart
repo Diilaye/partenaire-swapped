@@ -43,7 +43,8 @@ Future deleteResponse({
   return http.delete(urlFinal, headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"
-  }).then((value) => json.decode(value.body));
+  }).then(
+      (value) => {"body": json.decode(value.body), "status": value.statusCode});
 }
 
 Future putResponse(
@@ -77,6 +78,7 @@ Future postResponse(
   });
   Uri urlFinal = Uri.parse(url1);
   // print(token);
+
   return http.post(urlFinal, body: json.encode(body), headers: {
     'Content-Type': 'application/json',
     'authorization': "Bearer $token"

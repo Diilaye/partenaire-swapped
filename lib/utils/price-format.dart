@@ -35,3 +35,9 @@ String getAllMontant(List<CommandeRestaurantModel> listeCommandes) {
   }
   return getFormatPrice(prix);
 }
+
+int priceFee(int price) {
+  double b = price * (1 + .1);
+
+  return ((b.floor() / 500).floor() + 1) * 500;
+}

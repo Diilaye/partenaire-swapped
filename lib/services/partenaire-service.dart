@@ -11,6 +11,9 @@ class PartenaireService {
   Future<String?> getIdentifiant(String id) async {
     return await getResponse(url: '/partenaires/identifiant/$id').then((value) {
       if (value['status'] == 200) {
+        if (value['body']['data'] == null) {
+          return "null";
+        }
         return value['body']['data']['identifiant'];
       } else {
         return null;
@@ -30,9 +33,9 @@ class PartenaireService {
   }
 
   Future<String?> addPartenaire(Map<String, dynamic> body) async {
-    print(body);
     return await postResponse(url: '/partenaires/create-partenaire', body: body)
         .then((value) {
+      print(value);
       if (value['status'] == 201) {
         return "success";
       } else {

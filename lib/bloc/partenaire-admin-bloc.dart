@@ -22,7 +22,7 @@ class PartenaireAdmonBloc with ChangeNotifier {
 
   PartenaireService partenaireService = PartenaireService();
 
-  List<String> listeService = ["", "Logement", "Mobilité", "Restaurant"];
+  List<String> listeService = ["", "Logement", "Mobilite", "Restaurant"];
   String selectedService = "";
 
   List<String> listeStatus = ["", "active", "inactive"];
@@ -87,6 +87,9 @@ class PartenaireAdmonBloc with ChangeNotifier {
   }
 
   setSelectPartenaire(PartenaireModel? part) async {
+    print("part.toJson()");
+    print(part!.photoExterieur!);
+    print(part.photoInterne!);
     partenaire = part;
     nomEnreprise.text = partenaire!.nomEntreprise!;
     nomInterlocuteurEnreprise.text = partenaire!.nomInterlocuteur!;
@@ -120,7 +123,7 @@ class PartenaireAdmonBloc with ChangeNotifier {
       "service": partenaire.service,
       "nom": partenaire.nomInterlocuteur,
       "prenom": partenaire.prenomInterlocuteur,
-      "nomEntreprise": partenaire.nomEntreprise
+      "nomEntreprise": nomEnreprise.text
     });
     print(successAddPartenaire);
     getAllPartenaire();

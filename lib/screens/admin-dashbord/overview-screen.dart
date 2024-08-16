@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/client-admin-bloc.dart';
+import 'package:partenaire/bloc/course-bloc.dart';
+import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
+import 'package:partenaire/bloc/reclamation-bloc.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/price-format.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
@@ -22,6 +25,9 @@ class _OverviewScreenState extends State<OverviewScreen> {
     Size size = MediaQuery.of(context).size;
     final clientAdminBloc = Provider.of<ClientAdminBloc>(context);
     final adminBloc = Provider.of<AdminBloc>(context);
+    final reclamationBloc = Provider.of<ReclamationBloc>(context);
+    final partenaireBloc = Provider.of<PartenaireAdmonBloc>(context);
+    final coursesAdminBloc = Provider.of<CoursesAdminBloc>(context);
 
     return ListView(
       children: [
@@ -49,19 +55,42 @@ class _OverviewScreenState extends State<OverviewScreen> {
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
-                  title: "Revenue nette",
-                  chiffre: "0 GNF",
+              overviewStatWidget(
+                  title: "Restaurants",
+                  chiffre: partenaireBloc.listePartenaire == null
+                      ? "0"
+                      : partenaireBloc.listePartenaire!
+                          .where((element) => element.service == "restaurant")
+                          .length
+                          .toString(),
                   estimation: "0",
-                  description: "vous avez fait un profit de 0 GNF ce mois"),
+                  description: "0 profit de ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
-              const overviewStatWidget(
-                  title: "CA journalière",
-                  chiffre: "0 GNF",
+              overviewStatWidget(
+                  title: "Logements",
+                  chiffre: partenaireBloc.listePartenaire == null
+                      ? "0"
+                      : partenaireBloc.listePartenaire!
+                          .where((element) => element.service == "logement")
+                          .length
+                          .toString(),
                   estimation: "0",
-                  description: "vous avez fait un profit de 0 GNF ce mois"),
+                  description: "0 profit de 0 GNF ce mois"),
+              SizedBox(
+                width: size.width * .01,
+              ),
+              overviewStatWidget(
+                  title: "Motards",
+                  chiffre: partenaireBloc.listePartenaire == null
+                      ? "0"
+                      : partenaireBloc.listePartenaire!
+                          .where((element) => element.service == "mobilite")
+                          .length
+                          .toString(),
+                  estimation: "0",
+                  description: "0 nombre de visite ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
@@ -71,7 +100,17 @@ class _OverviewScreenState extends State<OverviewScreen> {
                       ? "0"
                       : clientAdminBloc.clients!.length.toString(),
                   estimation: "0",
-                  description: "vous avez fait un 0 nombre de visite ce mois"),
+                  description: "0 nombre de visite ce mois"),
+              SizedBox(
+                width: size.width * .01,
+              ),
+              overviewStatWidget(
+                  title: "commandes",
+                  chiffre: adminBloc.listeCommandes == null
+                      ? "0"
+                      : adminBloc.listeCommandes!.length.toString(),
+                  estimation: "0",
+                  description: "0 nombre de visite ce mois"),
               SizedBox(
                 width: size.width * .01,
               ),
@@ -89,7 +128,7 @@ class _OverviewScreenState extends State<OverviewScreen> {
                 width: size.width * .01,
               ),
               Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -475,108 +514,194 @@ class _OverviewScreenState extends State<OverviewScreen> {
                             const SizedBox(
                               width: 8,
                             ),
-                            const Text('Chiffre en terme de wallet'),
+                            const Text('Performances'),
                             const Spacer(),
-                            Container(
-                                height: 25,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: vert.withOpacity(.4)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 15,
-                                      height: 15,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(2),
-                                          color: vert),
-                                      child: Center(
-                                        child: ImageIcon(
-                                          const AssetImage(
-                                              "assets/images/evolution.png"),
-                                          size: 10,
-                                          color: blanc,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    const Text(
-                                      "0%",
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                  ],
-                                )),
+                            const Spacer(),
+                            const SizedBox(
+                              width: 8,
+                            ),
                             const SizedBox(
                               width: 8,
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              "assets/images/deally.png",
-                              "assets/images/mtn-logo.png",
-                              "assets/images/orange-money.png",
-                              "assets/images/paypal.png"
-                            ]
-                                .map((e) => Expanded(
-                                      child: GestureDetector(
-                                          // onTap: () => walletSwappeBloc.changeSelectedMoyen(e),
-                                          child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: size.width * .02,
-                                            ),
-                                            Image.asset(
-                                              e,
-                                              width: 50,
-                                            ),
-                                            SizedBox(
-                                              width: size.width * .02,
-                                            ),
-                                            const Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Text("Montant: 0 GNF ",
-                                                          style: TextStyle(
-                                                              fontSize: 10)),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                          "une évolution de 0%"),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.add_box_rounded,
-                                              color: noir,
-                                            ),
-                                            SizedBox(
-                                              width: size.width * .04,
-                                            )
-                                          ],
-                                        ),
-                                      )),
-                                    ))
-                                .toList(),
-                          ),
+                        const SizedBox(
+                          height: 16,
                         ),
+                        Expanded(
+                            child: Column(
+                          children: [
+                            const Row(
+                              children: [
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(flex: 2, child: Text("Nom complet")),
+                                Expanded(child: Text("CA")),
+                                Expanded(child: Text("RN")),
+                                Expanded(child: Text("Salaire")),
+                                Expanded(flex: 1, child: Text("Action")),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Expanded(
+                                child: ListView(
+                              children: coursesAdminBloc.livarisons.reversed
+                                  .map(
+                                    (e) => Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                                "${e.motard!.prenom!} ${e.motard!.nom!} ")),
+                                        Expanded(
+                                            child: Text(getFormatPrice(
+                                                e.chiffreAffaire!))),
+                                        Expanded(
+                                            child: Text(getFormatPrice(
+                                                (e.revenuNette!)))),
+                                        Expanded(
+                                            child: Text(
+                                                getFormatPrice((e.salaire!)))),
+                                        Expanded(
+                                            flex: 1,
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: const Icon(
+                                                      CupertinoIcons.eye_solid),
+                                                  onPressed: () {
+                                                    coursesAdminBloc
+                                                        .setFiche(e);
+                                                    adminBloc.setMenu(92);
+                                                  },
+                                                ),
+                                              ],
+                                            )),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
+                            )),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            SizedBox(
+                                height: 75,
+                                width: size.width,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextField(
+                                        readOnly: true,
+                                        controller: coursesAdminBloc.dateDebut,
+                                        decoration: InputDecoration(
+                                            labelText: coursesAdminBloc
+                                                    .dateDebut.text.isEmpty
+                                                ? 'Date début'
+                                                : '',
+                                            border:
+                                                const UnderlineInputBorder()),
+                                        onTap: () {
+                                          showDatePicker(
+                                                  context: context,
+                                                  locale:
+                                                      const Locale("fr", "FR"),
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(2023),
+                                                  lastDate: DateTime(2030))
+                                              .then((value) => coursesAdminBloc
+                                                  .setDateDebut(value));
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextField(
+                                        readOnly: true,
+                                        controller: coursesAdminBloc.dateFin,
+                                        decoration: InputDecoration(
+                                            labelText: coursesAdminBloc
+                                                    .dateFin.text.isEmpty
+                                                ? 'Date fin'
+                                                : '',
+                                            border:
+                                                const UnderlineInputBorder()),
+                                        onTap: () {
+                                          showDatePicker(
+                                                  context: context,
+                                                  locale:
+                                                      const Locale("fr", "FR"),
+                                                  initialDate: DateTime.now(),
+                                                  firstDate: DateTime(2023),
+                                                  lastDate: DateTime(2030))
+                                              .then((value) => coursesAdminBloc
+                                                  .setDateFin(value));
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Expanded(
+                                      child: Center(
+                                        child: GestureDetector(
+                                          onTap: () => coursesAdminBloc
+                                              .getLivraisonDate(),
+                                          child: Container(
+                                              width: 90,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(2),
+                                                  color: noir,
+                                                  border:
+                                                      Border.all(color: noir)),
+                                              child: Center(
+                                                  child: coursesAdminBloc
+                                                          .chargementLivraison
+                                                      ? Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: blanc,
+                                                          ),
+                                                        )
+                                                      : Text(
+                                                          'Envoyer',
+                                                          style: TextStyle(
+                                                              color: blanc),
+                                                        ))),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                  ],
+                                )),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        )),
                         const SizedBox(
                           height: 8,
                         ),
@@ -625,7 +750,8 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    const Text('Dernières commandes'),
+                                    const Text(
+                                        'Dernières commandes restaurants'),
                                     const Spacer(),
                                     SizedBox(
                                       width: 200,
@@ -796,28 +922,38 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                                 flex: 1,
                                                                 child: Row(
                                                                   children: [
-                                                                    const SizedBox(
-                                                                      width: 8,
-                                                                    ),
                                                                     Expanded(
-                                                                        child: Center(
-                                                                            child: Row(
-                                                                      children: [
-                                                                        IconButton(
-                                                                          onPressed:
-                                                                              () {
-                                                                            adminBloc.setSelectedCommande(e);
-                                                                            adminBloc.setMenu(12);
-                                                                          },
-                                                                          icon:
-                                                                              const Icon(CupertinoIcons.eye_solid),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              8,
-                                                                        ),
-                                                                      ],
-                                                                    ))),
+                                                                      child: Center(
+                                                                          child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                            onPressed:
+                                                                                () {
+                                                                              adminBloc.setSelectedCommande(e);
+                                                                              adminBloc.setMenu(12);
+                                                                            },
+                                                                            icon:
+                                                                                const Icon(CupertinoIcons.eye_solid),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          ),
+                                                                        ],
+                                                                      )),
+                                                                    ),
+                                                                    if (e.restaurant!
+                                                                            .typePartenaire ==
+                                                                        "1")
+                                                                      Icon(CupertinoIcons
+                                                                          .paperplane),
+                                                                    if (e.restaurant!
+                                                                            .typePartenaire ==
+                                                                        "1")
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            8,
+                                                                      ),
                                                                   ],
                                                                 )),
                                                             const SizedBox(
@@ -867,18 +1003,47 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                const Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text('Réclamations'),
-                                    Spacer(),
-                                    Text('Voir +'),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: 40,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                          'Réclamations (${reclamationBloc.reclamations.where((e) => e.statusReclamation == 'pending').toList().length})'),
+                                      const Spacer(),
+                                      IconButton(
+                                        onPressed: () => adminBloc.setMenu(7),
+                                        icon: Container(
+                                          width: 90,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(color: noir)),
+                                          child: const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                              Text(
+                                                'Voir tous',
+                                              ),
+                                              SizedBox(
+                                                width: 4,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Expanded(
                                     child: Row(
@@ -893,6 +1058,20 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                               flex: 4,
                                               child: CircularChartReclamation(
                                                 color: vertFonce,
+                                                value: reclamationBloc
+                                                        .reclamations.isEmpty
+                                                    ? 1
+                                                    : double.parse((reclamationBloc
+                                                                .reclamations
+                                                                .where((e) =>
+                                                                    e.statusReclamation !=
+                                                                    'pending')
+                                                                .toList()
+                                                                .length /
+                                                            reclamationBloc
+                                                                .reclamations
+                                                                .length)
+                                                        .toStringAsFixed(2)),
                                               )),
                                           Expanded(
                                             flex: 2,
@@ -912,10 +1091,23 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                     const SizedBox(
                                                       width: 8,
                                                     ),
-                                                    const Text(
-                                                      '   0%',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
+                                                    SizedBox(
+                                                      width: 30,
+                                                      child: reclamationBloc
+                                                              .reclamations
+                                                              .isEmpty
+                                                          ? const Text(
+                                                              '100% ',
+                                                              style: TextStyle(
+                                                                  fontSize: 10),
+                                                            )
+                                                          : Text(
+                                                              "${((reclamationBloc.reclamations.where((e) => e.statusReclamation == 'pending').toList().length / reclamationBloc.reclamations.length) * 100).toInt().toString()}% ",
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          10),
+                                                            ),
                                                     )
                                                   ],
                                                 ),
@@ -933,11 +1125,24 @@ class _OverviewScreenState extends State<OverviewScreen> {
                                                     const SizedBox(
                                                       width: 8,
                                                     ),
-                                                    const Text(
-                                                      '100%',
-                                                      style: TextStyle(
-                                                          fontSize: 10),
-                                                    )
+                                                    SizedBox(
+                                                        width: 30,
+                                                        child: reclamationBloc
+                                                                .reclamations
+                                                                .isEmpty
+                                                            ? const Text(
+                                                                '100% ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        10),
+                                                              )
+                                                            : Text(
+                                                                "${double.parse((reclamationBloc.reclamations.where((e) => e.statusReclamation != 'pending').toList().length / reclamationBloc.reclamations.length).toStringAsFixed(2).toString()) * 100}%",
+                                                                style:
+                                                                    const TextStyle(
+                                                                        fontSize:
+                                                                            10),
+                                                              ))
                                                   ],
                                                 ),
                                               ],

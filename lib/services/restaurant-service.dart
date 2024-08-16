@@ -128,4 +128,15 @@ class RestaurantService {
       return null;
     });
   }
+
+  Future<String?> createLivraison(Map<String, dynamic> body) async {
+    return postResponse(url: '/courses/livraison', body: body).then((value) {
+      print("createLivraison postResponse");
+      print(value);
+      if (value['status'] == 201) {
+        return "livraision initiié avec reussi";
+      }
+      return null;
+    });
+  }
 }

@@ -3,12 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/screens/admin-dashbord/client-utilisateur-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/decaissement-add-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/decaissement-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/decaissement-update-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/fiche-pai-livreur.dart';
 import 'package:partenaire/screens/admin-dashbord/liste-commande-screen-admin.dart';
 import 'package:partenaire/screens/admin-dashbord/overview-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/partenaire-utilisateur-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/reclamation-client.dart';
 import 'package:partenaire/screens/admin-dashbord/view-detail-cmd-admin.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaire-valid-screen.dart';
 import 'package:partenaire/screens/admin-dashbord/view-partenaires-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/view-reclamations-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/zone-add-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/zone-add-sub-zone-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/zone-completer.dart';
+import 'package:partenaire/screens/admin-dashbord/zone-screen.dart';
+import 'package:partenaire/screens/admin-dashbord/zone-update-screen.dart';
 import 'package:partenaire/screens/admin-restaurant/commande-screen.dart/view-detail-cmd.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
 import 'package:partenaire/utils/requette-dialog.dart';
@@ -376,36 +387,39 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: size.height * .01,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
+                  GestureDetector(
+                    onTap: () => adminBloc.setMenu(7),
+                    child: Container(
+                      color: adminBloc.menu == 7 ? gris.withOpacity(.3) : blanc,
+                      child: Column(
                         children: [
-                          SizedBox(
-                            width: size.width * .03,
+                          const SizedBox(
+                            height: 8,
                           ),
-                          const Icon(
-                            CupertinoIcons.info_circle,
-                            size: 13,
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.info_circle,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'réclamations',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
                           ),
                           const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            'réclamations',
-                            style: TextStyle(fontSize: 14, color: noir),
+                            height: 8,
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                    ),
                   ),
                   SizedBox(
                     height: size.height * .1,
@@ -418,7 +432,7 @@ class DashbordAdminScreen extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: size.width * .03,
+                            width: size.width * .025,
                           ),
                           const Icon(
                             CupertinoIcons.person_3_fill,
@@ -438,6 +452,74 @@ class DashbordAdminScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  GestureDetector(
+                    onTap: () => adminBloc.setMenu(8),
+                    child: Container(
+                      color: adminBloc.menu == 8 ? gris.withOpacity(.3) : blanc,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.square_list,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'zone',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => adminBloc.setMenu(9),
+                    child: Container(
+                      color: adminBloc.menu == 9 ? gris.withOpacity(.3) : blanc,
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: size.width * .03,
+                              ),
+                              const Icon(
+                                CupertinoIcons.square_list,
+                                size: 13,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                'decaissement',
+                                style: TextStyle(fontSize: 14, color: noir),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: size.height * .01,
                   ),
@@ -449,7 +531,7 @@ class DashbordAdminScreen extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: size.width * .03,
+                            width: size.width * .025,
                           ),
                           const Icon(
                             CupertinoIcons.headphones,
@@ -480,7 +562,7 @@ class DashbordAdminScreen extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: size.width * .03,
+                            width: size.width * .025,
                           ),
                           const Icon(
                             CupertinoIcons.settings,
@@ -562,17 +644,42 @@ class DashbordAdminScreen extends StatelessWidget {
                           ? const ListeCommandeScreenAdmin()
                           : adminBloc.menu == 4
                               ? const ClientUtilisateurScreen()
-                              : adminBloc.menu == 10
-                                  ? ViewPartenaireScreen(
-                                      partenaire:
-                                          partenaireAdminBloc.partenaire!)
-                                  : adminBloc.menu == 11
-                                      ? ViewPartenaireValidScreen(
+                              : adminBloc.menu == 7
+                                  ? const ReclamationsClientScreen()
+                                  : adminBloc.menu == 10
+                                      ? ViewPartenaireScreen(
                                           partenaire:
                                               partenaireAdminBloc.partenaire!)
-                                      : adminBloc.menu == 12
-                                          ? const ViewDetailCmdAdminScreen()
-                                          : const PartenaireUtilisateurScreen(),
+                                      : adminBloc.menu == 11
+                                          ? ViewPartenaireValidScreen(
+                                              partenaire: partenaireAdminBloc
+                                                  .partenaire!)
+                                          : adminBloc.menu == 12
+                                              ? const ViewDetailCmdAdminScreen()
+                                              : adminBloc.menu == 13
+                                                  ? const ViewReclamationScreen()
+                                                  : adminBloc.menu == 8
+                                                      ? const ZoneScreen()
+                                                      : adminBloc.menu == 80
+                                                          ? const ZoneAddScreen()
+                                                          : adminBloc.menu == 81
+                                                              ? const ZoneUpdateScreen()
+                                                              : adminBloc.menu ==
+                                                                      9
+                                                                  ? const DecaissementScreen()
+                                                                  : adminBloc.menu ==
+                                                                          90
+                                                                      ? const DecaissementAddScreen()
+                                                                      : adminBloc.menu ==
+                                                                              91
+                                                                          ? const DecaissementUpdateScreen()
+                                                                          : adminBloc.menu == 82
+                                                                              ? const ZoneCompleterScreen()
+                                                                              : adminBloc.menu == 83
+                                                                                  ? const ZoneAddSiubZoneScreen()
+                                                                                  : adminBloc.menu == 92
+                                                                                      ? const FichedePaieLivreurScreen()
+                                                                                      : const PartenaireUtilisateurScreen(),
                 )),
           ],
         ),

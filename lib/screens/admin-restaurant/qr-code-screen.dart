@@ -71,17 +71,13 @@ class _QrcodeRestaurantScreenState extends State<QrcodeRestaurantScreen> {
             Expanded(
               child: TextField(
                 cursorColor: Colors.black,
-                controller: qrCodeBloc.typeQr == 0
-                    ? qrCodeBloc.nombreTable
-                    : qrCodeBloc.numeroTable,
-                decoration: InputDecoration(
-                    labelText: qrCodeBloc.typeQr == 0
-                        ? 'Nombre de table '
-                        : 'Numero de table',
-                    labelStyle: const TextStyle(color: Colors.black),
+                controller: qrCodeBloc.numeroTable,
+                decoration: const InputDecoration(
+                    labelText: 'Numero de table',
+                    labelStyle: TextStyle(color: Colors.black),
                     focusColor: Colors.black,
                     fillColor: Colors.black,
-                    border: const UnderlineInputBorder(
+                    border: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black))),
               ),
             ),
@@ -108,7 +104,7 @@ class _QrcodeRestaurantScreenState extends State<QrcodeRestaurantScreen> {
                       children: [
                         QrImageView(
                           data:
-                              "https://swaped.deally.fr?service=restaurant&idresto=${qrCodeBloc.resto!.id!}&table=${qrCodeBloc.numeroTable}",
+                              "https://swapp.deally.fr?service=restaurant&idresto=${qrCodeBloc.resto!.id!}&table=${qrCodeBloc.numeroTable.text}",
                           version: QrVersions.auto,
                           backgroundColor: blanc,
                           eyeStyle: QrEyeStyle(
@@ -149,7 +145,10 @@ class _QrcodeRestaurantScreenState extends State<QrcodeRestaurantScreen> {
                   borderRadius: BorderRadius.circular(8), color: noir),
               child: Center(
                 child: qrCodeBloc.chargementUpload
-                    ? const CircularProgressIndicator()
+                    ? CircularProgressIndicator(
+                        backgroundColor: blanc,
+                        color: noir,
+                      )
                     : Text(
                         'Générer le qr-code',
                         style: TextStyle(color: blanc),

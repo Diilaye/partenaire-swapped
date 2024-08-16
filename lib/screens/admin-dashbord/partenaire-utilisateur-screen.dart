@@ -365,8 +365,12 @@ class _PartenaireUtilisateurScreenState
                                             GestureDetector(
                                               onTap: () => dialogRequest(
                                                       context: context,
-                                                      title:
-                                                          "Voullez-vous suprimer ce partenaire ?")
+                                                      title: e.status ==
+                                                              "inactive"
+                                                          ? "Voullez-vous activer ce partenaire ?"
+                                                          : e.status == "active"
+                                                              ? "Voullez-vous supprimer ce partenaire ?"
+                                                              : "Voullez-vous réintegrer ce partenaire ?")
                                                   .then((value) {
                                                 if (value) {
                                                   partenaireBloc
@@ -384,7 +388,7 @@ class _PartenaireUtilisateurScreenState
                                                         color: rouge)),
                                                 child: Row(
                                                   children: [
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 4,
                                                     ),
                                                     e.status == "active"
@@ -394,12 +398,23 @@ class _PartenaireUtilisateurScreenState
                                                                 color: rouge,
                                                                 fontSize: 10),
                                                           )
-                                                        : Text(
-                                                            "Supprimer",
-                                                            style: TextStyle(
-                                                                color: rouge,
-                                                                fontSize: 10),
-                                                          ),
+                                                        : e.status == "inactive"
+                                                            ? Text(
+                                                                "Activer",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        rouge,
+                                                                    fontSize:
+                                                                        10),
+                                                              )
+                                                            : Text(
+                                                                "Réintegrer",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        rouge,
+                                                                    fontSize:
+                                                                        10),
+                                                              ),
                                                     SizedBox(
                                                       width: 4,
                                                     ),

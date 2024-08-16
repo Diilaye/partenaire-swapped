@@ -64,12 +64,17 @@ class ViewPartenaireScreen extends StatelessWidget {
                   ]),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  partenaire.photoExterieur!.first.url!,
-                  fit: BoxFit.cover,
-                  height: 150.0,
-                  width: 100.0,
-                ),
+                // ignore: unnecessary_null_comparison, prefer_is_empty
+                child: partenaire.photoExterieur!.length > 0 &&
+                        // ignore: unnecessary_null_comparison
+                        partenaire.photoExterieur![0] != null
+                    ? Image.network(
+                        partenaire.photoExterieur!.first.url!,
+                        fit: BoxFit.cover,
+                        height: 150.0,
+                        width: 100.0,
+                      )
+                    : const Center(child: Text('Pas de photo de profil')),
               ),
             ),
             const SizedBox(
@@ -89,12 +94,17 @@ class ViewPartenaireScreen extends StatelessWidget {
                   ]),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  partenaire.photoExterieur![1].url!,
-                  fit: BoxFit.cover,
-                  height: 150.0,
-                  width: 100.0,
-                ),
+                // ignore: unnecessary_null_comparison, prefer_is_empty
+                child: partenaire.photoExterieur!.length > 1 &&
+                        // ignore: unnecessary_null_comparison
+                        partenaire.photoExterieur![1] != null
+                    ? Image.network(
+                        partenaire.photoExterieur![1].url!,
+                        fit: BoxFit.cover,
+                        height: 150.0,
+                        width: 100.0,
+                      )
+                    : const Center(child: Text('Pas de carte d\'identité')),
               ),
             ),
           ],
@@ -135,12 +145,17 @@ class ViewPartenaireScreen extends StatelessWidget {
                     ]),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    partenaire.photoInterne!.first.url!,
-                    fit: BoxFit.cover,
-                    height: 150.0,
-                    width: 100.0,
-                  ),
+                  // ignore: unnecessary_null_comparison
+                  child: partenaire.photoInterne!.length > 0 &&
+                          // ignore: unnecessary_null_comparison
+                          partenaire.photoInterne![0] != null
+                      ? Image.network(
+                          partenaire.photoInterne!.first.url!,
+                          fit: BoxFit.cover,
+                          height: 150.0,
+                          width: 100.0,
+                        )
+                      : const Center(child: Text('Pas de permis de conduire')),
                 ),
               ),
               const SizedBox(
@@ -160,12 +175,15 @@ class ViewPartenaireScreen extends StatelessWidget {
                     ]),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    partenaire.photoInterne![1].url!,
-                    fit: BoxFit.cover,
-                    height: 150.0,
-                    width: 100.0,
-                  ),
+                  child: partenaire.photoInterne!.length > 1 &&
+                          partenaire.photoInterne![1] != null
+                      ? Image.network(
+                          partenaire.photoInterne![1].url!,
+                          fit: BoxFit.cover,
+                          height: 150.0,
+                          width: 100.0,
+                        )
+                      : const Center(child: Text('Pas de assurance')),
                 ),
               ),
               const SizedBox(
@@ -185,12 +203,15 @@ class ViewPartenaireScreen extends StatelessWidget {
                     ]),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    partenaire.photoInterne![2].url!,
-                    fit: BoxFit.cover,
-                    height: 150.0,
-                    width: 100.0,
-                  ),
+                  child: partenaire.photoInterne!.length > 2 &&
+                          partenaire.photoInterne![2] != null
+                      ? Image.network(
+                          partenaire.photoInterne![2].url!,
+                          fit: BoxFit.cover,
+                          height: 150.0,
+                          width: 100.0,
+                        )
+                      : const Center(child: Text('Pas de carte grise')),
                 ),
               ),
             ],

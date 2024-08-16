@@ -1065,7 +1065,8 @@ class _OverViewScreenRestaurantAdminState
                               children:
                                   adminRestaurantBloc.listeCommandes == null
                                       ? const [CircularProgressIndicator()]
-                                      : adminRestaurantBloc.listeCommandes!
+                                      : adminRestaurantBloc
+                                          .listeCommandes!.reversed
                                           .where((element) =>
                                               (element.etatLivraison ==
                                                   adminRestaurantBloc
@@ -1128,61 +1129,105 @@ class _OverViewScreenRestaurantAdminState
                                                             flex: 3,
                                                             child: Row(
                                                               children: [
-                                                                Expanded(
-                                                                    child: Center(
-                                                                        child: Row(
-                                                                  children: [
-                                                                    IconButton(
-                                                                      onPressed: () => dialogRequest(
-                                                                              context: context,
-                                                                              title: "Vous êtes sur de lancer la PREPARATION".toUpperCase())
-                                                                          .then((value) async {
-                                                                        if (value) {
-                                                                          await adminRestaurantBloc.updateStatusCommandePannier(
-                                                                              e,
-                                                                              "PREPARATION");
-                                                                          adminRestaurantBloc
-                                                                              .setMenu(0);
-                                                                        }
-                                                                      }),
-                                                                      icon: const ImageIcon(
-                                                                          AssetImage(
-                                                                              "assets/images/preparion.png")),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 8,
-                                                                    ),
-                                                                  ],
-                                                                ))),
+                                                                e.etatLivraison ==
+                                                                            "SUCCESS" ||
+                                                                        e.etatLivraison ==
+                                                                            "LIVRAISON"
+                                                                    ? Expanded(
+                                                                        child: Center(
+                                                                            child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                            onPressed: () =>
+                                                                                dialogRequest(context: context, title: "Vous avez preparer la livraison ?".toUpperCase()).then((value) async {
+                                                                              if (value) {
+                                                                                // await adminRestaurantBloc.updateStatusCommandePannier(e, "PREPARATION");
+                                                                                // adminRestaurantBloc.setMenu(0);
+                                                                              }
+                                                                            }),
+                                                                            icon:
+                                                                                const ImageIcon(AssetImage("assets/images/preparion.png")),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          ),
+                                                                        ],
+                                                                      )))
+                                                                    : Expanded(
+                                                                        child: Center(
+                                                                            child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                            onPressed: () =>
+                                                                                dialogRequest(context: context, title: "Vous êtes sur de lancer la PREPARATION".toUpperCase()).then((value) async {
+                                                                              if (value) {
+                                                                                await adminRestaurantBloc.updateStatusCommandePannier(e, "PREPARATION");
+                                                                                adminRestaurantBloc.setMenu(0);
+                                                                              }
+                                                                            }),
+                                                                            icon:
+                                                                                const ImageIcon(AssetImage("assets/images/preparion.png")),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          ),
+                                                                        ],
+                                                                      ))),
                                                                 const SizedBox(
                                                                   width: 8,
                                                                 ),
-                                                                Expanded(
-                                                                    child: Center(
-                                                                        child: Row(
-                                                                  children: [
-                                                                    IconButton(
-                                                                      onPressed: () => dialogRequest(
-                                                                              context: context,
-                                                                              title: "Vous êtes sur de lancer la Livraison".toUpperCase())
-                                                                          .then((value) async {
-                                                                        if (value) {
-                                                                          await adminRestaurantBloc.updateStatusCommandePannier(
-                                                                              e,
-                                                                              "LIVRAISON");
-                                                                          adminRestaurantBloc
-                                                                              .setMenu(0);
-                                                                        }
-                                                                      }),
-                                                                      icon: const ImageIcon(
-                                                                          AssetImage(
-                                                                              "assets/images/livraison.png")),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 8,
-                                                                    ),
-                                                                  ],
-                                                                ))),
+                                                                e.etatLivraison ==
+                                                                            "SUCCESS" ||
+                                                                        e.etatLivraison ==
+                                                                            "LIVRAISON"
+                                                                    ? Expanded(
+                                                                        child: Center(
+                                                                            child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                            onPressed: () =>
+                                                                                dialogRequest(context: context, title: "Vous avez déjas lancer la Livraison".toUpperCase()).then((value) async {
+                                                                              if (value) {
+                                                                                // String status = e.table! == "0" ? "LIVRAISON" : "SUCCESS";
+                                                                                // await adminRestaurantBloc.updateStatusCommandePannier(e, status);
+                                                                                // adminRestaurantBloc.setMenu(0);
+                                                                              }
+                                                                            }),
+                                                                            icon: e.table! == "0"
+                                                                                ? const ImageIcon(AssetImage("assets/images/livraison.png"))
+                                                                                : const ImageIcon(AssetImage("assets/images/livree.png")),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          ),
+                                                                        ],
+                                                                      )))
+                                                                    : Expanded(
+                                                                        child: Center(
+                                                                            child: Row(
+                                                                        children: [
+                                                                          IconButton(
+                                                                            onPressed: () =>
+                                                                                dialogRequest(context: context, title: e.table! == "0" ? "Vous êtes sur de lancer la Livraison".toUpperCase() : "Vous êtes sur de l'envoyer au table n° : ${e.table!}".toUpperCase()).then((value) async {
+                                                                              if (value) {
+                                                                                String status = e.table! == "0" ? "LIVRAISON" : "SUCCESS";
+                                                                                await adminRestaurantBloc.updateStatusCommandePannier(e, status);
+                                                                                adminRestaurantBloc.setMenu(0);
+                                                                              }
+                                                                            }),
+                                                                            icon: e.table! == "0"
+                                                                                ? const ImageIcon(AssetImage("assets/images/livraison.png"))
+                                                                                : const ImageIcon(AssetImage("assets/images/livree.png")),
+                                                                          ),
+                                                                          SizedBox(
+                                                                            width:
+                                                                                8,
+                                                                          ),
+                                                                        ],
+                                                                      ))),
                                                                 SizedBox(
                                                                   width: 8,
                                                                 ),
@@ -1207,6 +1252,29 @@ class _OverViewScreenRestaurantAdminState
                                                                     ),
                                                                   ],
                                                                 ))),
+                                                                if (e.table! !=
+                                                                    "0")
+                                                                  SizedBox(
+                                                                    width: 8,
+                                                                  ),
+                                                                if (e.table! !=
+                                                                    "0")
+                                                                  Expanded(
+                                                                      child: Center(
+                                                                          child: Row(
+                                                                    children: [
+                                                                      IconButton(
+                                                                        onPressed:
+                                                                            () {},
+                                                                        icon: const Icon(
+                                                                            CupertinoIcons.qrcode),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            8,
+                                                                      ),
+                                                                    ],
+                                                                  ))),
                                                               ],
                                                             )),
                                                         SizedBox(

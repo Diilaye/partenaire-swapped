@@ -1,27 +1,245 @@
-class CommandeRestaurantModel {
+class ReclamationModel {
+  String? typeService;
+  String? type;
+  Obect? obect;
+  String? probleme;
+  String? solution;
+  String? statusReclamation;
+  String? ticketReclamation;
+  String? id;
+  String? niveauReclamations;
+
+  ReclamationModel(
+      {this.typeService,
+      this.type,
+      this.obect,
+      this.probleme,
+      this.solution,
+      this.statusReclamation,
+      this.ticketReclamation,
+      this.niveauReclamations,
+      this.id});
+
+  ReclamationModel.fromJson(Map<String, dynamic> json) {
+    typeService = json['typeService'];
+    type = json['type'];
+    obect = json['obect'] != null ? new Obect.fromJson(json['obect']) : null;
+    probleme = json['probleme'];
+    solution = json['solution'];
+    statusReclamation = json['statusReclamation'];
+    ticketReclamation = json['ticketReclamation'];
+    niveauReclamations = json['niveauReclamations'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['typeService'] = this.typeService;
+    data['type'] = this.type;
+    if (this.obect != null) {
+      data['obect'] = this.obect!.toJson();
+    }
+    data['probleme'] = this.probleme;
+    data['solution'] = this.solution;
+    data['statusReclamation'] = this.statusReclamation;
+    data['ticketReclamation'] = this.ticketReclamation;
+    data['niveauReclamations'] = this.niveauReclamations;
+    data['id'] = this.id;
+    return data;
+  }
+
+  static List<ReclamationModel> fromList({required data}) {
+    List<ReclamationModel> liste = [];
+
+    for (var element in data) {
+      liste.add(ReclamationModel.fromJson(element));
+    }
+
+    return liste;
+  }
+}
+
+class Obect {
+  Transaction? transaction;
+  Commande? commande;
+  PointDepart? pointDepart;
+  PointDepart? pointArrive;
+  Distance? distance;
+  Distance? duree;
+  String? addresseDepart;
+  String? addresseArrive;
+  String? statusLivraison;
+  String? statusLivraisonVehicule;
+  String? statusCourses;
+  List<String>? courseCancelRaison;
+  String? statusDate;
+  String? dateCourses;
+  Client? client;
+  int? prixTotal;
+  int? prixOffre;
+  String? id;
+
+  Obect(
+      {this.transaction,
+      this.commande,
+      this.pointDepart,
+      this.pointArrive,
+      this.distance,
+      this.duree,
+      this.addresseDepart,
+      this.addresseArrive,
+      this.statusLivraison,
+      this.statusLivraisonVehicule,
+      this.statusCourses,
+      this.courseCancelRaison,
+      this.statusDate,
+      this.dateCourses,
+      this.client,
+      this.prixTotal,
+      this.prixOffre,
+      this.id});
+
+  Obect.fromJson(Map<String, dynamic> json) {
+    transaction = json['transaction'] != null
+        ? new Transaction.fromJson(json['transaction'])
+        : null;
+    commande = json['commande'] != null
+        ? new Commande.fromJson(json['commande'])
+        : null;
+    pointDepart = json['pointDepart'] != null
+        ? new PointDepart.fromJson(json['pointDepart'])
+        : null;
+    pointArrive = json['pointArrive'] != null
+        ? new PointDepart.fromJson(json['pointArrive'])
+        : null;
+    distance = json['distance'] != null
+        ? new Distance.fromJson(json['distance'])
+        : null;
+    duree = json['duree'] != null ? new Distance.fromJson(json['duree']) : null;
+    addresseDepart = json['addresseDepart'];
+    addresseArrive = json['addresseArrive'];
+    statusLivraison = json['statusLivraison'];
+    statusLivraisonVehicule = json['statusLivraisonVehicule'];
+    statusCourses = json['statusCourses'];
+    courseCancelRaison = json['courseCancelRaison'].cast<String>();
+
+    statusDate = json['statusDate'];
+    dateCourses = json['dateCourses'];
+    client =
+        json['client'] != null ? new Client.fromJson(json['client']) : null;
+    prixTotal = json['prix_total'];
+    prixOffre = json['prix_offre'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.transaction != null) {
+      data['transaction'] = this.transaction!.toJson();
+    }
+    if (this.commande != null) {
+      data['commande'] = this.commande!.toJson();
+    }
+    if (this.pointDepart != null) {
+      data['pointDepart'] = this.pointDepart!.toJson();
+    }
+    if (this.pointArrive != null) {
+      data['pointArrive'] = this.pointArrive!.toJson();
+    }
+    if (this.distance != null) {
+      data['distance'] = this.distance!.toJson();
+    }
+    if (this.duree != null) {
+      data['duree'] = this.duree!.toJson();
+    }
+    data['addresseDepart'] = this.addresseDepart;
+    data['addresseArrive'] = this.addresseArrive;
+    data['statusLivraison'] = this.statusLivraison;
+    data['statusLivraisonVehicule'] = this.statusLivraisonVehicule;
+    data['statusCourses'] = this.statusCourses;
+    data['courseCancelRaison'] = this.courseCancelRaison;
+
+    data['statusDate'] = this.statusDate;
+    data['dateCourses'] = this.dateCourses;
+    if (this.client != null) {
+      data['client'] = this.client!.toJson();
+    }
+    data['prix_total'] = this.prixTotal;
+    data['prix_offre'] = this.prixOffre;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Transaction {
+  String? status;
+  String? typeService;
+  String? means;
+  String? dateTransactionSuccess;
+  String? amount;
+  String? userWallet;
+  String? reference;
+  String? id;
+
+  Transaction(
+      {this.status,
+      this.typeService,
+      this.means,
+      this.dateTransactionSuccess,
+      this.amount,
+      this.userWallet,
+      this.reference,
+      this.id});
+
+  Transaction.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    typeService = json['typeService'];
+    means = json['means'];
+    dateTransactionSuccess = json['dateTransactionSuccess'];
+    amount = json['amount'];
+    userWallet = json['userWallet'];
+    reference = json['reference'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['typeService'] = this.typeService;
+    data['means'] = this.means;
+    data['dateTransactionSuccess'] = this.dateTransactionSuccess;
+    data['amount'] = this.amount;
+    data['userWallet'] = this.userWallet;
+    data['reference'] = this.reference;
+    data['id'] = this.id;
+    return data;
+  }
+}
+
+class Commande {
   List<Panniers>? panniers;
   PointDepart? pointDepart;
+  PointDepart? pointArrive;
   String? addresseLivraion;
   String? addresseRestaurant;
-  PointDepart? pointArrive;
   String? statusLivraison;
   String? creneaux;
   String? status;
   String? etatLivraison;
   String? contriePaiement;
+  String? table;
   String? means;
   String? dateTransactionSuccess;
   String? reference;
   Restaurant? restaurant;
-  Client? client;
+  String? client;
   int? prixTotal;
   int? prixOffre;
   int? prixLivraison;
   String? phonePaiement;
   String? id;
-  String? table;
 
-  CommandeRestaurantModel(
+  Commande(
       {this.panniers,
       this.pointDepart,
       this.pointArrive,
@@ -32,6 +250,7 @@ class CommandeRestaurantModel {
       this.status,
       this.etatLivraison,
       this.contriePaiement,
+      this.table,
       this.means,
       this.dateTransactionSuccess,
       this.reference,
@@ -41,10 +260,9 @@ class CommandeRestaurantModel {
       this.prixOffre,
       this.prixLivraison,
       this.phonePaiement,
-      this.table,
       this.id});
 
-  CommandeRestaurantModel.fromJson(Map<String, dynamic> json) {
+  Commande.fromJson(Map<String, dynamic> json) {
     if (json['panniers'] != null) {
       panniers = <Panniers>[];
       json['panniers'].forEach((v) {
@@ -57,25 +275,24 @@ class CommandeRestaurantModel {
     pointArrive = json['pointArrive'] != null
         ? new PointDepart.fromJson(json['pointArrive'])
         : null;
-    statusLivraison = json['statusLivraison'];
     addresseLivraion = json['addresseLivraion'];
     addresseRestaurant = json['addresseRestaurant'];
+    statusLivraison = json['statusLivraison'];
     creneaux = json['creneaux'];
     status = json['status'];
     etatLivraison = json['etatLivraison'];
     contriePaiement = json['contriePaiement'];
+    table = json['table'];
     means = json['means'];
     dateTransactionSuccess = json['dateTransactionSuccess'];
     reference = json['reference'];
     restaurant = json['restaurant'] != null
         ? new Restaurant.fromJson(json['restaurant'])
         : null;
-    client =
-        json['client'] != null ? new Client.fromJson(json['client']) : null;
+    client = json['client'];
     prixTotal = json['prix_total'];
     prixOffre = json['prix_offre'];
     prixLivraison = json['prix_livraison'];
-    table = json['table'];
     phonePaiement = json['phonePaiement'];
     id = json['id'];
   }
@@ -91,39 +308,27 @@ class CommandeRestaurantModel {
     if (this.pointArrive != null) {
       data['pointArrive'] = this.pointArrive!.toJson();
     }
-    data['statusLivraison'] = this.statusLivraison;
     data['addresseLivraion'] = this.addresseLivraion;
     data['addresseRestaurant'] = this.addresseRestaurant;
-    data['etatLivraison'] = this.etatLivraison;
+    data['statusLivraison'] = this.statusLivraison;
     data['creneaux'] = this.creneaux;
     data['status'] = this.status;
+    data['etatLivraison'] = this.etatLivraison;
     data['contriePaiement'] = this.contriePaiement;
+    data['table'] = this.table;
     data['means'] = this.means;
     data['dateTransactionSuccess'] = this.dateTransactionSuccess;
     data['reference'] = this.reference;
     if (this.restaurant != null) {
       data['restaurant'] = this.restaurant!.toJson();
     }
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
-    }
+    data['client'] = this.client;
     data['prix_total'] = this.prixTotal;
     data['prix_offre'] = this.prixOffre;
     data['prix_livraison'] = this.prixLivraison;
     data['phonePaiement'] = this.phonePaiement;
-    data['table'] = this.table;
     data['id'] = this.id;
     return data;
-  }
-
-  static List<CommandeRestaurantModel> fromList({required data}) {
-    List<CommandeRestaurantModel> liste = [];
-
-    for (var element in data) {
-      liste.add(CommandeRestaurantModel.fromJson(element));
-    }
-
-    return liste;
   }
 }
 
@@ -181,25 +386,6 @@ class Panniers {
   }
 }
 
-class Complements {
-  String? name;
-  int? prix;
-
-  Complements({this.name, this.prix});
-
-  Complements.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    prix = json['prix'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['prix'] = this.prix;
-    return data;
-  }
-}
-
 class Plat {
   bool? isFreeLivraison;
   List<Galery>? galery;
@@ -207,9 +393,7 @@ class Plat {
   List<String>? menu;
   String? pays;
   List<Complements>? complements;
-  List<Null>? commandes;
-  List<Null>? notes;
-  List<Null>? commentaires;
+
   bool? isDisponible;
   bool? isLivrable;
   String? titre;
@@ -225,9 +409,6 @@ class Plat {
       this.menu,
       this.pays,
       this.complements,
-      this.commandes,
-      this.notes,
-      this.commentaires,
       this.isDisponible,
       this.isLivrable,
       this.titre,
@@ -275,7 +456,6 @@ class Plat {
     if (this.complements != null) {
       data['complements'] = this.complements!.map((v) => v.toJson()).toList();
     }
-
     data['isDisponible'] = this.isDisponible;
     data['isLivrable'] = this.isLivrable;
     data['titre'] = this.titre;
@@ -312,6 +492,25 @@ class Galery {
   }
 }
 
+class Complements {
+  String? name;
+  int? prix;
+
+  Complements({this.name, this.prix});
+
+  Complements.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    prix = json['prix'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['prix'] = this.prix;
+    return data;
+  }
+}
+
 class PointDepart {
   double? lat;
   double? lng;
@@ -332,130 +531,45 @@ class PointDepart {
 }
 
 class Restaurant {
-  String? nomEntreprise;
-  String? typePartenaire;
-  String? descriptionEntreprise;
-  String? telephone;
-  String? email;
-  List<Galery>? gallerie;
-  List<Null>? notes;
-  List<Null>? commentaires;
-  List<String>? plats;
-  List<String>? specialMenu;
-  List<String>? commodite;
-  String? status;
-  String? service;
-  String? idParent;
-  Galery? photoCover;
   String? adresse;
-  String? heureFermeture;
-  String? heureOuverture;
-  List<String>? jourOuvertures;
-  String? nombreTable;
-  List<String>? specialite;
-  String? telephone1;
-  String? telephone2;
-  String? pays;
-  PointDepart? localisation;
+  String? nomEntreprise;
+  String? telephone;
   String? id;
 
-  Restaurant(
-      {this.nomEntreprise,
-      this.descriptionEntreprise,
-      this.typePartenaire,
-      this.telephone,
-      this.email,
-      this.gallerie,
-      this.notes,
-      this.commentaires,
-      this.plats,
-      this.specialMenu,
-      this.commodite,
-      this.status,
-      this.service,
-      this.idParent,
-      this.photoCover,
-      this.adresse,
-      this.heureFermeture,
-      this.heureOuverture,
-      this.jourOuvertures,
-      this.nombreTable,
-      this.specialite,
-      this.telephone1,
-      this.telephone2,
-      this.pays,
-      this.localisation,
-      this.id});
+  Restaurant({this.adresse, this.nomEntreprise, this.telephone, this.id});
 
   Restaurant.fromJson(Map<String, dynamic> json) {
-    nomEntreprise = json['nomEntreprise'];
-    descriptionEntreprise = json['descriptionEntreprise'];
-    typePartenaire = json['typePartenaire'];
-    telephone = json['telephone'];
-    email = json['email'];
-    if (json['gallerie'] != null) {
-      gallerie = <Galery>[];
-      json['gallerie'].forEach((v) {
-        gallerie!.add(new Galery.fromJson(v));
-      });
-    }
-
-    plats = json['plats'].cast<String>();
-    specialMenu = json['specialMenu'].cast<String>();
-    commodite = json['commodite'].cast<String>();
-    status = json['status'];
-    service = json['service'];
-    idParent = json['idParent'];
-    photoCover = json['photoCover'] != null
-        ? new Galery.fromJson(json['photoCover'])
-        : null;
     adresse = json['adresse'];
-    heureFermeture = json['heureFermeture'];
-    heureOuverture = json['heureOuverture'];
-    jourOuvertures = json['jourOuvertures'].cast<String>();
-    nombreTable = json['nombreTable'];
-    specialite = json['specialite'].cast<String>();
-    telephone1 = json['telephone1'];
-    telephone2 = json['telephone2'];
-    pays = json['pays'];
-    localisation = json['localisation'] != null
-        ? new PointDepart.fromJson(json['localisation'])
-        : null;
+    nomEntreprise = json['nomEntreprise'];
+    telephone = json['telephone'];
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nomEntreprise'] = this.nomEntreprise;
-    data['typePartenaire'] = this.typePartenaire;
-    data['descriptionEntreprise'] = this.descriptionEntreprise;
-    data['telephone'] = this.telephone;
-    data['email'] = this.email;
-    if (this.gallerie != null) {
-      data['gallerie'] = this.gallerie!.map((v) => v.toJson()).toList();
-    }
-    data['plats'] = this.plats;
-    data['specialMenu'] = this.specialMenu;
-    data['commodite'] = this.commodite;
-    data['status'] = this.status;
-    data['service'] = this.service;
-    data['idParent'] = this.idParent;
-    if (this.photoCover != null) {
-      data['photoCover'] = this.photoCover!.toJson();
-    }
     data['adresse'] = this.adresse;
-    data['heureFermeture'] = this.heureFermeture;
-    data['heureOuverture'] = this.heureOuverture;
-    data['jourOuvertures'] = this.jourOuvertures;
-    data['nombreTable'] = this.nombreTable;
-    data['specialite'] = this.specialite;
-    data['telephone1'] = this.telephone1;
-    data['telephone2'] = this.telephone2;
-    data['pays'] = this.pays;
-    if (this.localisation != null) {
-      data['localisation'] = this.localisation!.toJson();
-    }
+    data['nomEntreprise'] = this.nomEntreprise;
+    data['telephone'] = this.telephone;
     data['id'] = this.id;
+    return data;
+  }
+}
+
+class Distance {
+  String? text;
+  int? value;
+
+  Distance({this.text, this.value});
+
+  Distance.fromJson(Map<String, dynamic> json) {
+    text = json['text'];
+    value = json['value'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['text'] = this.text;
+    data['value'] = this.value;
     return data;
   }
 }
@@ -463,31 +577,15 @@ class Restaurant {
 class Client {
   String? nom;
   String? prenom;
-  String? sexe;
-  String? statusCompte;
-  String? email;
   String? telephone;
-  String? token;
   String? id;
 
-  Client(
-      {this.nom,
-      this.prenom,
-      this.sexe,
-      this.statusCompte,
-      this.email,
-      this.telephone,
-      this.token,
-      this.id});
+  Client({this.nom, this.prenom, this.telephone, this.id});
 
   Client.fromJson(Map<String, dynamic> json) {
     nom = json['nom'];
     prenom = json['prenom'];
-    sexe = json['sexe'];
-    statusCompte = json['statusCompte'];
-    email = json['email'];
     telephone = json['telephone'];
-    token = json['token'];
     id = json['id'];
   }
 
@@ -495,11 +593,7 @@ class Client {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['nom'] = this.nom;
     data['prenom'] = this.prenom;
-    data['sexe'] = this.sexe;
-    data['statusCompte'] = this.statusCompte;
-    data['email'] = this.email;
     data['telephone'] = this.telephone;
-    data['token'] = this.token;
     data['id'] = this.id;
     return data;
   }

@@ -6,6 +6,7 @@ import 'package:partenaire/models/plats-model.dart';
 import 'package:partenaire/models/reservation-restaurant-model.dart';
 import 'package:partenaire/services/restaurant-service.dart';
 import 'package:partenaire/utils/colors-by-dii.dart';
+import 'package:partenaire/utils/price-format.dart';
 
 class AdminRestaurantBloc with ChangeNotifier {
   int menu = 0;
@@ -46,9 +47,9 @@ class AdminRestaurantBloc with ChangeNotifier {
   getAllCommandes() async {
     print("getAllCommandes");
     listeCommandes = await restaurantService.getCommande();
-    print(listeCommandes!.length);
 
     notifyListeners();
+    print(listeCommandes);
   }
 
   getAllReservation() async {
@@ -140,10 +141,36 @@ class AdminRestaurantBloc with ChangeNotifier {
   updateStatusCommandePannier(
       CommandeRestaurantModel? select, String status) async {
     Map<String, dynamic> body = {"etatLivraison": status};
-    String? resutl =
-        await restaurantService.updateCommandePannier(select!.id!, body);
-    if (resutl != null) {
-      await getAllCommandes();
+
+    if (status == "LIVRAISON") {
+      Map<String, dynamic> bodyLivraison = {
+        "client": select!.client!.id!,
+        "commande": select!.id!,
+        "prix_total": priceFee(select.prixLivraison!),
+        "prix_offre": select.prixLivraison!,
+        "pointDepart": select.pointArrive!.toJson(),
+        "pointArrive": select.pointDepart!.toJson(),
+        "addresseDepart": select.addresseRestaurant!,
+        "addresseArrive": select.addresseLivraion!
+      };
+      print("bodyLivraison");
+      print(bodyLivraison);
+      String? resultLivraison =
+          await restaurantService.createLivraison(bodyLivraison);
+      print(resultLivraison);
+      if (resultLivraison != null) {
+        String? resutl = await restaurantService
+            .updateCommandePannier(select.id!, {"etatLivraison": "LIVRAISON"});
+        if (resutl != null) {
+          await getAllCommandes();
+        }
+      }
+    } else {
+      String? resutl =
+          await restaurantService.updateCommandePannier(select!.id!, body);
+      if (resutl != null) {
+        await getAllCommandes();
+      }
     }
   }
 }

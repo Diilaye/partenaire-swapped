@@ -5,10 +5,13 @@ import 'package:partenaire/bloc/admin-bloc.dart';
 import 'package:partenaire/bloc/admin-logement-bloc.dart';
 import 'package:partenaire/bloc/auth-bloc.dart';
 import 'package:partenaire/bloc/client-admin-bloc.dart';
+import 'package:partenaire/bloc/course-bloc.dart';
+import 'package:partenaire/bloc/decaissement-bloc.dart';
 import 'package:partenaire/bloc/faq-bloc.dart';
 import 'package:partenaire/bloc/partenaire-admin-bloc.dart';
 import 'package:partenaire/bloc/partenaire-bloc.dart';
 import 'package:partenaire/bloc/partenaire-valid-bloc.dart';
+import 'package:partenaire/bloc/reclamation-bloc.dart';
 import 'package:partenaire/bloc/reservation-bloc.dart';
 import 'package:partenaire/bloc/restaurant/add-offre-special-bloc.dart';
 import 'package:partenaire/bloc/restaurant/add-plats-restaurant-bloc.dart';
@@ -17,6 +20,7 @@ import 'package:partenaire/bloc/restaurant/parametres-restaurant-bloc.dart';
 import 'package:partenaire/bloc/restaurant/qr-code-bloc.dart';
 import 'package:partenaire/bloc/settings-bloc.dart';
 import 'package:partenaire/bloc/update-logement-bloc.dart';
+import 'package:partenaire/bloc/zone-bloc.dart';
 import 'package:partenaire/screens/about-us-screen.dart';
 import 'package:partenaire/screens/add-partenaire-screen.dart';
 import 'package:partenaire/screens/dahsbord-admin.dart';
@@ -54,6 +58,10 @@ void main() {
       ChangeNotifierProvider(create: (_) => FaqBloc()),
       ChangeNotifierProvider(create: (_) => AddOffreSpecialBloc()),
       ChangeNotifierProvider(create: (_) => QrcodeBloc()),
+      ChangeNotifierProvider(create: (_) => ReclamationBloc()),
+      ChangeNotifierProvider(create: (_) => CoursesAdminBloc()),
+      ChangeNotifierProvider(create: (_) => ZoneBloc()),
+      ChangeNotifierProvider(create: (_) => DecaissementBloc()),
     ],
     child: const MyApp(),
   ));

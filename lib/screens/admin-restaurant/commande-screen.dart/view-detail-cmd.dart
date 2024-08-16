@@ -199,91 +199,110 @@ class ViewDetailCmdScreen extends StatelessWidget {
               const SizedBox(
                 width: 8,
               ),
-              Text(
-                'Livraison'.toUpperCase(),
-                style:
-                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-              )
+              adminRestaurantBloc.selectedCommande!.table! == "0"
+                  ? Text(
+                      'Livraison'.toUpperCase(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 14),
+                    )
+                  : Text(
+                      'Table'.toUpperCase(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 14),
+                    ),
+              adminRestaurantBloc.selectedCommande!.table != "0"
+                  ? const Spacer()
+                  : const SizedBox(),
+              if (adminRestaurantBloc.selectedCommande!.table != "0")
+                Text(
+                  adminRestaurantBloc.selectedCommande!.table!.toUpperCase(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 32),
+                ),
+              const SizedBox(
+                width: 8,
+              ),
             ],
           ),
         ),
         const SizedBox(
           height: 8,
         ),
-        Column(
-          children: [
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 16,
-                ),
-                Icon(
-                  Icons.place_outlined,
-                  color: noir,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                    adminRestaurantBloc.selectedCommande!.addresseLivraion!
-                        .toUpperCase(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 14)),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 16,
-                ),
-                Icon(
-                  Icons.monetization_on_outlined,
-                  color: noir,
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                    getFormatPrice(
-                      adminRestaurantBloc.selectedCommande!.prixLivraison!,
-                    ).toUpperCase(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 14)),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 16,
-                ),
-                const Expanded(
-                    flex: 5,
-                    child: TextField(
-                      decoration: InputDecoration(
-                          labelText: 'Commentaire sur le client'),
-                    )),
-                Expanded(
-                    child: Center(
-                  child: IconButton(
-                      onPressed: () => null,
-                      icon: Icon(
-                        CupertinoIcons.arrow_right_circle_fill,
-                        color: noir,
+        if (adminRestaurantBloc.selectedCommande!.table == "0")
+          Column(
+            children: [
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Icon(
+                    Icons.place_outlined,
+                    color: noir,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                      adminRestaurantBloc.selectedCommande!.addresseLivraion!
+                          .toUpperCase(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 14)),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Icon(
+                    Icons.monetization_on_outlined,
+                    color: noir,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                      getFormatPrice(
+                        adminRestaurantBloc.selectedCommande!.prixLivraison!,
+                      ).toUpperCase(),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 14)),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  const Expanded(
+                      flex: 5,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Commentaire sur le client'),
                       )),
-                )),
-              ],
-            ),
-          ],
-        ),
+                  Expanded(
+                      child: Center(
+                    child: IconButton(
+                        onPressed: () => null,
+                        icon: Icon(
+                          CupertinoIcons.arrow_right_circle_fill,
+                          color: noir,
+                        )),
+                  )),
+                ],
+              ),
+            ],
+          ),
         const SizedBox(
           height: 16,
         ),
@@ -394,17 +413,38 @@ class ViewDetailCmdScreen extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                onPressed: () => dialogRequest(
-                        context: context,
-                        title: "Vous êtes sur de lancer la PREPARATION"
-                            .toUpperCase())
-                    .then((value) async {
-                  if (value) {
-                    await adminRestaurantBloc.updateStatusCommandePannier(
-                        adminRestaurantBloc.selectedCommande!, "PREPARATION");
-                    adminRestaurantBloc.setMenu(0);
+                onPressed: () {
+                  if (adminRestaurantBloc.selectedCommande!.etatLivraison ==
+                          "SUCCESS" ||
+                      adminRestaurantBloc.selectedCommande!.etatLivraison ==
+                          "LIVRAISON") {
+                    dialogRequest(
+                            context: context,
+                            title: "Vous avez déjas lancer la preparation"
+                                .toUpperCase())
+                        .then((value) async {
+                      if (value) {
+                        // await adminRestaurantBloc.updateStatusCommandePannier(
+                        //     adminRestaurantBloc.selectedCommande!,
+                        //     "PREPARATION");
+                        // adminRestaurantBloc.setMenu(0);
+                      }
+                    });
+                  } else {
+                    dialogRequest(
+                            context: context,
+                            title: "Vous êtes sur de lancer la PREPARATION"
+                                .toUpperCase())
+                        .then((value) async {
+                      if (value) {
+                        await adminRestaurantBloc.updateStatusCommandePannier(
+                            adminRestaurantBloc.selectedCommande!,
+                            "PREPARATION");
+                        adminRestaurantBloc.setMenu(0);
+                      }
+                    });
                   }
-                }),
+                },
                 icon:
                     const ImageIcon(AssetImage("assets/images/preparion.png")),
               ),
@@ -412,19 +452,45 @@ class ViewDetailCmdScreen extends StatelessWidget {
                 width: size.width * .05,
               ),
               IconButton(
-                onPressed: () => dialogRequest(
-                        context: context,
-                        title: "Vous êtes sur de lancer la Livraison"
-                            .toUpperCase())
-                    .then((value) async {
-                  if (value) {
-                    await adminRestaurantBloc.updateStatusCommandePannier(
-                        adminRestaurantBloc.selectedCommande!, "LIVRAISON");
-                    adminRestaurantBloc.setMenu(0);
+                onPressed: () {
+                  if (adminRestaurantBloc.selectedCommande!.etatLivraison ==
+                          "SUCCESS" ||
+                      adminRestaurantBloc.selectedCommande!.etatLivraison ==
+                          "LIVRAISON") {
+                    dialogRequest(
+                            context: context,
+                            title: " Vous avez déjas lancer la Livraison"
+                                .toUpperCase()
+                                .toUpperCase())
+                        .then((value) async {
+                      if (value) {}
+                    });
+                  } else {
+                    dialogRequest(
+                            context: context,
+                            title: adminRestaurantBloc
+                                        .selectedCommande!.table! ==
+                                    "0"
+                                ? "Vous êtes sur de lancer la Livraison"
+                                    .toUpperCase()
+                                : "Vous êtes sur de l'envoyer au table n° : ${adminRestaurantBloc.selectedCommande!.table!}"
+                                    .toUpperCase())
+                        .then((value) async {
+                      if (value) {
+                        String status =
+                            adminRestaurantBloc.selectedCommande!.table! == "0"
+                                ? "LIVRAISON"
+                                : "SUCCESS";
+                        await adminRestaurantBloc.updateStatusCommandePannier(
+                            adminRestaurantBloc.selectedCommande!, status);
+                        adminRestaurantBloc.setMenu(0);
+                      }
+                    });
                   }
-                }),
-                icon:
-                    const ImageIcon(AssetImage("assets/images/livraison.png")),
+                },
+                icon: adminRestaurantBloc.selectedCommande!.table! == "0"
+                    ? const ImageIcon(AssetImage("assets/images/livraison.png"))
+                    : const ImageIcon(AssetImage("assets/images/livree.png")),
               ),
               SizedBox(
                 width: size.width * .05,
